@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Tests\\UseCases.Test\\UseCases.Test.csproj": {}
+    "C:\\Users\\guilh\\OneDrive\\Desktop\\recipe-book-api\\Tests\\UseCases.Test\\UseCases.Test.csproj": {}
   },
   "projects": {
-    "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Tests\\UseCases.Test\\UseCases.Test.csproj": {
+    "C:\\Users\\guilh\\OneDrive\\Desktop\\recipe-book-api\\Tests\\UseCases.Test\\UseCases.Test.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Tests\\UseCases.Test\\UseCases.Test.csproj",
+        "projectUniqueName": "C:\\Users\\guilh\\OneDrive\\Desktop\\recipe-book-api\\Tests\\UseCases.Test\\UseCases.Test.csproj",
         "projectName": "UseCases.Test",
-        "projectPath": "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Tests\\UseCases.Test\\UseCases.Test.csproj",
+        "projectPath": "C:\\Users\\guilh\\OneDrive\\Desktop\\recipe-book-api\\Tests\\UseCases.Test\\UseCases.Test.csproj",
         "packagesPath": "C:\\Users\\guilh\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Tests\\UseCases.Test\\obj\\",
+        "outputPath": "C:\\Users\\guilh\\OneDrive\\Desktop\\recipe-book-api\\Tests\\UseCases.Test\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

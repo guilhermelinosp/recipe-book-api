@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "raPVHQ3ig9s6Tosodzq55l3DqKfX7+tP97gE5jW4/d/PlXoAaDvXIA25gTt6odfk/dds2K9Bi06GIxXxAUbjxA==",
+  "dgSpecHash": "m+EdL3SmH9n15wMgS0TbWo4a60DTMmTeiLtFuggofuAE/bcr5V45AH2eCDjozOi5w1wXWkmS6NXo6GsE3hAd0A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Tests\\WebApi.Test\\WebApi.Test.csproj",
+  "projectFilePath": "C:\\Users\\guilh\\OneDrive\\Desktop\\recipe-book-api\\Tests\\WebApi.Test\\WebApi.Test.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\guilh\\.nuget\\packages\\coverlet.collector\\6.0.0\\coverlet.collector.6.0.0.nupkg.sha512",
     "C:\\Users\\guilh\\.nuget\\packages\\microsoft.codecoverage\\17.7.2\\microsoft.codecoverage.17.7.2.nupkg.sha512",

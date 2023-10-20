@@ -5514,11 +5514,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Tests\\Validators.Test\\Validators.Test.csproj",
+      "projectUniqueName": "C:\\Users\\guilh\\OneDrive\\Desktop\\recipe-book-api\\Tests\\Validators.Test\\Validators.Test.csproj",
       "projectName": "Validators.Test",
-      "projectPath": "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Tests\\Validators.Test\\Validators.Test.csproj",
+      "projectPath": "C:\\Users\\guilh\\OneDrive\\Desktop\\recipe-book-api\\Tests\\Validators.Test\\Validators.Test.csproj",
       "packagesPath": "C:\\Users\\guilh\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Tests\\Validators.Test\\obj\\",
+      "outputPath": "C:\\Users\\guilh\\OneDrive\\Desktop\\recipe-book-api\\Tests\\Validators.Test\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

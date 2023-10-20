@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LcaWj9Kvd3D/7AeiaAxqVR44rFKrcVGfiVzP2UwEKNiDaEjkHhcjM9bnN3Abfndu3DIY/de7WsXyrazvV/wSkw==",
+  "dgSpecHash": "zKdwF/7icartOAxNyfeto30IPysT4VkUvfPm670HHQtHsaSLUprkyf2RS9bp/SNcQQXICKLk35djtIl1z4M9Ww==",
   "success": true,
-  "projectFilePath": "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Source\\Common\\RecipeBook.API\\RecipeBook.API.csproj",
+  "projectFilePath": "C:\\Users\\guilh\\OneDrive\\Desktop\\recipe-book-api\\Source\\Common\\RecipeBook.API\\RecipeBook.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\guilh\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.12\\microsoft.aspnetcore.openapi.7.0.12.nupkg.sha512",
     "C:\\Users\\guilh\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",

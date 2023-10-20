@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Source\\Common\\RecipeBook.Domain\\RecipeBook.Domain.csproj": {}
+    "C:\\Users\\guilh\\OneDrive\\Desktop\\recipe-book-api\\Source\\Common\\RecipeBook.Domain\\RecipeBook.Domain.csproj": {}
   },
   "projects": {
-    "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Source\\Common\\RecipeBook.Domain\\RecipeBook.Domain.csproj": {
+    "C:\\Users\\guilh\\OneDrive\\Desktop\\recipe-book-api\\Source\\Common\\RecipeBook.Domain\\RecipeBook.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Source\\Common\\RecipeBook.Domain\\RecipeBook.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\guilh\\OneDrive\\Desktop\\recipe-book-api\\Source\\Common\\RecipeBook.Domain\\RecipeBook.Domain.csproj",
         "projectName": "RecipeBook.Domain",
-        "projectPath": "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Source\\Common\\RecipeBook.Domain\\RecipeBook.Domain.csproj",
+        "projectPath": "C:\\Users\\guilh\\OneDrive\\Desktop\\recipe-book-api\\Source\\Common\\RecipeBook.Domain\\RecipeBook.Domain.csproj",
         "packagesPath": "C:\\Users\\guilh\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Source\\Common\\RecipeBook.Domain\\obj\\",
+        "outputPath": "C:\\Users\\guilh\\OneDrive\\Desktop\\recipe-book-api\\Source\\Common\\RecipeBook.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

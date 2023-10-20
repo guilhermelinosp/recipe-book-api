@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7Sj/EaD/c+QgzQLsVUQgaNyRn9Dl3wRpVMxVeamjctmEzNyuPeTU1LYj11tZwusA6vzmu6oQjm67sNCQYVvQTQ==",
+  "dgSpecHash": "CfFx3FsAlkTzSAFWwhLKaU/GYg/pWeXr+9/6k0k5kj7HWRvim/d/QsvIV2OS3/p/mW/qPC6E8xolshQq8AYYiQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Source\\Common\\RecipeBook.Application\\RecipeBook.Application.csproj",
+  "projectFilePath": "C:\\Users\\guilh\\OneDrive\\Desktop\\recipe-book-api\\Source\\Common\\RecipeBook.Application\\RecipeBook.Application.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

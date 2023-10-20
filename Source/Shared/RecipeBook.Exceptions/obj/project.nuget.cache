@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "aqXyYvsL4u0uxXDEhBYJO6hpbBweKbwZKulUmoMKIP/nyymsxScjbUajuBqdT20Wz3QWD/RNzdOtUpsq738/dw==",
+  "dgSpecHash": "+GUk6KjDxsxVtfQfAQ1xp+zgUlvOo8u2xysUFO+g2tXbYAi+gbgcCqucOvdwnmC0V1IRV0fQa3YblnWbMuP9Ug==",
   "success": true,
-  "projectFilePath": "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Source\\Shared\\RecipeBook.Exceptions\\RecipeBook.Exceptions.csproj",
+  "projectFilePath": "C:\\Users\\guilh\\OneDrive\\Desktop\\recipe-book-api\\Source\\Shared\\RecipeBook.Exceptions\\RecipeBook.Exceptions.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

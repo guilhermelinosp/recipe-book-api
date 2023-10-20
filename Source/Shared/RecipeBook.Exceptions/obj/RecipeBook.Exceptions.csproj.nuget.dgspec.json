@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Source\\Shared\\RecipeBook.Exceptions\\RecipeBook.Exceptions.csproj": {}
+    "C:\\Users\\guilh\\OneDrive\\Desktop\\recipe-book-api\\Source\\Shared\\RecipeBook.Exceptions\\RecipeBook.Exceptions.csproj": {}
   },
   "projects": {
-    "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Source\\Shared\\RecipeBook.Exceptions\\RecipeBook.Exceptions.csproj": {
+    "C:\\Users\\guilh\\OneDrive\\Desktop\\recipe-book-api\\Source\\Shared\\RecipeBook.Exceptions\\RecipeBook.Exceptions.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Source\\Shared\\RecipeBook.Exceptions\\RecipeBook.Exceptions.csproj",
+        "projectUniqueName": "C:\\Users\\guilh\\OneDrive\\Desktop\\recipe-book-api\\Source\\Shared\\RecipeBook.Exceptions\\RecipeBook.Exceptions.csproj",
         "projectName": "RecipeBook.Exceptions",
-        "projectPath": "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Source\\Shared\\RecipeBook.Exceptions\\RecipeBook.Exceptions.csproj",
+        "projectPath": "C:\\Users\\guilh\\OneDrive\\Desktop\\recipe-book-api\\Source\\Shared\\RecipeBook.Exceptions\\RecipeBook.Exceptions.csproj",
         "packagesPath": "C:\\Users\\guilh\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Source\\Shared\\RecipeBook.Exceptions\\obj\\",
+        "outputPath": "C:\\Users\\guilh\\OneDrive\\Desktop\\recipe-book-api\\Source\\Shared\\RecipeBook.Exceptions\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

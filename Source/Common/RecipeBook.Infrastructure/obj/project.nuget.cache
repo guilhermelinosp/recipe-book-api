@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "wSUygzNjweT61hs7hDalsmOmndn1hfGS65KxfJSYqpWTTeSsP9/eSzmeQmW6nAR6PhOtuJgINUo/k+Orn3pkYw==",
+  "dgSpecHash": "YPuVob7AUip/O/NuqjDenogzFwpqy2NdbBvNVnXZYVPSdF3vOmIKluv6AqBOMPyLbKNFRbUuTesM9GfzlPfc4g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Source\\Common\\RecipeBook.Infrastructure\\RecipeBook.Infrastructure.csproj",
+  "projectFilePath": "C:\\Users\\guilh\\OneDrive\\Desktop\\recipe-book-api\\Source\\Common\\RecipeBook.Infrastructure\\RecipeBook.Infrastructure.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

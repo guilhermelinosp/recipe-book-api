@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Source\\Shared\\RecipeBook.Communication\\RecipeBook.Communication.csproj": {}
+    "C:\\Users\\guilh\\OneDrive\\Desktop\\recipe-book-api\\Source\\Shared\\RecipeBook.Communication\\RecipeBook.Communication.csproj": {}
   },
   "projects": {
-    "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Source\\Shared\\RecipeBook.Communication\\RecipeBook.Communication.csproj": {
+    "C:\\Users\\guilh\\OneDrive\\Desktop\\recipe-book-api\\Source\\Shared\\RecipeBook.Communication\\RecipeBook.Communication.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Source\\Shared\\RecipeBook.Communication\\RecipeBook.Communication.csproj",
+        "projectUniqueName": "C:\\Users\\guilh\\OneDrive\\Desktop\\recipe-book-api\\Source\\Shared\\RecipeBook.Communication\\RecipeBook.Communication.csproj",
         "projectName": "RecipeBook.Communication",
-        "projectPath": "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Source\\Shared\\RecipeBook.Communication\\RecipeBook.Communication.csproj",
+        "projectPath": "C:\\Users\\guilh\\OneDrive\\Desktop\\recipe-book-api\\Source\\Shared\\RecipeBook.Communication\\RecipeBook.Communication.csproj",
         "packagesPath": "C:\\Users\\guilh\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Source\\Shared\\RecipeBook.Communication\\obj\\",
+        "outputPath": "C:\\Users\\guilh\\OneDrive\\Desktop\\recipe-book-api\\Source\\Shared\\RecipeBook.Communication\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -8,4 +8,4 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Validators.Test
-build_property.ProjectDir = C:\Users\guilh\OneDrive\Desktop\Solution\Tests\Validators.Test\
+build_property.ProjectDir = C:\Users\guilh\OneDrive\Desktop\recipe-book-api\Tests\Validators.Test\
