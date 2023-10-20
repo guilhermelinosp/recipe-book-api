@@ -107,6 +107,51 @@
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
         ]
+      },
+      "RecipeBook.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "RecipeBook.Communication": "1.0.0",
+          "RecipeBook.Domain": "1.0.0",
+          "RecipeBook.Exceptions": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/RecipeBook.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/RecipeBook.Application.dll": {}
+        }
+      },
+      "RecipeBook.Communication/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/RecipeBook.Communication.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/RecipeBook.Communication.dll": {}
+        }
+      },
+      "RecipeBook.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/RecipeBook.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/RecipeBook.Domain.dll": {}
+        }
+      },
+      "RecipeBook.Exceptions/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/RecipeBook.Exceptions.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/RecipeBook.Exceptions.dll": {}
+        }
       }
     }
   },
@@ -460,11 +505,34 @@
         "swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512",
         "swashbuckle.aspnetcore.swaggerui.nuspec"
       ]
+    },
+    "RecipeBook.Application/1.0.0": {
+      "type": "project",
+      "path": "../RecipeBook.Application/RecipeBook.Application.csproj",
+      "msbuildProject": "../RecipeBook.Application/RecipeBook.Application.csproj"
+    },
+    "RecipeBook.Communication/1.0.0": {
+      "type": "project",
+      "path": "../../Shared/RecipeBook.Communication/RecipeBook.Communication.csproj",
+      "msbuildProject": "../../Shared/RecipeBook.Communication/RecipeBook.Communication.csproj"
+    },
+    "RecipeBook.Domain/1.0.0": {
+      "type": "project",
+      "path": "../RecipeBook.Domain/RecipeBook.Domain.csproj",
+      "msbuildProject": "../RecipeBook.Domain/RecipeBook.Domain.csproj"
+    },
+    "RecipeBook.Exceptions/1.0.0": {
+      "type": "project",
+      "path": "../../Shared/RecipeBook.Exceptions/RecipeBook.Exceptions.csproj",
+      "msbuildProject": "../../Shared/RecipeBook.Exceptions/RecipeBook.Exceptions.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0": [
       "Microsoft.AspNetCore.OpenApi >= 7.0.12",
+      "RecipeBook.Application >= 1.0.0",
+      "RecipeBook.Communication >= 1.0.0",
+      "RecipeBook.Exceptions >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.5.0"
     ]
   },
@@ -499,7 +567,17 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Source\\Common\\RecipeBook.Application\\RecipeBook.Application.csproj": {
+              "projectPath": "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Source\\Common\\RecipeBook.Application\\RecipeBook.Application.csproj"
+            },
+            "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Source\\Shared\\RecipeBook.Communication\\RecipeBook.Communication.csproj": {
+              "projectPath": "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Source\\Shared\\RecipeBook.Communication\\RecipeBook.Communication.csproj"
+            },
+            "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Source\\Shared\\RecipeBook.Exceptions\\RecipeBook.Exceptions.csproj": {
+              "projectPath": "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Source\\Shared\\RecipeBook.Exceptions\\RecipeBook.Exceptions.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

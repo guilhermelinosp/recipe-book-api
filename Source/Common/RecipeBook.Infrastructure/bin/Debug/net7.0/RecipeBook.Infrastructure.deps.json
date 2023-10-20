@@ -7,14 +7,27 @@
   "targets": {
     ".NETCoreApp,Version=v7.0": {
       "RecipeBook.Infrastructure/1.0.0": {
+        "dependencies": {
+          "RecipeBook.Domain": "1.0.0"
+        },
         "runtime": {
           "RecipeBook.Infrastructure.dll": {}
+        }
+      },
+      "RecipeBook.Domain/1.0.0": {
+        "runtime": {
+          "RecipeBook.Domain.dll": {}
         }
       }
     }
   },
   "libraries": {
     "RecipeBook.Infrastructure/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "RecipeBook.Domain/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

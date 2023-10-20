@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net7.0": {}
+    "net7.0": {
+      "RecipeBook.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/RecipeBook.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/RecipeBook.Domain.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "RecipeBook.Domain/1.0.0": {
+      "type": "project",
+      "path": "../RecipeBook.Domain/RecipeBook.Domain.csproj",
+      "msbuildProject": "../RecipeBook.Domain/RecipeBook.Domain.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net7.0": []
+    "net7.0": [
+      "RecipeBook.Domain >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\guilh\\.nuget\\packages\\": {},
@@ -38,7 +57,11 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Source\\Common\\RecipeBook.Domain\\RecipeBook.Domain.csproj": {
+              "projectPath": "C:\\Users\\guilh\\OneDrive\\Desktop\\Solution\\Source\\Common\\RecipeBook.Domain\\RecipeBook.Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

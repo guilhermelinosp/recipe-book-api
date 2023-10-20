@@ -31,3 +31,11 @@ C:\Users\guilh\OneDrive\Desktop\Solution\Source\Common\RecipeBook.API\obj\Debug\
 C:\Users\guilh\OneDrive\Desktop\Solution\Source\Common\RecipeBook.API\obj\Debug\net7.0\RecipeBook.API.pdb
 C:\Users\guilh\OneDrive\Desktop\Solution\Source\Common\RecipeBook.API\obj\Debug\net7.0\RecipeBook.API.genruntimeconfig.cache
 C:\Users\guilh\OneDrive\Desktop\Solution\Source\Common\RecipeBook.API\obj\Debug\net7.0\ref\RecipeBook.API.dll
+C:\Users\guilh\OneDrive\Desktop\Solution\Source\Common\RecipeBook.API\bin\Debug\net7.0\RecipeBook.Application.dll
+C:\Users\guilh\OneDrive\Desktop\Solution\Source\Common\RecipeBook.API\bin\Debug\net7.0\RecipeBook.Communication.dll
+C:\Users\guilh\OneDrive\Desktop\Solution\Source\Common\RecipeBook.API\bin\Debug\net7.0\RecipeBook.Domain.dll
+C:\Users\guilh\OneDrive\Desktop\Solution\Source\Common\RecipeBook.API\bin\Debug\net7.0\RecipeBook.Exceptions.dll
+C:\Users\guilh\OneDrive\Desktop\Solution\Source\Common\RecipeBook.API\bin\Debug\net7.0\RecipeBook.Communication.pdb
+C:\Users\guilh\OneDrive\Desktop\Solution\Source\Common\RecipeBook.API\bin\Debug\net7.0\RecipeBook.Exceptions.pdb
+C:\Users\guilh\OneDrive\Desktop\Solution\Source\Common\RecipeBook.API\bin\Debug\net7.0\RecipeBook.Application.pdb
+C:\Users\guilh\OneDrive\Desktop\Solution\Source\Common\RecipeBook.API\bin\Debug\net7.0\RecipeBook.Domain.pdb

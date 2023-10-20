@@ -7,14 +7,49 @@
   "targets": {
     ".NETCoreApp,Version=v7.0": {
       "RecipeBook.Application/1.0.0": {
+        "dependencies": {
+          "RecipeBook.Communication": "1.0.0",
+          "RecipeBook.Domain": "1.0.0",
+          "RecipeBook.Exceptions": "1.0.0"
+        },
         "runtime": {
           "RecipeBook.Application.dll": {}
+        }
+      },
+      "RecipeBook.Communication/1.0.0": {
+        "runtime": {
+          "RecipeBook.Communication.dll": {}
+        }
+      },
+      "RecipeBook.Domain/1.0.0": {
+        "runtime": {
+          "RecipeBook.Domain.dll": {}
+        }
+      },
+      "RecipeBook.Exceptions/1.0.0": {
+        "runtime": {
+          "RecipeBook.Exceptions.dll": {}
         }
       }
     }
   },
   "libraries": {
     "RecipeBook.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "RecipeBook.Communication/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "RecipeBook.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "RecipeBook.Exceptions/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
