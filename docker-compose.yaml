@@ -1,0 +1,23 @@
+version: '3.8'
+
+networks:
+  mysql-network:
+    driver: bridge
+
+volumes:
+  mysql-volume:
+    driver: local
+
+services:
+  database-service:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=bG9jYWxob3N0
+      - MYSQL_DATABASE=DB_RecipeBook
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-volume:/var/lib/mysql
+    networks:
+      - mysql-network
+    restart: always

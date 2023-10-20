@@ -15,6 +15,15 @@
     <ProjectReference Include="..\..\Shared\RecipeBook.Communication\RecipeBook.Communication.csproj" />
     <ProjectReference Include="..\..\Shared\RecipeBook.Exceptions\RecipeBook.Exceptions.csproj" />
     <ProjectReference Include="..\RecipeBook.Application\RecipeBook.Application.csproj" />
+    <ProjectReference Include="..\RecipeBook.Infrastructure\RecipeBook.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\guilh\OneDrive\Desktop\recipe-book-api\Source\Common\RecipeBook.API\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\guilh\OneDrive\Desktop\recipe-book-api\Source\Common\RecipeBook.API\.editorconfig" />
   </ItemGroup>
 
 </Project>
