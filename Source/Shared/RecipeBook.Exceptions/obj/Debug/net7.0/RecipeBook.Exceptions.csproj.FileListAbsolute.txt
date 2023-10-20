@@ -1,0 +1,11 @@
+C:\Users\guilh\OneDrive\Desktop\Solution\Source\Shared\RecipeBook.Exceptions\bin\Debug\net7.0\RecipeBook.Exceptions.deps.json
+C:\Users\guilh\OneDrive\Desktop\Solution\Source\Shared\RecipeBook.Exceptions\bin\Debug\net7.0\RecipeBook.Exceptions.dll
+C:\Users\guilh\OneDrive\Desktop\Solution\Source\Shared\RecipeBook.Exceptions\bin\Debug\net7.0\RecipeBook.Exceptions.pdb
+C:\Users\guilh\OneDrive\Desktop\Solution\Source\Shared\RecipeBook.Exceptions\obj\Debug\net7.0\RecipeBook.Exceptions.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\guilh\OneDrive\Desktop\Solution\Source\Shared\RecipeBook.Exceptions\obj\Debug\net7.0\RecipeBook.Exceptions.AssemblyInfoInputs.cache
+C:\Users\guilh\OneDrive\Desktop\Solution\Source\Shared\RecipeBook.Exceptions\obj\Debug\net7.0\RecipeBook.Exceptions.AssemblyInfo.cs
+C:\Users\guilh\OneDrive\Desktop\Solution\Source\Shared\RecipeBook.Exceptions\obj\Debug\net7.0\RecipeBook.Exceptions.csproj.CoreCompileInputs.cache
+C:\Users\guilh\OneDrive\Desktop\Solution\Source\Shared\RecipeBook.Exceptions\obj\Debug\net7.0\RecipeBook.Exceptions.dll
+C:\Users\guilh\OneDrive\Desktop\Solution\Source\Shared\RecipeBook.Exceptions\obj\Debug\net7.0\refint\RecipeBook.Exceptions.dll
+C:\Users\guilh\OneDrive\Desktop\Solution\Source\Shared\RecipeBook.Exceptions\obj\Debug\net7.0\RecipeBook.Exceptions.pdb
+C:\Users\guilh\OneDrive\Desktop\Solution\Source\Shared\RecipeBook.Exceptions\obj\Debug\net7.0\ref\RecipeBook.Exceptions.dll

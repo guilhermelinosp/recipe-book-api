@@ -1,0 +1,11 @@
+C:\Users\guilh\OneDrive\Desktop\Solution\Source\Common\RecipeBook.Domain\bin\Debug\net7.0\RecipeBook.Domain.deps.json
+C:\Users\guilh\OneDrive\Desktop\Solution\Source\Common\RecipeBook.Domain\bin\Debug\net7.0\RecipeBook.Domain.dll
+C:\Users\guilh\OneDrive\Desktop\Solution\Source\Common\RecipeBook.Domain\bin\Debug\net7.0\RecipeBook.Domain.pdb
+C:\Users\guilh\OneDrive\Desktop\Solution\Source\Common\RecipeBook.Domain\obj\Debug\net7.0\RecipeBook.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\guilh\OneDrive\Desktop\Solution\Source\Common\RecipeBook.Domain\obj\Debug\net7.0\RecipeBook.Domain.AssemblyInfoInputs.cache
+C:\Users\guilh\OneDrive\Desktop\Solution\Source\Common\RecipeBook.Domain\obj\Debug\net7.0\RecipeBook.Domain.AssemblyInfo.cs
+C:\Users\guilh\OneDrive\Desktop\Solution\Source\Common\RecipeBook.Domain\obj\Debug\net7.0\RecipeBook.Domain.csproj.CoreCompileInputs.cache
+C:\Users\guilh\OneDrive\Desktop\Solution\Source\Common\RecipeBook.Domain\obj\Debug\net7.0\RecipeBook.Domain.dll
+C:\Users\guilh\OneDrive\Desktop\Solution\Source\Common\RecipeBook.Domain\obj\Debug\net7.0\refint\RecipeBook.Domain.dll
+C:\Users\guilh\OneDrive\Desktop\Solution\Source\Common\RecipeBook.Domain\obj\Debug\net7.0\RecipeBook.Domain.pdb
+C:\Users\guilh\OneDrive\Desktop\Solution\Source\Common\RecipeBook.Domain\obj\Debug\net7.0\ref\RecipeBook.Domain.dll
