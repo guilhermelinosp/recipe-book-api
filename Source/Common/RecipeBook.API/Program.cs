@@ -1,6 +1,9 @@
 using RecipeBook.Infrastructure;
+using RecipeBook.Infrastructure.Persistence.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
+
+MigrateScrema();
 
 builder
     .Services
@@ -30,3 +33,12 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+return;
+
+async void MigrateScrema()
+{
+    await Screma.CreateScremaAsync(builder.Configuration["ConnectionString"], builder.Configuration["Database"]);
+
+    await Screma.CreateTablesAsync(builder.Configuration["ConnectionString"], builder.Configuration["Database"]);
+}
