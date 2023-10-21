@@ -2,19 +2,23 @@ version: '3.8'
 
 services:
   recipebook.api:
-    image: ${DOCKER_REGISTRY-}recipebookapi
+    image: recipebookapi
     build:
       context: .
       dockerfile: Source/Common/RecipeBook.API/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
     ports:
-      - "80"
-      - "443"
+      - "80:80"
+      - "443:443"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    depends_on:
+      - database
+    networks:
+      - recipebook-network
+    restart: on-failure  # Only restart on failure, not always
 
   database:
     image: mysql:latest
@@ -23,8 +27,10 @@ services:
       - MYSQL_DATABASE=DB_RecipeBook
     ports:
       - "3306:3306"
-    volumes:
-      - mysql-volume:/var/lib/mysql
     networks:
-      - mysql-network
-    restart: always
+      - recipebook-network
+    restart: always  # Always restart the database container
+
+networks:
+  recipebook-network:
+    driver: bridge  # Use the bridge network driver
