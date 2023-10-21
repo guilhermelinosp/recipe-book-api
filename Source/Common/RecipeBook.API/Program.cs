@@ -38,7 +38,7 @@ return;
 
 async void MigrateScrema()
 {
-    await Screma.CreateScremaAsync(builder.Configuration["ConnectionString"], builder.Configuration["Database"]);
+    await Screma.CreateDatabaseAsync(builder.Configuration["ConnectionString"], builder.Configuration["Database"]);
 
     await Screma.CreateTablesAsync(builder.Configuration["ConnectionString"], builder.Configuration["Database"]);
 }

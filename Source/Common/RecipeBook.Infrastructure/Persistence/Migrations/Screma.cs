@@ -5,18 +5,11 @@ namespace RecipeBook.Infrastructure.Persistence.Migrations;
 
 public static class Screma
 {
-    public static async Task CreateScremaAsync(string? connectionString, string? database)
+    public static async Task CreateDatabaseAsync(string? connectionString, string? database)
     {
         await using var mysqlconnection = new MySqlConnection(connectionString);
         await mysqlconnection.OpenAsync();
         await mysqlconnection.ExecuteAsync($"CREATE DATABASE IF NOT EXISTS {database}");
-    }
-
-    public static async Task DropScremaAsync(string connectionString, string database)
-    {
-        await using var mysqlconnection = new MySqlConnection(connectionString);
-        await mysqlconnection.OpenAsync();
-        await mysqlconnection.ExecuteAsync($"DROP DATABASE IF EXISTS {database}");
     }
 
     public static async Task CreateTablesAsync(string? connectionString, string? database)
@@ -34,12 +27,5 @@ public static class Screma
         await using var mysqlconnection = new MySqlConnection(connectionString);
         await mysqlconnection.OpenAsync();
         await mysqlconnection.ExecuteAsync(query);
-    }
-
-    public static async Task DropTablesAsync(string connectionString, string database)
-    {
-        await using var mysqlconnection = new MySqlConnection(connectionString);
-        await mysqlconnection.OpenAsync();
-        await mysqlconnection.ExecuteAsync($"DROP TABLE IF EXISTS {database}.TB_User;");
     }
 }
