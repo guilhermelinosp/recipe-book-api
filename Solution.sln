@@ -23,11 +23,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeBook.Infrastructure",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeBook.API", "Source\Common\RecipeBook.API\RecipeBook.API.csproj", "{44259769-D1EC-4E14-BA31-3F1F762883EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validators.Test", "Tests\Validators.Test\Validators.Test.csproj", "{F99E09C3-1011-409F-A902-5FFE5ADCB824}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Validators.Test", "Tests\Validators.Test\Validators.Test.csproj", "{F99E09C3-1011-409F-A902-5FFE5ADCB824}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UseCases.Test", "Tests\UseCases.Test\UseCases.Test.csproj", "{5290169A-D8C3-4FD1-8FCD-98A4E9EFBEB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UseCases.Test", "Tests\UseCases.Test\UseCases.Test.csproj", "{5290169A-D8C3-4FD1-8FCD-98A4E9EFBEB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi.Test", "Tests\WebApi.Test\WebApi.Test.csproj", "{18F27E65-9115-4C12-87E9-65DE6EEC21C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi.Test", "Tests\WebApi.Test\WebApi.Test.csproj", "{18F27E65-9115-4C12-87E9-65DE6EEC21C9}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{BD50C8E9-6728-47AD-B5B0-80D35FD66892}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +73,10 @@ Global
 		{18F27E65-9115-4C12-87E9-65DE6EEC21C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18F27E65-9115-4C12-87E9-65DE6EEC21C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18F27E65-9115-4C12-87E9-65DE6EEC21C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD50C8E9-6728-47AD-B5B0-80D35FD66892}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD50C8E9-6728-47AD-B5B0-80D35FD66892}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD50C8E9-6728-47AD-B5B0-80D35FD66892}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD50C8E9-6728-47AD-B5B0-80D35FD66892}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
