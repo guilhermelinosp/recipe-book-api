@@ -5,6 +5,7 @@ using RecipeBook.Domain.Dtos.Requests;
 namespace RecipeBook.API.Controllers;
 
 [ApiController]
+[ValidateAntiForgeryToken]
 [Route("api/[controller]")]
 public class UserController : ControllerBase
 {
