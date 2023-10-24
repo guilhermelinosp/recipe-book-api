@@ -1,23 +1,29 @@
+using RecipeBook.API.Filters;
+using RecipeBook.Application;
 using RecipeBook.Infrastructure;
 using RecipeBook.Infrastructure.Persistence.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var configuration = builder.Configuration;
+
 MigrateScrema();
 
 builder
     .Services
-    .AddInfrastructure(builder.Configuration);
+    .AddApplication(configuration)
+    .AddInfrastructure(configuration);
 
-// Add services to the container.
+builder.Services.AddRouting(option => option.LowercaseUrls = true);
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddCors();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddMvc(opt => opt.Filters.Add(typeof(FilterException)));
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -38,7 +44,7 @@ return;
 
 async void MigrateScrema()
 {
-    await Screma.CreateDatabaseAsync(builder.Configuration["ConnectionString"], builder.Configuration["Database"]);
+    await Screma.CreateDatabaseAsync(configuration["ConnectionString"], configuration["Database"]);
 
-    await Screma.CreateTablesAsync(builder.Configuration["ConnectionString"], builder.Configuration["Database"]);
+    await Screma.CreateTablesAsync(configuration["ConnectionString"], configuration["Database"]);
 }

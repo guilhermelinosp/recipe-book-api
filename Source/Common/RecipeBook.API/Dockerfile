@@ -6,7 +6,6 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["Source/Common/RecipeBook.API/RecipeBook.API.csproj", "Source/Common/RecipeBook.API/"]
-COPY ["Source/Shared/RecipeBook.Communication/RecipeBook.Communication.csproj", "Source/Shared/RecipeBook.Communication/"]
 COPY ["Source/Shared/RecipeBook.Exceptions/RecipeBook.Exceptions.csproj", "Source/Shared/RecipeBook.Exceptions/"]
 COPY ["Source/Common/RecipeBook.Application/RecipeBook.Application.csproj", "Source/Common/RecipeBook.Application/"]
 COPY ["Source/Common/RecipeBook.Domain/RecipeBook.Domain.csproj", "Source/Common/RecipeBook.Domain/"]

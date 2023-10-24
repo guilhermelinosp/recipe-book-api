@@ -6,4 +6,8 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
-		</Project>
+	<ItemGroup>
+		<Folder Include="Enums\" />
+	</ItemGroup>
+
+</Project>

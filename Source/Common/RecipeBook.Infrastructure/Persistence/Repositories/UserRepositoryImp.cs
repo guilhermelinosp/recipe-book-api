@@ -13,14 +13,14 @@ public class UserRepositoryImp : IUserRepository
         _context = context;
     }
 
-    public async Task<IEnumerable<User>> GetAllAsync()
+    public Task<IEnumerable<User>> GetAllAsync()
     {
         throw new NotImplementedException();
     }
 
-    public async Task<User?> GetByIdAsync(int id)
+    public async Task<User?> GetByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        return await _context.Users!.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id);
     }
 
     public async Task<User?> GetByEmailAsync(string email)
@@ -28,18 +28,30 @@ public class UserRepositoryImp : IUserRepository
         return await _context.Users!.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email);
     }
 
+    public async Task<User?> GetByPhoneAsync(string phone)
+    {
+        return await _context.Users!.AsNoTracking().FirstOrDefaultAsync(u => u.Phone == phone);
+    }
+
+
     public async Task CreateAsync(User user)
     {
+        Console.WriteLine(user);
         await _context.Users!.AddAsync(user);
     }
 
-    public async Task UpdateAsync(User user)
+    public Task UpdateAsync(User user)
     {
         throw new NotImplementedException();
     }
 
-    public async Task DeleteAsync(int id)
+    public Task DeleteAsync(Guid id)
     {
         throw new NotImplementedException();
+    }
+
+    public async Task SaveChangesAsync()
+    {
+        await _context.SaveChangesAsync();
     }
 }
