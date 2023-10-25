@@ -2,11 +2,9 @@ name: Snyk Security
 
 on:
   push:
-    branches:
-      - main
+    branches: ["main" ]
   pull_request:
-    branches:
-      - main
+    branches: ["main"]
 
 permissions:
   contents: read
@@ -18,35 +16,30 @@ jobs:
       security-events: write
       actions: read
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Set up Snyk CLI
+      - uses: actions/checkout@v3
+      - name: Set up Snyk CLI to check for security issues
         uses: snyk/actions/setup@806182742461562b67788a64410098c9d9b96adb
-        
-      - name: Authenticate with Snyk
-        run: snyk auth
-        env:
-          SNYK_TOKEN: "a2c841d4-7919-46b1-bd59-c76c48286eb4"
-          
-      - name: Snyk Code Test
-        run: snyk code test --sarif > snyk-code.sarif 2>&1 || true
 
-      - name: Snyk Open Source Monitor
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      - name: Snyk Code test
+        run: snyk code test --sarif > snyk-code.sarif
+
+      - name: Snyk Open Source monitor
         run: snyk monitor --all-projects
 
-      - name: Snyk IaC Test and Report
-        run: snyk iac test --report || true
+      - name: Snyk IaC test and report
+        run: snyk iac test --report
 
-      - name: Build Docker Image
+      - name: Build a Docker image
         run: docker build -t your/image-to-test .
-
-      - name: Snyk Container Monitor
+        
+      - name: Snyk Container monitor
         run: snyk container monitor your/image-to-test --file=Dockerfile
 
-      - name: Upload Results to GitHub Code Scanning
+      - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: snyk-code.sarif
