@@ -24,6 +24,9 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
+      - name: Authenticate with Snyk
+        run: snyk auth
+
       - name: Snyk Open Source monitor
         run: snyk monitor --all-projects
 
