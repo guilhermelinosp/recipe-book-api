@@ -29,7 +29,7 @@ jobs:
       - name: Authenticate with Snyk
         run: snyk auth
         env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          SNYK_TOKEN: "a2c841d4-7919-46b1-bd59-c76c48286eb4"
           
       - name: Snyk Code Test
         run: snyk code test --sarif > snyk-code.sarif 2>&1 || true
