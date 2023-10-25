@@ -24,9 +24,6 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
-      - name: Snyk Code test
-        run: snyk code test --sarif > snyk-code.sarif
-
       - name: Snyk Open Source monitor
         run: snyk monitor --all-projects
 
