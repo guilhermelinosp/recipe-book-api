@@ -22,8 +22,8 @@ jobs:
         uses: snyk/actions/setup@806182742461562b67788a64410098c9d9b96adb
 
         env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
+          SNYK_TOKEN: a2c841d4-7919-46b1-bd59-c76c48286eb4
+          
       - name: Authenticate with Snyk
         run: snyk auth
 
