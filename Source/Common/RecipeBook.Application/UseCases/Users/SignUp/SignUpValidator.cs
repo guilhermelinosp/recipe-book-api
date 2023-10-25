@@ -46,25 +46,22 @@ public class SignUpValidator : AbstractValidator<SignUpRequest>
         {
             RuleFor(c => c.Phone).CustomAsync(async (phone, validator, cancellationToken) =>
             {
-                var validationTask = IsPhoneValidAsync(phone, cancellationToken);
-                var completedTask = await Task.WhenAny(validationTask, Task.Delay(1000, cancellationToken));
-
-                if (completedTask == validationTask && !validationTask.Result)
+                if (phone == null)
                 {
-                    validator.AddFailure(new FluentValidation.Results.ValidationFailure(phone, ErrorMessages.TELEFONE_USUARIO_INVALIDO));
+                    validator.AddFailure(new FluentValidation.Results.ValidationFailure(nameof(SignUpRequest.Phone), ErrorMessages.TELEFONE_USUARIO_INVALIDO));
+                    return;
+                }
+
+                const string phonePattern = @"^\d{11}$";
+                var phoneValidationTask = Task.Run(() => Regex.IsMatch(phone, phonePattern));
+
+                var completedTask = await Task.WhenAny(phoneValidationTask, Task.Delay(1000, cancellationToken));
+
+                if (completedTask == phoneValidationTask && !phoneValidationTask.Result)
+                {
+                    validator.AddFailure(new FluentValidation.Results.ValidationFailure(nameof(SignUpRequest.Phone), ErrorMessages.TELEFONE_USUARIO_INVALIDO));
                 }
             });
         });
-    }
-
-    private async Task<bool> IsPhoneValidAsync(string? phone, CancellationToken cancellationToken)
-    {
-        if (phone == null)
-        {
-            return false; // or handle the null case as needed
-        }
-
-        const string phonePattern = @"^\d{11}$";
-        return await Task.Run(() => Regex.IsMatch(phone, phonePattern), cancellationToken);
     }
 }
