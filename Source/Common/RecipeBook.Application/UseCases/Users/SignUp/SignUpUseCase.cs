@@ -24,26 +24,21 @@ public class SignUpUseCase : ISignUpUseCase
 
     public async Task ExecuteAsync(SignUpRequest input)
     {
-        Console.WriteLine(input);
-
         var validator = new SignUpValidator();
 
         var validationResult = await validator.ValidateAsync(input);
-
         if (!validationResult.IsValid)
         {
             throw new ValidatorException(validationResult.Errors.Select(er => er.ErrorMessage).ToList());
         }
 
         var validateEmail = await _repository.GetByEmailAsync(input.Email!);
-
         if (validateEmail is not null)
         {
             throw new EmailSignUpException(ErrorMessages.EMAIL_JA_REGISTRADO);
         }
 
         var validatePhone = await _repository.GetByPhoneAsync(input.Phone!);
-
         if (validatePhone is not null)
         {
             throw new PhoneSignUpException(ErrorMessages.TELEFONE_JA_REGISTRADO);

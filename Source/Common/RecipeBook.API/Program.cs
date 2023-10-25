@@ -21,6 +21,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMvc(opt => opt.Filters.Add(typeof(FilterException)));
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.MinimumSameSitePolicy = SameSiteMode.Strict;
+});
+
+builder.Services.AddAntiforgery(options => options.HeaderName = "x-csrf");
 
 var app = builder.Build();
 
