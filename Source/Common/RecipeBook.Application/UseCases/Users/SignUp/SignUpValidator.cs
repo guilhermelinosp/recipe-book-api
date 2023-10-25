@@ -53,15 +53,22 @@ public class SignUpValidator : AbstractValidator<SignUpRequest>
                 }
 
                 const string phonePattern = @"^\d{11}$";
+
                 var phoneValidationTask = Task.Run(() => Regex.IsMatch(phone, phonePattern));
 
-                var completedTask = await Task.WhenAny(phoneValidationTask, Task.Delay(1000, cancellationToken));
-
-                if (completedTask == phoneValidationTask && !phoneValidationTask.Result)
+                if (await Task.WhenAny(phoneValidationTask, Task.Delay(1000, cancellationToken)) == phoneValidationTask)
                 {
-                    validator.AddFailure(new FluentValidation.Results.ValidationFailure(nameof(SignUpRequest.Phone), ErrorMessages.TELEFONE_USUARIO_INVALIDO));
+                    if (!phoneValidationTask.Result)
+                    {
+                        validator.AddFailure(new FluentValidation.Results.ValidationFailure(nameof(SignUpRequest.Phone), ErrorMessages.TELEFONE_USUARIO_INVALIDO));
+                    }
+                }
+                else
+                {
+                    validator.AddFailure(new FluentValidation.Results.ValidationFailure(nameof(SignUpRequest.Phone), "Phone validation timed out."));
                 }
             });
         });
+
     }
 }
