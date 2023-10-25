@@ -46,9 +46,11 @@ public class SignUpValidator : AbstractValidator<SignUpRequest>
         {
             RuleFor(c => c.Phone).Custom((phone, validator) =>
             {
-                var phonePattern = @"^\d{11}$";
+                const string phonePattern = @"^\d{11}$";
 
-                if (!Regex.IsMatch(phone!, phonePattern))
+                var isMatchTask = Task.Run(() => Regex.IsMatch(phone!, phonePattern));
+
+                if (isMatchTask.Wait(TimeSpan.FromMilliseconds(1000)) && !isMatchTask.Result)
                 {
                     validator.AddFailure(new FluentValidation.Results.ValidationFailure(phone, ErrorMessages.TELEFONE_USUARIO_INVALIDO));
                 }
