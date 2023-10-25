@@ -8,31 +8,27 @@ on:
     branches:
       - main
   schedule:
-    - cron: "* * * * *"
+    - cron: "* * * * *"  # Agendado para rodar toda segunda-feira
 
 jobs:
   analyze:
     name: Analyze
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}  # Garante que o código do branch correto seja verificado
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
         with:
           languages: csharp
-
-      - name: Cache NuGet packages
-        uses: actions/cache@v2
-        with:
-          path: ~/.nuget/packages
-          key: nuget-${{ runner.os }}-${{ hashFiles('**/*.csproj') }}
-          restore-keys: nuget-${{ runner.os }}-
 
       - name: Restore NuGet Packages
         run: nuget restore
