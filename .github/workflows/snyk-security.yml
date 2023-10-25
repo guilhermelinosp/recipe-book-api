@@ -1,5 +1,6 @@
 name: Snyk Security
 
+
 on:
   push:
     branches: ["main" ]
@@ -15,14 +16,14 @@ jobs:
       contents: read
       security-events: write
       actions: read
+  
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Set up Snyk CLI to check for security issues
         uses: snyk/actions/setup@806182742461562b67788a64410098c9d9b96adb
-
-        env:
-          SNYK_TOKEN: a2c841d4-7919-46b1-bd59-c76c48286eb4
+        with:
+          token: ${{ secrets.SNYK_TOKEN }}
           
       - name: Authenticate with Snyk
         run: snyk auth
