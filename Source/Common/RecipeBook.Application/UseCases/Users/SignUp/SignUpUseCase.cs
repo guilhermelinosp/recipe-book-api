@@ -29,19 +29,19 @@ public class SignUpUseCase : ISignUpUseCase
         var validationResult = await validator.ValidateAsync(input);
         if (!validationResult.IsValid)
         {
-            throw new ValidatorException(validationResult.Errors.Select(er => er.ErrorMessage).ToList());
+            throw new ExceptionValidator(validationResult.Errors.Select(er => er.ErrorMessage).ToList());
         }
 
         var validateEmail = await _repository.GetByEmailAsync(input.Email!);
         if (validateEmail is not null)
         {
-            throw new EmailSignUpException(ErrorMessages.EMAIL_JA_REGISTRADO);
+            throw new ExceptionEmailSignUp(ErrorMessages.EMAIL_JA_REGISTRADO);
         }
 
         var validatePhone = await _repository.GetByPhoneAsync(input.Phone!);
         if (validatePhone is not null)
         {
-            throw new PhoneSignUpException(ErrorMessages.TELEFONE_JA_REGISTRADO);
+            throw new ExceptionPhoneSignUp(ErrorMessages.TELEFONE_JA_REGISTRADO);
         }
 
         input.Password = _encryptController.EncryptPassword(input.Password!);

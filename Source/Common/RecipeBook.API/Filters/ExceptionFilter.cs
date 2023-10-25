@@ -7,11 +7,11 @@ using System.Net;
 
 namespace RecipeBook.API.Filters;
 
-public class Filter : IExceptionFilter
+public class ExceptionFilter : IExceptionFilter
 {
     public void OnException(ExceptionContext context)
     {
-        if (context.Exception is BaseException)
+        if (context.Exception is ExceptionBase)
         {
             HandleException(context);
         }
@@ -25,13 +25,13 @@ public class Filter : IExceptionFilter
     {
         switch (context.Exception)
         {
-            case ValidatorException:
+            case ExceptionValidator:
                 HandleValidationException(context);
                 break;
-            case EmailSignUpException:
+            case ExceptionEmailSignUp:
                 HandleEmailSignUpException(context);
                 break;
-            case PhoneSignUpException:
+            case ExceptionPhoneSignUp:
                 HandlePhoneSignUpException(context);
                 break;
         }
@@ -39,7 +39,7 @@ public class Filter : IExceptionFilter
 
     private static void HandleValidationException(ExceptionContext context)
     {
-        var exception = context.Exception as ValidatorException;
+        var exception = context.Exception as ExceptionValidator;
         context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
         context.Result = new ObjectResult(new ExceptionResponse(exception!.ErrorMessages!));
     }
