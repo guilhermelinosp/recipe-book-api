@@ -44,18 +44,27 @@ public class SignUpValidator : AbstractValidator<SignUpRequest>
 
         When(c => !string.IsNullOrWhiteSpace(c.Phone), () =>
         {
-            RuleFor(c => c.Phone).Custom((phone, validator) =>
+            RuleFor(c => c.Phone).CustomAsync(async (phone, validator, cancellationToken) =>
             {
-                const string phonePattern = @"^\d{11}$";
+                var validationTask = IsPhoneValidAsync(phone, cancellationToken);
+                var completedTask = await Task.WhenAny(validationTask, Task.Delay(1000, cancellationToken));
 
-                var isMatchTask = Task.Run(() => Regex.IsMatch(phone!, phonePattern));
-
-                if (isMatchTask.Wait(TimeSpan.FromMilliseconds(1000)) && !isMatchTask.Result)
+                if (completedTask == validationTask && !validationTask.Result)
                 {
                     validator.AddFailure(new FluentValidation.Results.ValidationFailure(phone, ErrorMessages.TELEFONE_USUARIO_INVALIDO));
                 }
             });
         });
+    }
 
+    private async Task<bool> IsPhoneValidAsync(string? phone, CancellationToken cancellationToken)
+    {
+        if (phone == null)
+        {
+            return false; // or handle the null case as needed
+        }
+
+        const string phonePattern = @"^\d{11}$";
+        return await Task.Run(() => Regex.IsMatch(phone, phonePattern), cancellationToken);
     }
 }

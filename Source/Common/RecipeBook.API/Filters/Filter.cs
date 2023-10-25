@@ -7,7 +7,7 @@ using System.Net;
 
 namespace RecipeBook.API.Filters;
 
-public class FilterException : IExceptionFilter
+public class Filter : IExceptionFilter
 {
     public void OnException(ExceptionContext context)
     {

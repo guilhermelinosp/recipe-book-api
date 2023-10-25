@@ -20,7 +20,7 @@ builder.Services.AddCors();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddMvc(opt => opt.Filters.Add(typeof(FilterException)));
+builder.Services.AddMvc(opt => opt.Filters.Add(typeof(Filter)));
 builder.Services.Configure<CookiePolicyOptions>(options =>
 {
     options.MinimumSameSitePolicy = SameSiteMode.Strict;
