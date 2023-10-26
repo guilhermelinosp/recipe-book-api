@@ -19,16 +19,17 @@ public class UserController : ControllerBase
         _antiforgery = antiforgery;
     }
 
-    //[HttpGet("antiforgery")]
-    //public IActionResult AntiForgery()
-    //{
-    //    var tokens = _antiforgery.GetAndStoreTokens(HttpContext);
-    //    return Ok(new { csrf = tokens.RequestToken });
-    //}
+    [HttpGet("antiforgery")]
+    [IgnoreAntiforgeryToken]
+    public IActionResult AntiForgery()
+    {
+        var tokens = _antiforgery.GetAndStoreTokens(HttpContext);
+        return Ok(new { csrf = tokens.RequestToken });
+    }
 
     [HttpPost("sign-up")]
-    [IgnoreAntiforgeryToken(Order = 10000)]
-    public async Task<IActionResult> SignUp([FromBody] SignUpRequest request)//, [FromHeader(Name = "x-csrf")] string csrfToken)
+    [AutoValidateAntiforgeryToken]
+    public async Task<IActionResult> SignUp([FromBody] RequestSignUp request, [FromHeader(Name = "csrf")] string? csrf)
     {
         await _signUpUseCase.ExecuteAsync(request);
         return Ok();

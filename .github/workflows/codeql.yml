@@ -3,12 +3,12 @@ name: "CodeQL Analysis"
 on:
   push:
     branches:
-      - main
+    - main
   pull_request:
     branches:
-      - main
+    - main
   schedule:
-    - cron: "* * * * *"  # Agendado para rodar toda segunda-feira
+  - cron: "* * * * *"
 
 jobs:
   analyze:
@@ -20,24 +20,24 @@ jobs:
       security-events: write
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.ref }}  # Garante que o código do branch correto seja verificado
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ github.ref }
 
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
-        with:
-          languages: csharp
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: csharp
 
-      - name: Restore NuGet Packages
-        run: nuget restore
+    - name: Restore NuGet Packages
+      run: nuget restore
 
-      - name: Build
-        run: dotnet build --configuration Release
+    - name: Build
+      run: dotnet build --configuration Release
 
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
-        with:
-          languages: csharp
-          paths: "."
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
+      with:
+        languages: csharp
+        paths: "."

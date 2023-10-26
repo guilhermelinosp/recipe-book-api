@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace RecipeBook.Application.UseCases.Users.SignUp;
 
-public class SignUpValidator : AbstractValidator<SignUpRequest>
+public class SignUpValidator : AbstractValidator<RequestSignUp>
 {
     public SignUpValidator()
     {
@@ -23,17 +23,7 @@ public class SignUpValidator : AbstractValidator<SignUpRequest>
 
         RuleFor(c => c.Password)
             .NotEmpty()
-            .WithMessage("Password is required.")
-            .MinimumLength(8)
-            .WithMessage("Password must be at least 8 characters long.")
-            .Matches("[A-Z]")
-            .WithMessage("Password must contain at least one uppercase letter.")
-            .Matches("[a-z]")
-            .WithMessage("Password must contain at least one lowercase letter.")
-            .Matches("[0-9]")
-            .WithMessage("Password must contain at least one number.")
-            .Matches("[^a-zA-Z0-9]")
-            .WithMessage("Password must contain at least one special character.");
+            .WithMessage(ErrorMessages.SENHA_USUARIO_EMBRANCO);
 
         When(c => !string.IsNullOrWhiteSpace(c.Email), () =>
         {
@@ -42,13 +32,29 @@ public class SignUpValidator : AbstractValidator<SignUpRequest>
                 .WithMessage(ErrorMessages.EMAIL_USUARIO_INVALIDO);
         });
 
+        When(c => !string.IsNullOrWhiteSpace(c.Password), () =>
+        {
+            RuleFor(c => c.Password)
+                .MinimumLength(8)
+                .WithMessage(ErrorMessages.SENHA_USUARIO_MINIMO_OITO_CARACTERES)
+                .Matches("[A-Z]")
+                .WithMessage(ErrorMessages.SENHA_USUARIO_INVALIDO)
+                .Matches("[a-z]")
+                .WithMessage(ErrorMessages.SENHA_USUARIO_INVALIDO)
+                .Matches("[0-9]")
+                .WithMessage(ErrorMessages.SENHA_USUARIO_INVALIDO)
+                .Matches("[^a-zA-Z0-9]")
+                .WithMessage(ErrorMessages.SENHA_USUARIO_INVALIDO);
+
+        });
+
         When(c => !string.IsNullOrWhiteSpace(c.Phone), () =>
         {
             RuleFor(c => c.Phone).CustomAsync(async (phone, validator, cancellationToken) =>
             {
                 if (phone == null)
                 {
-                    validator.AddFailure(new FluentValidation.Results.ValidationFailure(nameof(SignUpRequest.Phone), ErrorMessages.TELEFONE_USUARIO_INVALIDO));
+                    validator.AddFailure(new FluentValidation.Results.ValidationFailure(nameof(RequestSignUp.Phone), ErrorMessages.TELEFONE_USUARIO_INVALIDO));
                     return;
                 }
 
@@ -60,12 +66,12 @@ public class SignUpValidator : AbstractValidator<SignUpRequest>
                 {
                     if (!phoneValidationTask.Result)
                     {
-                        validator.AddFailure(new FluentValidation.Results.ValidationFailure(nameof(SignUpRequest.Phone), ErrorMessages.TELEFONE_USUARIO_INVALIDO));
+                        validator.AddFailure(new FluentValidation.Results.ValidationFailure(nameof(RequestSignUp.Phone), ErrorMessages.TELEFONE_USUARIO_INVALIDO));
                     }
                 }
                 else
                 {
-                    validator.AddFailure(new FluentValidation.Results.ValidationFailure(nameof(SignUpRequest.Phone), "Phone validation timed out."));
+                    validator.AddFailure(new FluentValidation.Results.ValidationFailure(nameof(RequestSignUp.Phone), "Phone validation timed out."));
                 }
             });
         });

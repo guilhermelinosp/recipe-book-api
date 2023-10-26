@@ -26,7 +26,7 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
     options.MinimumSameSitePolicy = SameSiteMode.Strict;
 });
 
-builder.Services.AddAntiforgery(options => options.HeaderName = "x-csrf");
+builder.Services.AddAntiforgery(options => options.HeaderName = "csrf");
 
 var app = builder.Build();
 

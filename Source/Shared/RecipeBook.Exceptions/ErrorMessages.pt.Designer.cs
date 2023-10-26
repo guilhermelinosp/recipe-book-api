@@ -257,13 +257,25 @@ namespace MeuLivroDeReceitas.Exceptions
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to A senha deve conter no minimo 6 caracteres..
+        ///   Looks up a localized string similar to A senha deve conter no minimo 8 caracteres..
         /// </summary>
-        public static string SENHA_USUARIO_MINIMO_SEIS_CARACTERES
+        public static string SENHA_USUARIO_MINIMO_OITO_CARACTERES
         {
             get
             {
-                return ResourceManager.GetString("SENHA_USUARIO_MINIMO_SEIS_CARACTERES", resourceCulture);
+                return ResourceManager.GetString("SENHA_USUARIO_MINIMO_OITO_CARACTERES", resourceCulture);
+            }
+        }
+
+
+        /// <summary>
+        ///   Looks up a localized string similar to O senha do usuário é inválido...
+        /// </summary>
+        public static string SENHA_USUARIO_INVALIDO
+        {
+            get
+            {
+                return ResourceManager.GetString("SENHA_USUARIO_INVALIDO", resourceCulture);
             }
         }
 

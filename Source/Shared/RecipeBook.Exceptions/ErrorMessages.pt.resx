@@ -168,7 +168,10 @@
   <data name="SENHA_USUARIO_EMBRANCO" xml:space="preserve">
     <value>A senha do usuário deve ser informada.</value>
   </data>
-  <data name="SENHA_USUARIO_MINIMO_SEIS_CARACTERES" xml:space="preserve">
+  <data name="SENHA_USUARIO_INVALIDO" xml:space="preserve">
+    <value>O senha do usuário é inválido.</value>
+  </data>
+  <data name="SENHA_USUARIO_MINIMO_OITO_CARACTERES" xml:space="preserve">
     <value>A senha deve conter no minimo 8 caracteres.</value>
   </data>
   <data name="TELEFONE_JA_REGISTRADO" xml:space="preserve">

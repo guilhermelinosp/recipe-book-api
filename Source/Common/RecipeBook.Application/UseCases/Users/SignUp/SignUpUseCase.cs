@@ -22,7 +22,7 @@ public class SignUpUseCase : ISignUpUseCase
         _encryptController = encryptController;
     }
 
-    public async Task ExecuteAsync(SignUpRequest input)
+    public async Task ExecuteAsync(RequestSignUp input)
     {
         var validator = new SignUpValidator();
 

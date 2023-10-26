@@ -6,9 +6,9 @@ namespace RecipeBook.Infrastructure.Persistence.Repositories;
 
 public class UserRepositoryImp : IUserRepository
 {
-    private readonly DataContext _context;
+    private readonly InfrastructureDbContext _context;
 
-    public UserRepositoryImp(DataContext context)
+    public UserRepositoryImp(InfrastructureDbContext context)
     {
         _context = context;
     }
