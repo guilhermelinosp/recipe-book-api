@@ -29,7 +29,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\Source\Common\RecipeBook.Application\RecipeBook.Application.csproj" />
 		<ProjectReference Include="..\..\Source\Common\RecipeBook.Domain\RecipeBook.Domain.csproj" />
-		<ProjectReference Include="..\Utils\Utils.Test.csproj" />
+		<ProjectReference Include="..\Utils\Utils.csproj" />
 	</ItemGroup>
 
 </Project>
