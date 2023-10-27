@@ -32,7 +32,7 @@ public static class ApplicationInjection
     {
         services.AddScoped(provider => new MapperConfiguration(cfg =>
         {
-            cfg.AddProfile(new AutoMapperController());
+            cfg.AddProfile(new AutoMapperService());
         }).CreateMapper());
 
         return services;
@@ -40,14 +40,14 @@ public static class ApplicationInjection
 
     private static IServiceCollection AddCryptography(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddScoped(provider => new EncryptController(configuration["SecurityKey"]!));
+        services.AddScoped(provider => new EncryptService(configuration["SecurityKey"]!));
 
         return services;
     }
 
     private static IServiceCollection AddTokenization(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddScoped(provider => new TokenController(configuration["TokenSecurity"]!, double.Parse(configuration["TokenExpiration"]!)));
+        services.AddScoped(provider => new TokenService(configuration["TokenSecurity"]!, double.Parse(configuration["TokenExpiration"]!)));
 
         return services;
     }

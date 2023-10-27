@@ -1,7 +1,7 @@
-﻿using MeuLivroDeReceitas.Exceptions;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using RecipeBook.Domain.Dtos.Responses;
+using RecipeBook.Exceptions;
 using RecipeBook.Exceptions.Exceptions;
 using System.Net;
 

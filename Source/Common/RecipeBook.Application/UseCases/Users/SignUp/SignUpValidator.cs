@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
-using MeuLivroDeReceitas.Exceptions;
 using RecipeBook.Domain.Dtos.Requests;
+using RecipeBook.Exceptions;
 using System.Text.RegularExpressions;
 
 namespace RecipeBook.Application.UseCases.Users.SignUp;
@@ -75,6 +75,5 @@ public class SignUpValidator : AbstractValidator<RequestSignUp>
                 }
             });
         });
-
     }
 }

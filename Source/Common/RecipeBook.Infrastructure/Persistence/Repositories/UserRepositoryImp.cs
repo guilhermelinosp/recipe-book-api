@@ -20,19 +20,18 @@ public class UserRepositoryImp : IUserRepository
 
     public async Task<User?> GetByIdAsync(Guid id)
     {
-        return await _context.Users!.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id);
+        return await _context.Users!.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id) ?? null;
     }
 
     public async Task<User?> GetByEmailAsync(string email)
     {
-        return await _context.Users!.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email);
+        return await _context.Users!.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email) ?? null;
     }
 
     public async Task<User?> GetByPhoneAsync(string phone)
     {
-        return await _context.Users!.AsNoTracking().FirstOrDefaultAsync(u => u.Phone == phone);
+        return await _context.Users!.AsNoTracking().FirstOrDefaultAsync(u => u.Phone == phone) ?? null;
     }
-
 
     public async Task CreateAsync(User user)
     {

@@ -124,37 +124,37 @@
     <value>Code not found.</value>
   </data>
   <data name="EMAIL_JA_REGISTRADO" xml:space="preserve">
-    <value>The e-mail address you entered is already registered in the database.</value>
+    <value>The email provided is already registered.</value>
   </data>
   <data name="EMAIL_USUARIO_EMBRANCO" xml:space="preserve">
-    <value>The user's email is required.</value>
+    <value>The user's email must be provided.</value>
   </data>
   <data name="EMAIL_USUARIO_INVALIDO" xml:space="preserve">
     <value>The user's email is invalid.</value>
   </data>
   <data name="ERRO_DESCONHECIDO" xml:space="preserve">
-    <value>Unknow error.</value>
+    <value>Unknown error.</value>
   </data>
   <data name="ESTA_CONEXAO_JA_EXISTE" xml:space="preserve">
     <value>This connection already exists.</value>
   </data>
   <data name="LOGIN_INVALIDO" xml:space="preserve">
-    <value>Your email and/or password are incorrect.</value>
+    <value>The email and/or password are incorrect.</value>
   </data>
   <data name="MODOPREPARO_RECEITA_EMBRANCO" xml:space="preserve">
-    <value>The recipe's preparation method must be informed.</value>
+    <value>The recipe preparation method must be informed.</value>
   </data>
   <data name="NOME_USUARIO_EMBRANCO" xml:space="preserve">
-    <value>The user's name is required.</value>
+    <value>The user name must be provided.</value>
   </data>
   <data name="RECEITA_INGREDIENTES_REPETIDOS" xml:space="preserve">
     <value>There are repeated ingredients in your list.</value>
   </data>
   <data name="RECEITA_INGREDIENTE_PRODUTO_EMBRANCO" xml:space="preserve">
-    <value>The product of the ingredient must be reported.</value>
+    <value>The ingredient product must be informed.</value>
   </data>
   <data name="RECEITA_INGREDIENTE_QUANTIDADE_EMBRANCO" xml:space="preserve">
-    <value>The quantity of the ingredient must be entered.</value>
+    <value>The quantity of the ingredient must be informed.</value>
   </data>
   <data name="RECEITA_MINIMO_UM_INGREDIENTE" xml:space="preserve">
     <value>The recipe must have at least one ingredient.</value>
@@ -163,40 +163,40 @@
     <value>Recipe not found.</value>
   </data>
   <data name="SENHA_ATUAL_INVALIDA" xml:space="preserve">
-    <value>Current password invalid.</value>
+    <value>Current password is invalid.</value>
   </data>
   <data name="SENHA_USUARIO_EMBRANCO" xml:space="preserve">
-    <value>The user's password is required.</value>
+    <value>The user password must be entered.</value>
   </data>
   <data name="SENHA_USUARIO_INVALIDO" xml:space="preserve">
-    <value>The user password is invalid.</value>
+    <value>User password is invalid.</value>
   </data>
   <data name="SENHA_USUARIO_MINIMO_OITO_CARACTERES" xml:space="preserve">
-    <value>The password must have at least 8 characteres.</value>
+    <value>The password must contain at least 8 characters.</value>
   </data>
   <data name="TELEFONE_JA_REGISTRADO" xml:space="preserve">
-    <value>The user's phone number has already been registered</value>
+    <value>The user's phone number has already been registered.</value>
   </data>
   <data name="TELEFONE_USUARIO_EMBRANCO" xml:space="preserve">
-    <value>The phone number is required.</value>
+    <value>The user's phone number must be provided.</value>
   </data>
   <data name="TELEFONE_USUARIO_INVALIDO" xml:space="preserve">
-    <value>The phone number must be at the format XXXXXXXXXXX</value>
+    <value>The user's phone number must be in the format XXXXXXXXXXX</value>
   </data>
   <data name="TEMPO_PREPARO_INVALIDO" xml:space="preserve">
     <value>The preparation time is invalid.</value>
   </data>
   <data name="TITULO_RECEITA_EMBRANCO" xml:space="preserve">
-    <value>The title of the recipe must be entered.</value>
+    <value>The title of the recipe must be provided.</value>
   </data>
   <data name="TOKEN_EXPIRADO" xml:space="preserve">
-    <value>Login again on the App.</value>
+    <value>Sign In again on the App.</value>
   </data>
   <data name="USUARIO_NAO_ENCONTRADO" xml:space="preserve">
-    <value>User not found.</value>
+    <value>User not found</value>
   </data>
   <data name="USUARIO_SEM_PERMISSAO" xml:space="preserve">
-    <value>You are not allowed to access this feature.</value>
+    <value>You do not have permission to access this resource.</value>
   </data>
   <data name="VOCE_NAO_PODE_EXECUTAR_ESTA_OPERACAO" xml:space="preserve">
     <value>You cannot perform this operation.</value>
