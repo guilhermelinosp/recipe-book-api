@@ -21,13 +21,28 @@ public static class InfrastructureInjection
 
     private static IServiceCollection AddMySql(this IServiceCollection services, IConfiguration configuration)
     {
+        bool.TryParse(configuration["InMemory"], out var inmemory);
+
+        if (inmemory)
+        {
+            services.AddDbContext<InfrastructureDbContext>(options =>
+            {
+                options
+                    .UseInMemoryDatabase("InMemoryDbForTesting")
+                    .LogTo(Console.WriteLine, LogLevel.Information)
+                    .EnableSensitiveDataLogging()
+                    .EnableDetailedErrors();
+            });
+
+            return services;
+        }
+
         var serverConnection = configuration["ConnectionString"];
-        var serverVersion = new MySqlServerVersion(ServerVersion.AutoDetect(serverConnection));
 
         services.AddDbContext<InfrastructureDbContext>(options =>
         {
             options
-                .UseMySql(serverConnection, serverVersion)
+                .UseMySql(serverConnection, new MySqlServerVersion(new Version(8, 0, 28))) // Update the version as needed
                 .LogTo(Console.WriteLine, LogLevel.Information)
                 .EnableSensitiveDataLogging()
                 .EnableDetailedErrors();
@@ -35,6 +50,7 @@ public static class InfrastructureInjection
 
         return services;
     }
+
 
     private static IServiceCollection AddRepositories(this IServiceCollection services)
     {

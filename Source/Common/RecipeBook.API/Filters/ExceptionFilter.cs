@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using RecipeBook.Domain.Dtos.Responses;
 using RecipeBook.Exceptions;
 using RecipeBook.Exceptions.Exceptions;
 using System.Net;
@@ -17,7 +16,7 @@ public class ExceptionFilter : IExceptionFilter
         }
         else
         {
-            HandleUnknownException(context);
+            HandleExceptionUnknown(context);
         }
     }
 
@@ -26,39 +25,38 @@ public class ExceptionFilter : IExceptionFilter
         switch (context.Exception)
         {
             case ExceptionValidator:
-                HandleValidationException(context);
+                HandleExceptionValidation(context);
                 break;
-            case ExceptionEmailSignUp:
-                HandleEmailSignUpException(context);
+            case ExceptionSignUp:
+                HandleExceptionSignUp(context);
                 break;
-            case ExceptionPhoneSignUp:
-                HandlePhoneSignUpException(context);
+            case ExceptionSignIn:
+                HandleExceptionSignIn(context);
                 break;
         }
     }
 
-    private static void HandleValidationException(ExceptionContext context)
+    private static void HandleExceptionValidation(ExceptionContext context)
     {
         var exception = context.Exception as ExceptionValidator;
         context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
         context.Result = new ObjectResult(new ExceptionResponse(exception!.ErrorMessages!));
     }
 
-    private static void HandleEmailSignUpException(ExceptionContext context)
+    private static void HandleExceptionSignUp(ExceptionContext context)
     {
         context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
         context.Result = new ObjectResult(new ExceptionResponse(new List<string> { ErrorMessages.EMAIL_JA_REGISTRADO! }));
     }
 
-    private static void HandlePhoneSignUpException(ExceptionContext context)
-    {
-        context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-        context.Result = new ObjectResult(new ExceptionResponse(new List<string> { ErrorMessages.TELEFONE_JA_REGISTRADO! }));
-    }
-
-    private static void HandleUnknownException(ExceptionContext context)
+    private static void HandleExceptionUnknown(ExceptionContext context)
     {
         context.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
         context.Result = new ObjectResult(new ExceptionResponse(new List<string> { ErrorMessages.ERRO_DESCONHECIDO }));
+    }
+    private static void HandleExceptionSignIn(ExceptionContext context)
+    {
+        context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+        context.Result = new ObjectResult(new ExceptionResponse(new List<string> { ErrorMessages.LOGIN_INVALIDO }));
     }
 }

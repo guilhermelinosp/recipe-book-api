@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Moq;
 
-namespace Utils.Test.AutoMapper;
+namespace Utils.AutoMapper;
 
 public class AutoMapperBuilder
 {

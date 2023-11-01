@@ -14,10 +14,8 @@ public class EncryptService
 
     public string EncryptPassword(string input)
     {
-        var key = $"{input}{_securityKey}";
-
         var sha512 = SHA512.Create();
-        var bytes = Encoding.UTF8.GetBytes(key);
+        var bytes = Encoding.UTF8.GetBytes($"{input}{_securityKey}");
         var hash = sha512.ComputeHash(bytes);
         return GetStringFromHash(hash);
     }
@@ -25,11 +23,7 @@ public class EncryptService
     private static string GetStringFromHash(byte[] hash)
     {
         var result = new StringBuilder();
-        foreach (var b in hash)
-        {
-            result.Append(b.ToString("X2"));
-        }
-
+        foreach (var b in hash) result.Append(b.ToString("X2"));
         return result.ToString();
     }
 }

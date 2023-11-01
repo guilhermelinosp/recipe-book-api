@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using RecipeBook.Application.UseCases.Users.SignUp;
 using RecipeBook.Exceptions;
-using Utils.Test.Requests;
+using Utils.Requests;
 using Xunit;
 
 namespace Validators.Test.Users.SignUp;
@@ -13,7 +13,7 @@ public class SignUpValidatorUnitTest
     {
         var validator = new SignUpValidator();
 
-        var request = RequestSignUpBuilder.Build();
+        var request = SignUpRequestBuilder.Build();
 
         request.Name = string.Empty;
 
@@ -30,7 +30,7 @@ public class SignUpValidatorUnitTest
     {
         var validator = new SignUpValidator();
 
-        var request = RequestSignUpBuilder.Build();
+        var request = SignUpRequestBuilder.Build();
 
         request.Email = string.Empty;
 
@@ -46,7 +46,7 @@ public class SignUpValidatorUnitTest
     {
         var validator = new SignUpValidator();
 
-        var request = RequestSignUpBuilder.Build();
+        var request = SignUpRequestBuilder.Build();
 
         request.Phone = string.Empty;
 
@@ -62,7 +62,7 @@ public class SignUpValidatorUnitTest
     {
         var validator = new SignUpValidator();
 
-        var request = RequestSignUpBuilder.Build();
+        var request = SignUpRequestBuilder.Build();
 
         request.Password = string.Empty;
 
@@ -78,7 +78,7 @@ public class SignUpValidatorUnitTest
     {
         var validator = new SignUpValidator();
 
-        var request = RequestSignUpBuilder.Build();
+        var request = SignUpRequestBuilder.Build();
 
         request.Email = "invalid_email";
 
@@ -94,7 +94,7 @@ public class SignUpValidatorUnitTest
     {
         var validator = new SignUpValidator();
 
-        var request = RequestSignUpBuilder.Build();
+        var request = SignUpRequestBuilder.Build();
 
         request.Password = "invalid_password";
 
@@ -110,7 +110,7 @@ public class SignUpValidatorUnitTest
     {
         var validator = new SignUpValidator();
 
-        var request = RequestSignUpBuilder.Build();
+        var request = SignUpRequestBuilder.Build();
 
         request.Phone = "invalid_phone";
 

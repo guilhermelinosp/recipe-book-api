@@ -1,7 +1,7 @@
 ﻿using Moq;
 using RecipeBook.Application.Services.Cryptography;
 
-namespace Utils.Test.Cryptography;
+namespace Utils.Cryptography;
 
 public class EncryptBuilder
 {

@@ -1,7 +1,7 @@
 ﻿using Moq;
 using RecipeBook.Application.Services.Tokenization;
 
-namespace Utils.Test.Tokenization;
+namespace Utils.Tokenization;
 
 public class TokenBuilder
 {

@@ -8,6 +8,6 @@ public class AutoMapperService : Profile
 {
     public AutoMapperService()
     {
-        CreateMap<RequestSignUp, User>().ReverseMap();
+        CreateMap<SignUpRequest, User>().ReverseMap();
     }
 }

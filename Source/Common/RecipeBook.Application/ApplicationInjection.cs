@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using RecipeBook.Application.Services.AutoMapper;
 using RecipeBook.Application.Services.Cryptography;
 using RecipeBook.Application.Services.Tokenization;
+using RecipeBook.Application.UseCases.Users.SignIn;
 using RecipeBook.Application.UseCases.Users.SignUp;
 
 namespace RecipeBook.Application;
@@ -24,6 +25,8 @@ public static class ApplicationInjection
     private static IServiceCollection AddUseCases(this IServiceCollection services)
     {
         services.AddScoped<ISignUpUseCase, SignUpUseCase>();
+
+        services.AddScoped<ISignInUseCase, SignInUseCase>();
 
         return services;
     }

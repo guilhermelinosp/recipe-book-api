@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Antiforgery;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using RecipeBook.Application.UseCases.Users.SignIn;
 using RecipeBook.Application.UseCases.Users.SignUp;
 using RecipeBook.Domain.Dtos.Requests;
 
@@ -10,28 +10,26 @@ namespace RecipeBook.API.Controllers;
 public class UserController : ControllerBase
 {
     private readonly ISignUpUseCase _signUpUseCase;
-    private readonly IAntiforgery _antiforgery;
+    private readonly ISignInUseCase _signInUseCase;
 
 
-    public UserController(ISignUpUseCase signUpUseCase, IAntiforgery antiforgery)
+    public UserController(ISignUpUseCase signUpUseCase, ISignInUseCase signInUseCase)
     {
         _signUpUseCase = signUpUseCase;
-        _antiforgery = antiforgery;
-    }
-
-    [HttpGet("antiforgery")]
-    [IgnoreAntiforgeryToken]
-    public IActionResult AntiForgery()
-    {
-        var tokens = _antiforgery.GetAndStoreTokens(HttpContext);
-        return Ok(new { csrf = tokens.RequestToken });
+        _signInUseCase = signInUseCase;
     }
 
     [HttpPost("sign-up")]
-    [AutoValidateAntiforgeryToken]
-    public async Task<IActionResult> SignUp([FromBody] RequestSignUp request, [FromHeader(Name = "csrf")] string? csrf)
+    public async Task<IActionResult> SignUp([FromBody] SignUpRequest request)
     {
         await _signUpUseCase.ExecuteAsync(request);
-        return Ok();
+        return Created(string.Empty, null);
+    }
+
+    [HttpPost("sign-in")]
+    public async Task<IActionResult> SignIn([FromBody] SignInRequest request)
+    {
+        var tokens = await _signInUseCase.ExecuteAsync(request);
+        return Ok(tokens);
     }
 }

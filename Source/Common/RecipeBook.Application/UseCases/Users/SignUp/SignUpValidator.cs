@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace RecipeBook.Application.UseCases.Users.SignUp;
 
-public class SignUpValidator : AbstractValidator<RequestSignUp>
+public class SignUpValidator : AbstractValidator<SignUpRequest>
 {
     public SignUpValidator()
     {
@@ -54,7 +54,7 @@ public class SignUpValidator : AbstractValidator<RequestSignUp>
             {
                 if (phone == null)
                 {
-                    validator.AddFailure(new FluentValidation.Results.ValidationFailure(nameof(RequestSignUp.Phone), ErrorMessages.TELEFONE_USUARIO_INVALIDO));
+                    validator.AddFailure(new FluentValidation.Results.ValidationFailure(nameof(SignUpRequest.Phone), ErrorMessages.TELEFONE_USUARIO_INVALIDO));
                     return;
                 }
 
@@ -66,12 +66,12 @@ public class SignUpValidator : AbstractValidator<RequestSignUp>
                 {
                     if (!phoneValidationTask.Result)
                     {
-                        validator.AddFailure(new FluentValidation.Results.ValidationFailure(nameof(RequestSignUp.Phone), ErrorMessages.TELEFONE_USUARIO_INVALIDO));
+                        validator.AddFailure(new FluentValidation.Results.ValidationFailure(nameof(SignUpRequest.Phone), ErrorMessages.TELEFONE_USUARIO_INVALIDO));
                     }
                 }
                 else
                 {
-                    validator.AddFailure(new FluentValidation.Results.ValidationFailure(nameof(RequestSignUp.Phone), "Phone validation timed out."));
+                    validator.AddFailure(new FluentValidation.Results.ValidationFailure(nameof(SignUpRequest.Phone), "Phone validation timed out."));
                 }
             });
         });

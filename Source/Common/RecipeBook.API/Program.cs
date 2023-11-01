@@ -2,6 +2,7 @@ using RecipeBook.API.Filters;
 using RecipeBook.Application;
 using RecipeBook.Infrastructure;
 using RecipeBook.Infrastructure.Persistence.Migrations;
+using static System.Boolean;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,14 +22,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMvc(opt => opt.Filters.Add(typeof(ExceptionFilter)));
-builder.Services.Configure<CookiePolicyOptions>(options =>
-{
-    options.MinimumSameSitePolicy = SameSiteMode.Strict;
-});
-
-builder.Services.AddAntiforgery(options => options.HeaderName = "csrf");
 
 var app = builder.Build();
+
 
 if (app.Environment.IsDevelopment())
 {
@@ -50,7 +46,13 @@ return;
 
 async void MigrateScrema()
 {
+    TryParse(configuration["InMemory"], out var inMemory);
+
+    if (inMemory) return;
+
     await Screma.CreateDatabaseAsync(configuration["ConnectionString"], configuration["Database"]);
 
     await Screma.CreateTablesAsync(configuration["ConnectionString"], configuration["Database"]);
 }
+
+public partial class Program { }

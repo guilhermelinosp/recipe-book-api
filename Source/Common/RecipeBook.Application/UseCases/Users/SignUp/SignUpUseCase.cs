@@ -21,7 +21,7 @@ public class SignUpUseCase : ISignUpUseCase
         _encryptService = encryptService;
     }
 
-    public async Task ExecuteAsync(RequestSignUp input)
+    public async Task ExecuteAsync(SignUpRequest input)
     {
         var validator = new SignUpValidator();
 
@@ -29,10 +29,10 @@ public class SignUpUseCase : ISignUpUseCase
         if (!validationResult.IsValid) throw new ExceptionValidator(validationResult.Errors.Select(er => er.ErrorMessage).ToList());
 
         var validateEmail = await _repository.GetByEmailAsync(input.Email!);
-        if (validateEmail != null) throw new ExceptionEmailSignUp(ErrorMessages.EMAIL_JA_REGISTRADO);
+        if (validateEmail != null) throw new ExceptionSignUp(ErrorMessages.EMAIL_JA_REGISTRADO);
 
         var validatePhone = await _repository.GetByPhoneAsync(input.Phone!);
-        if (validatePhone != null) throw new ExceptionPhoneSignUp(ErrorMessages.TELEFONE_JA_REGISTRADO);
+        if (validatePhone != null) throw new ExceptionSignUp(ErrorMessages.TELEFONE_JA_REGISTRADO);
 
         input.Password = _encryptService.EncryptPassword(input.Password!);
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.IdentityModel.Tokens;
+using RecipeBook.Domain.Entities;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -14,28 +15,36 @@ public class TokenService
 
     private readonly string _securityKey;
     private readonly double _tokenExpiration;
+
     public TokenService(string securityKey, double tokenExpiration)
     {
         _securityKey = securityKey;
         _tokenExpiration = tokenExpiration;
     }
 
-    public string GenerateToken(string email, string name, string phone)
+    public string GenerateToken(User user)
     {
+        if (user == null)
+        {
+            throw new ArgumentNullException(nameof(user));
+        }
+
         var tokenHandler = new JwtSecurityTokenHandler();
+
         var key = Encoding.ASCII.GetBytes(_securityKey);
 
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(new[]
             {
-                new Claim(EmailAlias, email),
-                new Claim(NameAlias, name),
-                new Claim(PhoneAlias, phone)
+                new Claim(EmailAlias, user.Email!),
+                new Claim(NameAlias, user.Name!),
+                new Claim(PhoneAlias, user.Phone!)
             }),
             Expires = DateTime.UtcNow.AddHours(_tokenExpiration),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
         };
+
 
         var token = tokenHandler.CreateToken(tokenDescriptor);
 

@@ -2,7 +2,7 @@
 using RecipeBook.Domain.Entities;
 using RecipeBook.Domain.Repositories;
 
-namespace Utils.Test.Repositories;
+namespace Utils.Repositories;
 
 public class UserRepositoryBuilder
 {

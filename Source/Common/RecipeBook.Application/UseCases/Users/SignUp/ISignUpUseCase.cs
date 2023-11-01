@@ -4,5 +4,5 @@ namespace RecipeBook.Application.UseCases.Users.SignUp;
 
 public interface ISignUpUseCase
 {
-    Task ExecuteAsync(RequestSignUp input);
+    Task ExecuteAsync(SignUpRequest input);
 }
