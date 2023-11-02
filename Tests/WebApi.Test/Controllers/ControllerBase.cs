@@ -7,10 +7,12 @@ namespace WebApi.Test.Controllers;
 
 public class ControllerBase : IClassFixture<WebApiFactory<Program>>
 {
+    private readonly WebApiFactory<Program> _factory;
     private readonly HttpClient _client;
 
-    public ControllerBase(WebApiFactory<Program> factory)
+    private ControllerBase(WebApiFactory<Program> factory)
     {
+        _factory = factory;
         _client = factory.CreateClient();
         ErrorMessages.Culture = CultureInfo.CurrentCulture;
     }

@@ -6,7 +6,7 @@ using RecipeBook.Infrastructure.Persistence;
 
 namespace WebApi.Test;
 
-public class WebApiFactory<TStartup> : WebApplicationFactory<TStartup> where TStartup : class
+public abstract class WebApiFactory<TStartup> : WebApplicationFactory<TStartup> where TStartup : class
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
