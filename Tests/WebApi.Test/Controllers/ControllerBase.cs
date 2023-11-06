@@ -7,7 +7,7 @@ namespace WebApi.Test.Controllers;
 
 public class ControllerBase : IClassFixture<WebApiFactory<Program>>
 {
-    private readonly WebApiFactory<Program> _factory;
+    public WebApiFactory<Program> Factory { get; }
     private readonly HttpClient _client;
 
     private ControllerBase(WebApiFactory<Program> factory)
