@@ -45,8 +45,9 @@ public class ExceptionFilter : IExceptionFilter
 
     private static void HandleExceptionSignUp(ExceptionContext context)
     {
+        var exception = context.Exception as ExceptionSignUp;
         context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-        context.Result = new ObjectResult(new ExceptionResponse(new List<string> { ErrorMessages.EMAIL_JA_REGISTRADO! }));
+        context.Result = new ObjectResult(new ExceptionResponse(exception!.ErrorMessages!));
     }
 
     private static void HandleExceptionUnknown(ExceptionContext context)

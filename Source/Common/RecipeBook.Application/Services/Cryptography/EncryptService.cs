@@ -1,21 +1,22 @@
-﻿using System.Security.Cryptography;
+﻿using Microsoft.Extensions.Configuration;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace RecipeBook.Application.Services.Cryptography;
 
-public class EncryptService
+public class EncryptService : IEncryptService
 {
-    private readonly string _securityKey;
+    private readonly IConfiguration _configuration;
 
-    public EncryptService(string securityKey)
+    public EncryptService(IConfiguration configuration)
     {
-        _securityKey = securityKey;
+        _configuration = configuration;
     }
 
-    public string EncryptPassword(string input)
+    public string EncryptPassword(string password)
     {
         var sha512 = SHA512.Create();
-        var bytes = Encoding.UTF8.GetBytes($"{input}{_securityKey}");
+        var bytes = Encoding.UTF8.GetBytes($"{password}{_configuration["EncryptKey"]}");
         var hash = sha512.ComputeHash(bytes);
         return GetStringFromHash(hash);
     }

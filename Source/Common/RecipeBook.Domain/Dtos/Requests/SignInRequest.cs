@@ -1,7 +1,18 @@
-﻿namespace RecipeBook.Domain.Dtos.Requests;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace RecipeBook.Domain.Dtos.Requests;
 
 public class SignInRequest
 {
-    public string? Email { get; set; }
-    public string? Password { get; set; }
+    public SignInRequest(string email, string password)
+    {
+        Email = email;
+        Password = password;
+    }
+
+    [Required]
+    public string Email { get; set; }
+
+    [Required]
+    public string Password { get; set; }
 }

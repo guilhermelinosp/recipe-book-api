@@ -124,7 +124,7 @@
     <value>Code not found.</value>
   </data>
   <data name="EMAIL_JA_REGISTRADO" xml:space="preserve">
-    <value>The email provided is already registered.</value>
+    <value>The  user's email provided is already registered.</value>
   </data>
   <data name="EMAIL_USUARIO_EMBRANCO" xml:space="preserve">
     <value>The user's email must be provided.</value>
@@ -139,13 +139,16 @@
     <value>This connection already exists.</value>
   </data>
   <data name="LOGIN_INVALIDO" xml:space="preserve">
-    <value>The email and/or password are incorrect.</value>
+    <value>The  user's email and/or password are incorrect.</value>
   </data>
   <data name="MODOPREPARO_RECEITA_EMBRANCO" xml:space="preserve">
     <value>The recipe preparation method must be informed.</value>
   </data>
   <data name="NOME_USUARIO_EMBRANCO" xml:space="preserve">
-    <value>The user name must be provided.</value>
+    <value>The  user's name must be provided.</value>
+  </data>
+  <data name="NOME_USUARIO_INVALIDO" xml:space="preserve">
+    <value>The user's name is invalid.</value>
   </data>
   <data name="RECEITA_INGREDIENTES_REPETIDOS" xml:space="preserve">
     <value>There are repeated ingredients in your list.</value>
@@ -166,13 +169,16 @@
     <value>Current password is invalid.</value>
   </data>
   <data name="SENHA_USUARIO_EMBRANCO" xml:space="preserve">
-    <value>The user password must be entered.</value>
+    <value>The user's password must be entered.</value>
   </data>
-  <data name="SENHA_USUARIO_INVALIDO" xml:space="preserve">
-    <value>User password is invalid.</value>
+  <data name="SENHA_USUARIO_INVALIDA" xml:space="preserve">
+    <value>The user's password is invalid.</value>
+  </data>
+  <data name="SENHA_USUARIO_MAXIMO_DEZESSEIS_CARACTERES" xml:space="preserve">
+    <value>The user's password must contain a maximum of 16 characters.</value>
   </data>
   <data name="SENHA_USUARIO_MINIMO_OITO_CARACTERES" xml:space="preserve">
-    <value>The password must contain at least 8 characters.</value>
+    <value>The user's password must contain at least 8 characters.</value>
   </data>
   <data name="TELEFONE_JA_REGISTRADO" xml:space="preserve">
     <value>The user's phone number has already been registered.</value>
@@ -193,7 +199,7 @@
     <value>Sign In again on the App.</value>
   </data>
   <data name="USUARIO_NAO_ENCONTRADO" xml:space="preserve">
-    <value>User not found</value>
+    <value>The user not found</value>
   </data>
   <data name="USUARIO_SEM_PERMISSAO" xml:space="preserve">
     <value>You do not have permission to access this resource.</value>

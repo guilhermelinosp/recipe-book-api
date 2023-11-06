@@ -8,6 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Resources;
+
 namespace RecipeBook.Exceptions;
 
 using System;
@@ -69,312 +71,63 @@ public class ErrorMessages
         }
     }
 
-    /// <summary>
-    ///   Looks up a localized string similar to A categoria da receita é inválida..
-    /// </summary>
-    public static string CATEGORIA_RECEITA_INVALIDA
-    {
-        get
-        {
-            return ResourceManager.GetString("CATEGORIA_RECEITA_INVALIDA", resourceCulture);
-        }
-    }
+    public static string CATEGORIA_RECEITA_INVALIDA => ResourceManager.GetString("CATEGORIA_RECEITA_INVALIDA", resourceCulture);
 
-    /// <summary>
-    ///   Looks up a localized string similar to Código não encontrado..
-    /// </summary>
-    public static string CODIGO_NAO_ENCONTRADO
-    {
-        get
-        {
-            return ResourceManager.GetString("CODIGO_NAO_ENCONTRADO", resourceCulture);
-        }
-    }
+    public static string CODIGO_NAO_ENCONTRADO => ResourceManager.GetString("CODIGO_NAO_ENCONTRADO", resourceCulture);
 
-    /// <summary>
-    ///   Looks up a localized string similar to O e-mail informado já esta registrado na base de dados..
-    /// </summary>
-    public static string EMAIL_JA_REGISTRADO
-    {
-        get
-        {
-            return ResourceManager.GetString("EMAIL_JA_REGISTRADO", resourceCulture);
-        }
-    }
+    public static string EMAIL_JA_REGISTRADO => ResourceManager.GetString("EMAIL_JA_REGISTRADO", resourceCulture);
 
-    /// <summary>
-    ///   Looks up a localized string similar to O e-mail do usuário deve ser informado..
-    /// </summary>
-    public static string EMAIL_USUARIO_EMBRANCO
-    {
-        get
-        {
-            return ResourceManager.GetString("EMAIL_USUARIO_EMBRANCO", resourceCulture);
-        }
-    }
+    public static string EMAIL_USUARIO_EMBRANCO => ResourceManager.GetString("EMAIL_USUARIO_EMBRANCO", resourceCulture);
 
-    /// <summary>
-    ///   Looks up a localized string similar to O e-mail do usuário é inválido..
-    /// </summary>
-    public static string EMAIL_USUARIO_INVALIDO
-    {
-        get
-        {
-            return ResourceManager.GetString("EMAIL_USUARIO_INVALIDO", resourceCulture);
-        }
-    }
+    public static string EMAIL_USUARIO_INVALIDO => ResourceManager.GetString("EMAIL_USUARIO_INVALIDO", resourceCulture);
 
-    /// <summary>
-    ///   Looks up a localized string similar to Erro desconhecido..
-    /// </summary>
-    public static string ERRO_DESCONHECIDO
-    {
-        get
-        {
-            return ResourceManager.GetString("ERRO_DESCONHECIDO", resourceCulture);
-        }
-    }
+    public static string ERRO_DESCONHECIDO => ResourceManager.GetString("ERRO_DESCONHECIDO", resourceCulture);
 
-    /// <summary>
-    ///   Looks up a localized string similar to Esta conexão já existe..
-    /// </summary>
-    public static string ESTA_CONEXAO_JA_EXISTE
-    {
-        get
-        {
-            return ResourceManager.GetString("ESTA_CONEXAO_JA_EXISTE", resourceCulture);
-        }
-    }
+    public static string ESTA_CONEXAO_JA_EXISTE => ResourceManager.GetString("ESTA_CONEXAO_JA_EXISTE", resourceCulture);
 
-    /// <summary>
-    ///   Looks up a localized string similar to O e-mail e/ou senha estão incorretos..
-    /// </summary>
-    public static string LOGIN_INVALIDO
-    {
-        get
-        {
-            return ResourceManager.GetString("LOGIN_INVALIDO", resourceCulture);
-        }
-    }
+    public static string LOGIN_INVALIDO => ResourceManager.GetString("LOGIN_INVALIDO", resourceCulture);
 
-    /// <summary>
-    ///   Looks up a localized string similar to O modo de preparo da receita deve ser informado..
-    /// </summary>
-    public static string MODOPREPARO_RECEITA_EMBRANCO
-    {
-        get
-        {
-            return ResourceManager.GetString("MODOPREPARO_RECEITA_EMBRANCO", resourceCulture);
-        }
-    }
+    public static string MODOPREPARO_RECEITA_EMBRANCO => ResourceManager.GetString("MODOPREPARO_RECEITA_EMBRANCO", resourceCulture);
 
-    /// <summary>
-    ///   Looks up a localized string similar to O nome do usuário deve ser informado..
-    /// </summary>
-    public static string NOME_USUARIO_EMBRANCO
-    {
-        get
-        {
-            return ResourceManager.GetString("NOME_USUARIO_EMBRANCO", resourceCulture);
-        }
-    }
+    public static string NOME_USUARIO_EMBRANCO => ResourceManager.GetString("NOME_USUARIO_EMBRANCO", resourceCulture);
 
-    /// <summary>
-    ///   Looks up a localized string similar to O produto do ingrediente deve ser informado..
-    /// </summary>
-    public static string RECEITA_INGREDIENTE_PRODUTO_EMBRANCO
-    {
-        get
-        {
-            return ResourceManager.GetString("RECEITA_INGREDIENTE_PRODUTO_EMBRANCO", resourceCulture);
-        }
-    }
+    public static string RECEITA_INGREDIENTE_PRODUTO_EMBRANCO => ResourceManager.GetString("RECEITA_INGREDIENTE_PRODUTO_EMBRANCO", resourceCulture);
 
-    /// <summary>
-    ///   Looks up a localized string similar to A quantidade do ingrediente deve ser informada..
-    /// </summary>
-    public static string RECEITA_INGREDIENTE_QUANTIDADE_EMBRANCO
-    {
-        get
-        {
-            return ResourceManager.GetString("RECEITA_INGREDIENTE_QUANTIDADE_EMBRANCO", resourceCulture);
-        }
-    }
+    public static string RECEITA_INGREDIENTE_QUANTIDADE_EMBRANCO => ResourceManager.GetString("RECEITA_INGREDIENTE_QUANTIDADE_EMBRANCO", resourceCulture);
 
-    /// <summary>
-    ///   Looks up a localized string similar to Exitem ingredientes repetidos na sua lista..
-    /// </summary>
-    public static string RECEITA_INGREDIENTES_REPETIDOS
-    {
-        get
-        {
-            return ResourceManager.GetString("RECEITA_INGREDIENTES_REPETIDOS", resourceCulture);
-        }
-    }
+    public static string RECEITA_INGREDIENTES_REPETIDOS => ResourceManager.GetString("RECEITA_INGREDIENTES_REPETIDOS", resourceCulture);
 
-    /// <summary>
-    ///   Looks up a localized string similar to A receita deve ter no mínimo um ingrediente..
-    /// </summary>
-    public static string RECEITA_MINIMO_UM_INGREDIENTE
-    {
-        get
-        {
-            return ResourceManager.GetString("RECEITA_MINIMO_UM_INGREDIENTE", resourceCulture);
-        }
-    }
+    public static string RECEITA_MINIMO_UM_INGREDIENTE => ResourceManager.GetString("RECEITA_MINIMO_UM_INGREDIENTE", resourceCulture);
 
-    /// <summary>
-    ///   Looks up a localized string similar to Receita não encontrada..
-    /// </summary>
-    public static string RECEITA_NAO_ENCONTRADA
-    {
-        get
-        {
-            return ResourceManager.GetString("RECEITA_NAO_ENCONTRADA", resourceCulture);
-        }
-    }
+    public static string RECEITA_NAO_ENCONTRADA => ResourceManager.GetString("RECEITA_NAO_ENCONTRADA", resourceCulture);
 
-    /// <summary>
-    ///   Looks up a localized string similar to Senha atual é inválida..
-    /// </summary>
-    public static string SENHA_ATUAL_INVALIDA
-    {
-        get
-        {
-            return ResourceManager.GetString("SENHA_ATUAL_INVALIDA", resourceCulture);
-        }
-    }
+    public static string SENHA_ATUAL_INVALIDA => ResourceManager.GetString("SENHA_ATUAL_INVALIDA", resourceCulture);
 
-    /// <summary>
-    ///   Looks up a localized string similar to A senha do usuário deve ser informada..
-    /// </summary>
-    public static string SENHA_USUARIO_EMBRANCO
-    {
-        get
-        {
-            return ResourceManager.GetString("SENHA_USUARIO_EMBRANCO", resourceCulture);
-        }
-    }
+    public static string SENHA_USUARIO_EMBRANCO => ResourceManager.GetString("SENHA_USUARIO_EMBRANCO", resourceCulture);
 
-    /// <summary>
-    ///   Looks up a localized string similar to A senha deve conter no minimo 8 caracteres..
-    /// </summary>
-    public static string SENHA_USUARIO_MINIMO_OITO_CARACTERES
-    {
-        get
-        {
-            return ResourceManager.GetString("SENHA_USUARIO_MINIMO_OITO_CARACTERES", resourceCulture);
-        }
-    }
+    public static string SENHA_USUARIO_MINIMO_OITO_CARACTERES => ResourceManager.GetString("SENHA_USUARIO_MINIMO_OITO_CARACTERES", resourceCulture);
 
+    public static string SENHA_USUARIO_INVALIDA => ResourceManager.GetString("SENHA_USUARIO_INVALIDA", resourceCulture);
 
-    /// <summary>
-    ///   Looks up a localized string similar to O senha do usuário é inválido...
-    /// </summary>
-    public static string SENHA_USUARIO_INVALIDO
-    {
-        get
-        {
-            return ResourceManager.GetString("SENHA_USUARIO_INVALIDO", resourceCulture);
-        }
-    }
+    public static string TELEFONE_USUARIO_EMBRANCO => ResourceManager.GetString("TELEFONE_USUARIO_EMBRANCO", resourceCulture);
 
-    /// <summary>
-    ///   Looks up a localized string similar to O telefone do usuário deve ser informado..
-    /// </summary>
-    public static string TELEFONE_USUARIO_EMBRANCO
-    {
-        get
-        {
-            return ResourceManager.GetString("TELEFONE_USUARIO_EMBRANCO", resourceCulture);
-        }
-    }
+    public static string TELEFONE_USUARIO_INVALIDO => ResourceManager.GetString("TELEFONE_USUARIO_INVALIDO", resourceCulture);
 
-    /// <summary>
-    ///   Looks up a localized string similar to O telefone do usuário deve estar no formato XX X XXXX-XXXX.
-    /// </summary>
-    public static string TELEFONE_USUARIO_INVALIDO
-    {
-        get
-        {
-            return ResourceManager.GetString("TELEFONE_USUARIO_INVALIDO", resourceCulture);
-        }
-    }
+    public static string TEMPO_PREPARO_INVALIDO => ResourceManager.GetString("TEMPO_PREPARO_INVALIDO", resourceCulture);
 
-    /// <summary>
-    ///   Looks up a localized string similar to O tempo de preparo é invalido..
-    /// </summary>
-    public static string TEMPO_PREPARO_INVALIDO
-    {
-        get
-        {
-            return ResourceManager.GetString("TEMPO_PREPARO_INVALIDO", resourceCulture);
-        }
-    }
+    public static string TITULO_RECEITA_EMBRANCO => ResourceManager.GetString("TITULO_RECEITA_EMBRANCO", resourceCulture);
 
-    /// <summary>
-    ///   Looks up a localized string similar to O título da receita deve ser informado..
-    /// </summary>
-    public static string TITULO_RECEITA_EMBRANCO
-    {
-        get
-        {
-            return ResourceManager.GetString("TITULO_RECEITA_EMBRANCO", resourceCulture);
-        }
-    }
+    public static string TOKEN_EXPIRADO => ResourceManager.GetString("TOKEN_EXPIRADO", resourceCulture);
 
-    /// <summary>
-    ///   Looks up a localized string similar to Faça login novamente no App..
-    /// </summary>
-    public static string TOKEN_EXPIRADO
-    {
-        get
-        {
-            return ResourceManager.GetString("TOKEN_EXPIRADO", resourceCulture);
-        }
-    }
+    public static string USUARIO_NAO_ENCONTRADO => ResourceManager.GetString("USUARIO_NAO_ENCONTRADO", resourceCulture);
 
-    /// <summary>
-    ///   Looks up a localized string similar to Usuário não encontrado.
-    /// </summary>
-    public static string USUARIO_NAO_ENCONTRADO
-    {
-        get
-        {
-            return ResourceManager.GetString("USUARIO_NAO_ENCONTRADO", resourceCulture);
-        }
-    }
+    public static string USUARIO_SEM_PERMISSAO => ResourceManager.GetString("USUARIO_SEM_PERMISSAO", resourceCulture);
 
-    /// <summary>
-    ///   Looks up a localized string similar to Você não tem permissão para acessar este recurso..
-    /// </summary>
-    public static string USUARIO_SEM_PERMISSAO
-    {
-        get
-        {
-            return ResourceManager.GetString("USUARIO_SEM_PERMISSAO", resourceCulture);
-        }
-    }
+    public static string VOCE_NAO_PODE_EXECUTAR_ESTA_OPERACAO => ResourceManager.GetString("VOCE_NAO_PODE_EXECUTAR_ESTA_OPERACAO", resourceCulture);
 
-    /// <summary>
-    ///   Looks up a localized string similar to Você não pode executar esta operação..
-    /// </summary>
-    public static string VOCE_NAO_PODE_EXECUTAR_ESTA_OPERACAO
-    {
-        get
-        {
-            return ResourceManager.GetString("VOCE_NAO_PODE_EXECUTAR_ESTA_OPERACAO", resourceCulture);
-        }
-    }
+    public static string TELEFONE_JA_REGISTRADO => ResourceManager.GetString("TELEFONE_JA_REGISTRADO", resourceCulture);
 
-    /// <summary>
-    ///    Looks up a localized string similar to O telefone do usuário ja foi registrado
-    ///</summary>
-    public static string TELEFONE_JA_REGISTRADO
-    {
-        get
-        {
-            return ResourceManager.GetString("TELEFONE_JA_REGISTRADO", resourceCulture);
-        }
-    }
+    public static string NOME_USUARIO_INVALIDO => ResourceManager.GetString("NOME_USUARIO_INVALIDO", resourceCulture);
+
+    public static string SENHA_USUARIO_MAXIMO_DEZESSEIS_CARACTERES => ResourceManager.GetString("SENHA_USUARIO_MAXIMO_DEZESSEIS_CARACTERES", resourceCulture);
 }

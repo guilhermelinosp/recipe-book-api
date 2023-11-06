@@ -5,7 +5,7 @@ namespace Utils.Requests;
 
 public static class SignUpRequestBuilder
 {
-    public static SignUpRequest Build(int passwordSize = 8)
+    public static SignUpRequest Build(int passwordSize = 9)
     {
         return new Faker<SignUpRequest>()
             .RuleFor(c => c.Name, f => f.Person.FullName)

@@ -1,41 +1,41 @@
 ﻿using Moq;
+using RecipeBook.Domain.Dtos.Requests;
 using RecipeBook.Domain.Entities;
 using RecipeBook.Domain.Repositories;
 
 namespace Utils.Repositories;
 
-public class UserRepositoryBuilder
+public class AccountRepositoryBuilder
 {
-    private static UserRepositoryBuilder? _instance;
-    private readonly Mock<IUserRepository>? _mock;
+    private static AccountRepositoryBuilder? _instance;
+    private readonly Mock<IAccountRepository>? _mock;
 
-    private UserRepositoryBuilder()
+    private AccountRepositoryBuilder()
     {
-        _mock ??= new Mock<IUserRepository>();
+        _mock ??= new Mock<IAccountRepository>();
     }
 
-    public static UserRepositoryBuilder? Instance()
+    public static AccountRepositoryBuilder? Instance()
     {
-        _instance = new UserRepositoryBuilder();
+        _instance = new AccountRepositoryBuilder();
         return _instance;
     }
 
-    public IUserRepository Build()
+    public IAccountRepository Build()
     {
         return _mock!.Object;
     }
 
-    public UserRepositoryBuilder WithExistsByEmail(string email)
+    public AccountRepositoryBuilder WithExistsByEmail(SignInRequest user)
     {
-        var user = new User();
-        _mock!.Setup(x => x.GetByEmailAsync(email)).ReturnsAsync(user);
+        _mock!.Setup(x => x.GetByEmailAsync(user.Email!)).ReturnsAsync(new Account());
         return this;
     }
 
-    public UserRepositoryBuilder WithExistsByPhone(string phone)
+    public AccountRepositoryBuilder WithExistsByPhone(Account user)
     {
-        var user = new User();
-        _mock!.Setup(x => x.GetByPhoneAsync(phone)).ReturnsAsync(user);
+        _mock!.Setup(x => x.GetByPhoneAsync(user.Phone!)).ReturnsAsync(user);
         return this;
     }
+
 }

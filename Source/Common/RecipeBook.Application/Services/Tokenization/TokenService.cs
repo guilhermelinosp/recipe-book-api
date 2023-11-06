@@ -1,28 +1,21 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using RecipeBook.Domain.Entities;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
 namespace RecipeBook.Application.Services.Tokenization;
-
-
-public class TokenService
+public class TokenService : ITokenService
 {
-    private const string EmailAlias = "eml";
-    private const string NameAlias = "nam";
-    private const string PhoneAlias = "phn";
+    private readonly IConfiguration _configuration;
 
-    private readonly string _securityKey;
-    private readonly double _tokenExpiration;
-
-    public TokenService(string securityKey, double tokenExpiration)
+    public TokenService(IConfiguration configuration)
     {
-        _securityKey = securityKey;
-        _tokenExpiration = tokenExpiration;
+        _configuration = configuration;
     }
 
-    public string GenerateToken(User user)
+    public string GenerateToken(IdentityUser user)
     {
         if (user == null)
         {
@@ -31,17 +24,17 @@ public class TokenService
 
         var tokenHandler = new JwtSecurityTokenHandler();
 
-        var key = Encoding.ASCII.GetBytes(_securityKey);
+        var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Secret"]!);
 
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(new[]
             {
-                new Claim(EmailAlias, user.Email!),
-                new Claim(NameAlias, user.Name!),
-                new Claim(PhoneAlias, user.Phone!)
+                new Claim("id", user.Id),
+                new Claim("ml", user.Email!),
+                new Claim("phn", user.PhoneNumber!)
             }),
-            Expires = DateTime.UtcNow.AddHours(_tokenExpiration),
+            Expires = DateTime.UtcNow.Add(TimeSpan.Parse(_configuration["Jwt:ExpiryTimeFrame"]!)),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
         };
 
@@ -51,26 +44,15 @@ public class TokenService
         return tokenHandler.WriteToken(token);
     }
 
-    public void ValidateToken(string token)
+    public string GenerateRefreshToken()
     {
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(_securityKey);
-
-        tokenHandler.ValidateToken(token, new TokenValidationParameters
-        {
-            IssuerSigningKey = new SymmetricSecurityKey(key),
-            ClockSkew = TimeSpan.Zero,
-            ValidateIssuerSigningKey = true,
-            ValidateIssuer = false,
-            ValidateAudience = false,
-
-        }, out _);
+        throw new NotImplementedException();
     }
 
     public string GetEmailFromToken(string token)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(_securityKey);
+        var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Secret"]!);
 
         tokenHandler.ValidateToken(token, new TokenValidationParameters
         {
@@ -82,31 +64,13 @@ public class TokenService
 
         var jwtToken = (JwtSecurityToken)validatedToken;
 
-        return jwtToken.Claims.First(x => x.Type == EmailAlias).Value;
-    }
-
-    public string GetNameFromToken(string token)
-    {
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(_securityKey);
-
-        tokenHandler.ValidateToken(token, new TokenValidationParameters
-        {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(key),
-            ValidateIssuer = false,
-            ValidateAudience = false
-        }, out var validatedToken);
-
-        var jwtToken = (JwtSecurityToken)validatedToken;
-
-        return jwtToken.Claims.First(x => x.Type == NameAlias).Value;
+        return jwtToken.Claims.First(x => x.Type == "ml").Value;
     }
 
     public string GetPhoneFromToken(string token)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(_securityKey);
+        var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Secret"]!);
 
         tokenHandler.ValidateToken(token, new TokenValidationParameters
         {
@@ -118,6 +82,24 @@ public class TokenService
 
         var jwtToken = (JwtSecurityToken)validatedToken;
 
-        return jwtToken.Claims.First(x => x.Type == PhoneAlias).Value;
+        return jwtToken.Claims.First(x => x.Type == "pnm").Value;
+    }
+
+    public Guid GetIdFromToken(string token)
+    {
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Secret"]!);
+
+        tokenHandler.ValidateToken(token, new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ValidateIssuer = false,
+            ValidateAudience = false
+        }, out var validatedToken);
+
+        var jwtToken = (JwtSecurityToken)validatedToken;
+
+        return new Guid(jwtToken.Claims.First(x => x.Type == "id").Value);
     }
 }
