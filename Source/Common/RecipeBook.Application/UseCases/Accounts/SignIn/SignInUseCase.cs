@@ -33,7 +33,7 @@ public class SignInUseCase : ISignInUseCase
         if (!validationResult.IsValid)
             throw new ExceptionValidator(validationResult.Errors.Select(er => er.ErrorMessage).ToList());
 
-        var account = await _repository.GetByEmailAsync(input.Email);
+        var account = await _repository.GetByEmailAsync(input.Email!);
         if (account is not null)
         {
             if (account.Password != _encrypt.EncryptPassword(input.Password!))

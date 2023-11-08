@@ -28,9 +28,9 @@ public class EncryptService : IEncryptService
         }
     }
 
-    public string GenerateEmailConfirmationCode()
+    public string GenerateCode()
     {
-        return Guid.NewGuid().ToString("N").Substring(0, 6); ;
+        return Guid.NewGuid().ToString("N").Substring(0, 6);
     }
 
     private static string GetStringFromHash(byte[] hash)

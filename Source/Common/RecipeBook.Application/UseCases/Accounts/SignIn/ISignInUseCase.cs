@@ -5,6 +5,6 @@ namespace RecipeBook.Application.UseCases.Accounts.SignIn;
 
 public interface ISignInUseCase
 {
-    Task<AuthResponse> SignInAsync(SignInRequest input);
+    Task<AuthResponse> SignInAsync(SignInRequest request);
 
 }

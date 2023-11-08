@@ -4,5 +4,5 @@ namespace RecipeBook.Application.UseCases.Accounts.SignUp.EmailConfirmation;
 
 public interface IEmailConfirmation
 {
-    Task EmailConfirmationAsync(EmailConfirmationRequest input);
+    Task EmailConfirmationAsync(EmailConfirmationRequest request);
 }

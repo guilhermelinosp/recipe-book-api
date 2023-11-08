@@ -1,7 +1,6 @@
 ﻿using RecipeBook.Application.Services.Cryptography;
 using RecipeBook.Domain.Dtos.Requests;
 using RecipeBook.Domain.Repositories;
-using RecipeBook.Domain.SendGrid;
 using RecipeBook.Exceptions;
 using RecipeBook.Exceptions.Exceptions;
 
@@ -11,13 +10,11 @@ public class ResetPasswordUseCase : IResetPasswordUseCase
 {
     private readonly IAccountRepository _repository;
     private readonly IEncryptService _encrypt;
-    private readonly ISendGrid _sendGrid;
 
-    public ResetPasswordUseCase(IAccountRepository repository, IEncryptService encrypt, ISendGrid sendGrid)
+    public ResetPasswordUseCase(IAccountRepository repository, IEncryptService encrypt)
     {
         _repository = repository;
         _encrypt = encrypt;
-        _sendGrid = sendGrid;
     }
 
     public async Task ResetPasswordAsync(ResetPasswordRequest request)
@@ -28,10 +25,7 @@ public class ResetPasswordUseCase : IResetPasswordUseCase
         if (!validationResult.IsValid) throw new ExceptionValidator(validationResult.Errors.Select(er => er.ErrorMessage).ToList());
 
         var account = await _repository.GetByCodeAsync(request.Code!);
-
-        if (account is null)
-            throw new ExceptionResetPassword(new List<string> { ErrorMessages.CODIGO_INVALIDO });
-
+        if (account is null) throw new ExceptionResetPassword(new List<string> { ErrorMessages.CODIGO_INVALIDO });
         account.Password = _encrypt.EncryptPassword(request.Password!);
 
         account.Code = string.Empty;

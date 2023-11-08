@@ -38,6 +38,8 @@ public static class InfrastructureInjection
     private static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<IAccountRepository, AccountRepositoryImp>();
+        services.AddScoped<IIngredientRepository, IngredientRepositoryImp>();
+        services.AddScoped<IRecipeRepository, RecipeRepositoryImp>();
 
         return services;
     }

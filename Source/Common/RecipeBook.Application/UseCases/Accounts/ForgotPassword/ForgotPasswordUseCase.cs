@@ -34,7 +34,7 @@ public class ForgotPasswordUseCase : IForgotPasswordUseCase
         if (account is null)
             throw new ExceptionForgotPassword(new List<string> { ErrorMessages.USUARIO_NAO_ENCONTRADO });
 
-        var code = _encrypt.GenerateEmailConfirmationCode();
+        var code = _encrypt.GenerateCode();
 
         account.Code = code;
 

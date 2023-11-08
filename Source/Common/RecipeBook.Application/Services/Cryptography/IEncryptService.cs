@@ -4,5 +4,5 @@ public interface IEncryptService
 {
     string EncryptPassword(string password);
 
-    string GenerateEmailConfirmationCode();
+    string GenerateCode();
 }

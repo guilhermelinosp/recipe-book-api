@@ -111,5 +111,9 @@ return;
 
 void MigrateScrema()
 {
-    CreateTables.CreateTableAccountAsync(configuration?["MySQL:ConnectionString"]!);
+    var connectionString = configuration?["MySQL:ConnectionString"]!;
+
+    CreateTables.CreateTableAccountAsync(connectionString);
+    CreateTables.CreateTableRecipeAsync(connectionString);
+    CreateTables.CreateTableIngredientAsync(connectionString);
 }

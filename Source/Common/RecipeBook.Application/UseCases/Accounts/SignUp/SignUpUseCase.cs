@@ -37,7 +37,7 @@ public class SignUpUseCase : ISignUpUseCase
         if (validatePhone is not null)
             throw new ExceptionSignUp(new List<string> { ErrorMessages.TELEFONE_JA_REGISTRADO });
 
-        var emailConfirmationCode = _encrypt.GenerateEmailConfirmationCode();
+        var emailConfirmationCode = _encrypt.GenerateCode();
 
         await _repository.CreateAsync(new Account()
         {

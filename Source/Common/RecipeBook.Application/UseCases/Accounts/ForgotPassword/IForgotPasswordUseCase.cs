@@ -4,5 +4,5 @@ namespace RecipeBook.Application.UseCases.Accounts.ForgotPassword;
 
 public interface IForgotPasswordUseCase
 {
-    Task ForgoPasswordAsync(ForgotPasswordRequest input);
+    Task ForgoPasswordAsync(ForgotPasswordRequest request);
 }
