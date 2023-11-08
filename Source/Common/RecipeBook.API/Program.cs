@@ -12,17 +12,12 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 var configuration = builder.Configuration;
-var environment = builder.Environment;
-var host = builder.Host;
-var webHost = builder.WebHost;
-var logging = builder.Logging;
-var services = builder.Services;
 
-//MigrateScrema();
+MigrateScrema();
 
 builder
     .Services
-    .AddApplication(configuration)
+    .AddApplication()
     .AddInfrastructure(configuration);
 
 builder.Services.AddRouting(opt => opt.LowercaseUrls = true);
@@ -61,6 +56,7 @@ builder.Services.AddSwaggerGen(option =>
         }
     });
 });
+
 builder.Services.AddMvc(opt => opt.Filters.Add(typeof(ExceptionFilter)));
 builder.Services.AddApplicationInsightsTelemetry();
 
@@ -70,7 +66,6 @@ builder.Services.AddAuthentication(opt =>
         opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
         opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
         opt.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-
     })
     .AddJwtBearer(jwt =>
     {
@@ -87,7 +82,7 @@ builder.Services.AddAuthentication(opt =>
         };
     });
 
-services.AddDefaultIdentity<IdentityUser>(opt => opt.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<IdentityUser>(opt => opt.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<AppDbContext>();
 
 builder.Services.AddAuthorization();

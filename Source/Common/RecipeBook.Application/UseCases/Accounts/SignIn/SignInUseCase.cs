@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using RecipeBook.Application.Services.Cryptography;
 using RecipeBook.Application.Services.Tokenization;
 using RecipeBook.Domain.Dtos.Requests;
@@ -14,12 +15,14 @@ public class SignInUseCase : ISignInUseCase
     private readonly IAccountRepository _repository;
     private readonly IEncryptService _encrypt;
     private readonly ITokenService _token;
+    private readonly IConfiguration _configuration;
 
-    public SignInUseCase(IAccountRepository repository, IEncryptService encryptService, ITokenService tokenService)
+    public SignInUseCase(IAccountRepository repository, IEncryptService encryptService, ITokenService tokenService, IConfiguration configuration)
     {
         _repository = repository;
         _encrypt = encryptService;
         _token = tokenService;
+        _configuration = configuration;
     }
 
     public async Task<AuthResponse> SignInAsync(SignInRequest input)
@@ -27,26 +30,32 @@ public class SignInUseCase : ISignInUseCase
         var validator = new SignInValidator();
 
         var validationResult = await validator.ValidateAsync(input);
-        if (!validationResult.IsValid) throw new ExceptionValidator(validationResult.Errors.Select(er => er.ErrorMessage).ToList());
+        if (!validationResult.IsValid)
+            throw new ExceptionValidator(validationResult.Errors.Select(er => er.ErrorMessage).ToList());
 
-        var account = await _repository.GetByEmailAsync(input.Email!);
-        if (account == null) throw new ExceptionSignIn(ErrorMessages.LOGIN_INVALIDO);
-
-        var password = _encrypt.EncryptPassword(input.Password!);
-        if (account.Password != password) throw new ExceptionSignIn(ErrorMessages.LOGIN_INVALIDO);
-
-        var token = _token.GenerateToken(new IdentityUser
+        var account = await _repository.GetByEmailAsync(input.Email);
+        if (account is not null)
         {
-            Id = account.Id.ToString(),
-            PhoneNumber = account.Phone,
-            Email = account.Email,
-        });
+            if (account.Password != _encrypt.EncryptPassword(input.Password!))
+                throw new ExceptionSignIn(new List<string> { ErrorMessages.LOGIN_INVALIDO });
 
-        return new AuthResponse
-        {
-            Token = token,
-            RefreshToken = "",
-            ExpiryDate = DateTime.Now
-        };
+            if (!account.EmailConfirmed)
+                throw new ExceptionSignIn(new List<string> { ErrorMessages.EMAIL_NAO_CONFIRMADO });
+
+            return new AuthResponse
+            {
+                Token = _token.GenerateToken(new IdentityUser
+                {
+                    Id = account.Id.ToString(),
+                    PhoneNumber = account.Phone,
+                    Email = account.Email,
+                }),
+                RefreshToken = _token.GenerateRefreshToken(),
+                ExpiryDate = DateTime.UtcNow.Add(TimeSpan.Parse(_configuration["Jwt:ExpiryTimeFrame"]!))
+            };
+        }
+
+        throw new ExceptionSignIn(new List<string> { ErrorMessages.USUARIO_NAO_ENCONTRADO });
+
     }
 }

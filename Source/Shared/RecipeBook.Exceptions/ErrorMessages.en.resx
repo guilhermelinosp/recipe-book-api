@@ -120,11 +120,17 @@
   <data name="CATEGORIA_RECEITA_INVALIDA" xml:space="preserve">
     <value>The recipe category is invalid.</value>
   </data>
+  <data name="CODIGO_INVALIDO" xml:space="preserve">
+    <value>The code is invalid</value>
+  </data>
   <data name="CODIGO_NAO_ENCONTRADO" xml:space="preserve">
     <value>Code not found.</value>
   </data>
   <data name="EMAIL_JA_REGISTRADO" xml:space="preserve">
     <value>The  user's email provided is already registered.</value>
+  </data>
+  <data name="EMAIL_NAO_CONFIRMADO" xml:space="preserve">
+    <value>Email not confirmed</value>
   </data>
   <data name="EMAIL_USUARIO_EMBRANCO" xml:space="preserve">
     <value>The user's email must be provided.</value>
@@ -196,7 +202,10 @@
     <value>The title of the recipe must be provided.</value>
   </data>
   <data name="TOKEN_EXPIRADO" xml:space="preserve">
-    <value>Sign In again on the App.</value>
+    <value>The token has expired</value>
+  </data>
+  <data name="TOKEN_INVALIDO" xml:space="preserve">
+    <value>The token is invalid</value>
   </data>
   <data name="USUARIO_NAO_ENCONTRADO" xml:space="preserve">
     <value>The user not found</value>

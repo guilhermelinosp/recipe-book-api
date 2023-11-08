@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿#nullable enable
+using Microsoft.EntityFrameworkCore;
 using RecipeBook.Domain.Entities;
 using RecipeBook.Domain.Repositories;
 using RecipeBook.Infrastructure.Contexts;
@@ -21,27 +22,36 @@ public class AccountRepositoryImp : IAccountRepository
 
     public async Task<Account?> GetByIdAsync(Guid id)
     {
-        return await _context.Accounts!.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id) ?? null;
+        return await _context.Accounts!.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id)!;
     }
 
     public async Task<Account?> GetByEmailAsync(string email)
     {
-        return await _context.Accounts!.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email) ?? null;
+        return await _context.Accounts!.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email);
     }
 
     public async Task<Account?> GetByPhoneAsync(string phone)
     {
-        return await _context.Accounts!.AsNoTracking().FirstOrDefaultAsync(u => u.Phone == phone) ?? null;
+        return await _context.Accounts!.AsNoTracking().FirstOrDefaultAsync(u => u.Phone == phone)!;
     }
 
-    public async Task CreateAsync(Account user)
+    public async Task<Account?> GetByCodeAsync(string code)
     {
-        await _context.Accounts!.AddAsync(user);
+        return await _context.Accounts!.AsNoTracking().FirstOrDefaultAsync(u => u.Code == code)!;
     }
 
-    public Task UpdateAsync(Account user)
+    public async Task CreateAsync(Account account)
     {
-        throw new NotImplementedException();
+        await _context.Accounts!.AddAsync(account);
+
+        await SaveChangesAsync();
+    }
+
+    public async Task UpdateAsync(Account account)
+    {
+        _context.Accounts!.Update(account);
+
+        await SaveChangesAsync();
     }
 
     public Task DeleteAsync(Guid id)

@@ -1,8 +1,8 @@
-﻿using AutoMapper;
-using RecipeBook.Application.Services.Cryptography;
+﻿using RecipeBook.Application.Services.Cryptography;
 using RecipeBook.Domain.Dtos.Requests;
 using RecipeBook.Domain.Entities;
 using RecipeBook.Domain.Repositories;
+using RecipeBook.Domain.SendGrid;
 using RecipeBook.Exceptions;
 using RecipeBook.Exceptions.Exceptions;
 
@@ -11,14 +11,14 @@ namespace RecipeBook.Application.UseCases.Accounts.SignUp;
 public class SignUpUseCase : ISignUpUseCase
 {
     private readonly IAccountRepository _repository;
-    private readonly IMapper _mapper;
-    private readonly EncryptService _encryptService;
+    private readonly IEncryptService _encrypt;
+    private readonly ISendGrid _sendGrid;
 
-    public SignUpUseCase(IAccountRepository repository, IMapper mapper, EncryptService encryptService)
+    public SignUpUseCase(IAccountRepository repository, IEncryptService encrypt, ISendGrid sendGrid)
     {
         _repository = repository;
-        _mapper = mapper;
-        _encryptService = encryptService;
+        _encrypt = encrypt;
+        _sendGrid = sendGrid;
     }
 
     public async Task SignUpAsync(SignUpRequest request)
@@ -26,18 +26,29 @@ public class SignUpUseCase : ISignUpUseCase
         var validator = new SignUpValidator();
 
         var validationResult = await validator.ValidateAsync(request);
-        if (!validationResult.IsValid) throw new ExceptionValidator(validationResult.Errors.Select(er => er.ErrorMessage).ToList());
+        if (!validationResult.IsValid)
+            throw new ExceptionValidator(validationResult.Errors.Select(er => er.ErrorMessage).ToList());
 
         var validateEmail = await _repository.GetByEmailAsync(request.Email!);
-        if (validateEmail is not null) throw new ExceptionSignUp(new List<string> { ErrorMessages.EMAIL_JA_REGISTRADO });
+        if (validateEmail is not null)
+            throw new ExceptionSignUp(new List<string> { ErrorMessages.EMAIL_JA_REGISTRADO });
 
         var validatePhone = await _repository.GetByPhoneAsync(request.Phone!);
-        if (validatePhone is not null) throw new ExceptionSignUp(new List<string> { ErrorMessages.TELEFONE_JA_REGISTRADO });
+        if (validatePhone is not null)
+            throw new ExceptionSignUp(new List<string> { ErrorMessages.TELEFONE_JA_REGISTRADO });
 
-        request.Password = _encryptService.EncryptPassword(request.Password!);
+        var emailConfirmationCode = _encrypt.GenerateEmailConfirmationCode();
 
-        await _repository.CreateAsync(_mapper.Map<Account>(request));
+        await _repository.CreateAsync(new Account()
+        {
+            Name = request.Name!,
+            Email = request.Email!,
+            Code = emailConfirmationCode,
+            Password = _encrypt.EncryptPassword(request.Password!),
+            Phone = request.Phone!
 
-        await _repository.SaveChangesAsync();
+        });
+
+        await _sendGrid.SendConfirmationEmailAsync(request.Email!, request.Name!, emailConfirmationCode);
     }
 }

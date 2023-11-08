@@ -15,16 +15,35 @@ public class EncryptService : IEncryptService
 
     public string EncryptPassword(string password)
     {
-        var sha512 = SHA512.Create();
-        var bytes = Encoding.UTF8.GetBytes($"{password}{_configuration["EncryptKey"]}");
-        var hash = sha512.ComputeHash(bytes);
-        return GetStringFromHash(hash);
+        try
+        {
+            var sha512 = SHA512.Create();
+            var bytes = Encoding.UTF8.GetBytes($"{password}{_configuration["EncryptKey"]}");
+            var hash = sha512.ComputeHash(bytes);
+            return GetStringFromHash(hash);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+
+    public string GenerateEmailConfirmationCode()
+    {
+        return Guid.NewGuid().ToString("N").Substring(0, 6); ;
     }
 
     private static string GetStringFromHash(byte[] hash)
     {
-        var result = new StringBuilder();
-        foreach (var b in hash) result.Append(b.ToString("X2"));
-        return result.ToString();
+        try
+        {
+            var result = new StringBuilder();
+            foreach (var b in hash) result.Append(b.ToString("X2"));
+            return result.ToString();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
     }
 }

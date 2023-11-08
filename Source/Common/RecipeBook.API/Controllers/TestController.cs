@@ -9,18 +9,18 @@ namespace RecipeBook.API.Controllers
     [Authorize]
     public class TestController : ControllerBase
     {
-        private readonly IAccountUseCase _account;
+        private readonly TestUseCase _test;
 
-        public TestController(IAccountUseCase account)
+        public TestController(TestUseCase test)
         {
-            _account = account;
+            _test = test;
         }
 
-        [HttpPost]
+        [HttpGet("MyAccount")]
         public async Task<IActionResult> TestAuth()
         {
             var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-            var user = await _account.GetMyAccountAsync(token);
+            var user = await _test.GetMyAccountAsync(token);
             return Ok(user);
         }
     }

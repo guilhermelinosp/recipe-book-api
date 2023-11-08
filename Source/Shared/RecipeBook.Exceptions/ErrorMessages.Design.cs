@@ -130,4 +130,10 @@ public class ErrorMessages
     public static string NOME_USUARIO_INVALIDO => ResourceManager.GetString("NOME_USUARIO_INVALIDO", resourceCulture);
 
     public static string SENHA_USUARIO_MAXIMO_DEZESSEIS_CARACTERES => ResourceManager.GetString("SENHA_USUARIO_MAXIMO_DEZESSEIS_CARACTERES", resourceCulture);
+
+    public static string TOKEN_INVALIDO => ResourceManager.GetString("TOKEN_INVALIDO", resourceCulture);
+
+    public static string EMAIL_NAO_CONFIRMADO => ResourceManager.GetString("EMAIL_NAO_CONFIRMADO", resourceCulture);
+
+    public static string CODIGO_INVALIDO => ResourceManager.GetString("CODIGO_INVALIDO", resourceCulture);
 }

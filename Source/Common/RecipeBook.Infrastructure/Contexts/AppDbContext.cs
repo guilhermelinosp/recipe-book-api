@@ -1,14 +1,15 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using RecipeBook.Domain.Entities;
 
 namespace RecipeBook.Infrastructure.Contexts;
 
-public class AppDbContext : IdentityDbContext
+public class AppDbContext : DbContext
 {
     public DbSet<Account>? Accounts { get; set; }
 
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+    {
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -17,4 +18,3 @@ public class AppDbContext : IdentityDbContext
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
     }
 }
-

@@ -9,29 +9,13 @@
 	<ItemGroup>
 		<PackageReference Include="Dapper" Version="2.1.15" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.13" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.13" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="7.0.13" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="7.0.13" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.13">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.13" />
 		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.13" />
+		<PackageReference Include="SendGrid" Version="9.28.1" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\RecipeBook.Domain\RecipeBook.Domain.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Reference Include="Microsoft.AspNetCore">
-			<HintPath>..\..\..\..\..\..\..\..\..\Program Files\dotnet\shared\Microsoft.AspNetCore.App\7.0.13\Microsoft.AspNetCore.dll</HintPath>
-		</Reference>
-		<Reference Include="Microsoft.Extensions.Configuration">
-			<HintPath>..\..\..\..\..\..\..\..\..\Program Files\dotnet\packs\Microsoft.AspNetCore.App.Ref\7.0.13\ref\net7.0\Microsoft.Extensions.Configuration.dll</HintPath>
-		</Reference>
 	</ItemGroup>
 
 </Project>

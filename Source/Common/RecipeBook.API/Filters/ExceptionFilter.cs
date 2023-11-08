@@ -16,7 +16,7 @@ public class ExceptionFilter : IExceptionFilter
         }
         else
         {
-            HandleExceptionUnknown(context);
+            HandleUnknownException(context);
         }
     }
 
@@ -25,39 +25,51 @@ public class ExceptionFilter : IExceptionFilter
         switch (context.Exception)
         {
             case ExceptionValidator:
-                HandleExceptionValidation(context);
+                HandleValidationException(context);
                 break;
             case ExceptionSignUp:
-                HandleExceptionSignUp(context);
+                HandleSignUpException(context);
                 break;
             case ExceptionSignIn:
-                HandleExceptionSignIn(context);
+                HandleSignInException(context);
+                break;
+            case ExceptionToken:
+                HandleTokenException(context);
                 break;
         }
     }
 
-    private static void HandleExceptionValidation(ExceptionContext context)
+    private static void HandleValidationException(ExceptionContext context)
     {
         var exception = context.Exception as ExceptionValidator;
         context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
         context.Result = new ObjectResult(new ExceptionResponse(exception!.ErrorMessages!));
     }
 
-    private static void HandleExceptionSignUp(ExceptionContext context)
+    private static void HandleSignUpException(ExceptionContext context)
     {
         var exception = context.Exception as ExceptionSignUp;
         context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
         context.Result = new ObjectResult(new ExceptionResponse(exception!.ErrorMessages!));
     }
 
-    private static void HandleExceptionUnknown(ExceptionContext context)
+    private static void HandleUnknownException(ExceptionContext context)
     {
         context.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+        Console.WriteLine(context.Exception);
         context.Result = new ObjectResult(new ExceptionResponse(new List<string> { ErrorMessages.ERRO_DESCONHECIDO }));
     }
-    private static void HandleExceptionSignIn(ExceptionContext context)
+    private static void HandleSignInException(ExceptionContext context)
     {
+        var exception = context.Exception as ExceptionSignIn;
         context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-        context.Result = new ObjectResult(new ExceptionResponse(new List<string> { ErrorMessages.LOGIN_INVALIDO }));
+        context.Result = new ObjectResult(new ExceptionResponse(exception!.ErrorMessages!));
+    }
+
+    private static void HandleTokenException(ExceptionContext context)
+    {
+        var exception = context.Exception as ExceptionToken;
+        context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+        context.Result = new ObjectResult(new ExceptionResponse(exception!.ErrorMessages!));
     }
 }

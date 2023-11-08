@@ -2,8 +2,10 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RecipeBook.Domain.Repositories;
+using RecipeBook.Domain.SendGrid;
 using RecipeBook.Infrastructure.Contexts;
 using RecipeBook.Infrastructure.Repositories;
+using RecipeBook.Infrastructure.SendGrid;
 
 
 namespace RecipeBook.Infrastructure;
@@ -14,16 +16,20 @@ public static class InfrastructureInjection
     {
         services
             .AddDatabase(configuration)
-            .AddRepositories();
+            .AddRepositories()
+            .AddSendGrid();
 
         return services;
     }
 
     private static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<AppDbContext>(options =>
+        services.AddDbContext<AppDbContext>(opt =>
         {
-            options.UseMySql(configuration["MySQL:ConnectionString"], new MySqlServerVersion(new Version(8, 0, 25)));
+            opt.UseMySql(
+                configuration["MySQL:ConnectionString"],
+                new MySqlServerVersion(new Version(8, 0, 25)),
+                options => options.EnableRetryOnFailure());
         });
 
         return services;
@@ -32,6 +38,13 @@ public static class InfrastructureInjection
     private static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<IAccountRepository, AccountRepositoryImp>();
+
+        return services;
+    }
+
+    private static IServiceCollection AddSendGrid(this IServiceCollection services)
+    {
+        services.AddScoped<ISendGrid, SendGridImp>();
 
         return services;
     }
