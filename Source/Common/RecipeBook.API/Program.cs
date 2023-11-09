@@ -21,13 +21,14 @@ builder
     .AddInfrastructure(configuration);
 
 builder.Services.AddRouting(opt => opt.LowercaseUrls = true);
-builder.Services.AddCors(opt => opt.AddDefaultPolicy(cors =>
+builder.Services.AddCors(options =>
 {
-    cors
-        .AllowAnyOrigin()
-        .AllowAnyMethod()
-        .AllowAnyHeader();
-}));
+    options.AddPolicy("*",
+        b => b
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+});
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(option =>
@@ -56,18 +57,19 @@ builder.Services.AddSwaggerGen(option =>
         }
     });
 });
-
+builder.Services.AddHttpsRedirection(options =>
+{
+    options.HttpsPort = 443;
+});
 builder.Services.AddMvc(opt => opt.Filters.Add(typeof(ExceptionFilter)));
+builder.Services.AddControllers(opt => opt.Filters.Add(typeof(ExceptionFilter)));
 builder.Services.AddApplicationInsightsTelemetry();
-
-
 builder.Services.AddAuthentication(opt =>
     {
         opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
         opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
         opt.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
-    .AddJwtBearer(jwt =>
+    }).AddJwtBearer(jwt =>
     {
         jwt.SaveToken = true;
         jwt.RequireHttpsMetadata = false;
@@ -81,10 +83,7 @@ builder.Services.AddAuthentication(opt =>
             RequireExpirationTime = false
         };
     });
-
-builder.Services.AddDefaultIdentity<IdentityUser>(opt => opt.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<AppDbContext>();
-
+builder.Services.AddDefaultIdentity<IdentityUser>(opt => opt.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<AppDbContext>();
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
@@ -95,23 +94,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors();
-
-app.UseHttpsRedirection();
-
+app.UseRouting();
+app.UseCors("*");
 app.UseAuthentication();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
-
-return;
 
 void MigrateScrema()
 {
-    var connectionString = configuration?["MySQL:ConnectionString"]!;
+    var connectionString = configuration["MySQL:ConnectionString"]!;
 
     CreateTables.CreateTableAccountAsync(connectionString);
     CreateTables.CreateTableRecipeAsync(connectionString);

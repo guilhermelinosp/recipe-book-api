@@ -10,8 +10,8 @@ public class CreateTables
         using var mysqlconnection = new MySqlConnection(connectionString);
         mysqlconnection.Open();
         mysqlconnection.Execute(
-               $@"CREATE TABLE IF NOT EXISTS DB_Test.TB_Account (
-                      Id CHAR(36) NOT NULL,
+               @"CREATE TABLE IF NOT EXISTS DB_Test.TB_Account (
+                      AccountId CHAR(36) NOT NULL,
                       Name VARCHAR(255) NOT NULL,
                       Email VARCHAR(255) NOT NULL,
                       EmailConfirmed TINYINT(1) NOT NULL, 
@@ -20,7 +20,7 @@ public class CreateTables
                       Phone VARCHAR(100) NOT NULL,
                       CreatedAt DATETIME NOT NULL,
                       UpdatedAt DATETIME NOT NULL,
-                      PRIMARY KEY (Id));");
+                      PRIMARY KEY (AccountId));");
     }
 
     public static void CreateTableRecipeAsync(string connectionString)
@@ -29,13 +29,15 @@ public class CreateTables
         mysqlconnection.Open();
         mysqlconnection.Execute(
             $@"CREATE TABLE IF NOT EXISTS DB_Test.TB_Recipe (
-                  RecipeId CHAR(36) NOT NULL,
-                  Title VARCHAR(255) NOT NULL,
-                  Category INT NOT NULL,
-                  MethodPreparation VARCHAR(5000) NOT NULL,
-                  CreatedAt DATETIME NOT NULL,
-                  UpdatedAt DATETIME NOT NULL,
-                  PRIMARY KEY (RecipeId));");
+                    RecipeId CHAR(36) NOT NULL,
+                    Title VARCHAR(255) NOT NULL,
+                    Category INT NOT NULL,
+                    PreparationMode VARCHAR(5000) NOT NULL,
+                    CreatedAt DATETIME NOT NULL,
+                    UpdatedAt DATETIME NOT NULL,
+                    AccountId CHAR(36) NOT NULL,
+                    PRIMARY KEY (RecipeId),
+                    FOREIGN KEY (AccountId) REFERENCES DB_Test.TB_Account(AccountId));");
     }
 
     public static void CreateTableIngredientAsync(string connectionString)
@@ -46,7 +48,7 @@ public class CreateTables
             $@"CREATE TABLE IF NOT EXISTS DB_Test.TB_Ingredient (
                   IngredientId CHAR(36) NOT NULL,
                   Product VARCHAR(255) NOT NULL,
-                  Quantity INT NOT NULL,
+                  Quantity VARCHAR(255) NOT NULL,
                   CreatedAt DATETIME NOT NULL,
                   UpdatedAt DATETIME NOT NULL,
                   RecipeId CHAR(36) NOT NULL,

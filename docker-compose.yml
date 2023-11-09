@@ -8,29 +8,34 @@ services:
       dockerfile: Source/Common/RecipeBook.API/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
     ports:
-      - "80:80"
-      - "443:443"
+      - "8080:80"
     volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ~/.aspnet/https:/root/.aspnet/https:ro
+      - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
     depends_on:
       - database
     networks:
       - recipebook-network
-    restart: on-failure  # Only restart on failure, not always
+    restart: always
 
   database:
     image: mysql:latest
     environment:
       - MYSQL_ROOT_PASSWORD=bG9jYWxob3N0
-      - MYSQL_DATABASE=DB_RecipeBook
-    ports:
+      - MYSQL_DATABASE=DB_Test
+    ports:  
       - "3306:3306"
     networks:
       - recipebook-network
-    restart: always  # Always restart the database container
+    volumes:
+      - db-data:/var/lib/mysql
+    restart: always
 
 networks:
   recipebook-network:
-    driver: bridge  # Use the bridge network driver
+    driver: bridge
+
+volumes:
+  db-data:

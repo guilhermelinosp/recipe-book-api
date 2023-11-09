@@ -1,10 +1,10 @@
-﻿using RecipeBook.Domain.Dtos.Requests;
-using RecipeBook.Domain.Dtos.Responses;
+﻿using RecipeBook.Domain.Dtos.Requests.Account;
+using RecipeBook.Domain.Dtos.Responses.Account;
 
 namespace RecipeBook.Application.UseCases.Accounts.SignIn;
 
 public interface ISignInUseCase
 {
-    Task<AuthResponse> SignInAsync(SignInRequest request);
+    Task<SignInResponse> SignInAsync(SignInRequest request);
 
 }

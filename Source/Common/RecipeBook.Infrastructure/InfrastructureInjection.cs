@@ -28,7 +28,7 @@ public static class InfrastructureInjection
         {
             opt.UseMySql(
                 configuration["MySQL:ConnectionString"],
-                new MySqlServerVersion(new Version(8, 0, 25)),
+                new MySqlServerVersion(new Version(8, 2, 0)),
                 options => options.EnableRetryOnFailure());
         });
 
@@ -38,7 +38,6 @@ public static class InfrastructureInjection
     private static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<IAccountRepository, AccountRepositoryImp>();
-        services.AddScoped<IIngredientRepository, IngredientRepositoryImp>();
         services.AddScoped<IRecipeRepository, RecipeRepositoryImp>();
 
         return services;

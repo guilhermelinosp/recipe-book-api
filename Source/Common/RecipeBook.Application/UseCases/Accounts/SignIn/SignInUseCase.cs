@@ -2,8 +2,8 @@
 using Microsoft.Extensions.Configuration;
 using RecipeBook.Application.Services.Cryptography;
 using RecipeBook.Application.Services.Tokenization;
-using RecipeBook.Domain.Dtos.Requests;
-using RecipeBook.Domain.Dtos.Responses;
+using RecipeBook.Domain.Dtos.Requests.Account;
+using RecipeBook.Domain.Dtos.Responses.Account;
 using RecipeBook.Domain.Repositories;
 using RecipeBook.Exceptions;
 using RecipeBook.Exceptions.Exceptions;
@@ -25,7 +25,7 @@ public class SignInUseCase : ISignInUseCase
         _configuration = configuration;
     }
 
-    public async Task<AuthResponse> SignInAsync(SignInRequest input)
+    public async Task<SignInResponse> SignInAsync(SignInRequest input)
     {
         var validator = new SignInValidator();
 
@@ -42,11 +42,11 @@ public class SignInUseCase : ISignInUseCase
             if (!account.EmailConfirmed)
                 throw new ExceptionSignIn(new List<string> { ErrorMessages.EMAIL_NAO_CONFIRMADO });
 
-            return new AuthResponse
+            return new SignInResponse
             {
                 Token = _token.GenerateToken(new IdentityUser
                 {
-                    Id = account.Id.ToString(),
+                    Id = account.AccountId.ToString(),
                     PhoneNumber = account.Phone,
                     Email = account.Email,
                 }),

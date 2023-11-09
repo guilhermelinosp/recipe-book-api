@@ -1,4 +1,4 @@
-﻿using RecipeBook.Domain.Dtos.Requests;
+﻿using RecipeBook.Domain.Dtos.Requests.Account;
 
 namespace RecipeBook.Application.UseCases.Accounts.ForgotPassword;
 

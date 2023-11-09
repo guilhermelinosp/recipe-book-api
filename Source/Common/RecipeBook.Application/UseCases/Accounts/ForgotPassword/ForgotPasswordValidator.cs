@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using RecipeBook.Domain.Dtos.Requests;
+using RecipeBook.Domain.Dtos.Requests.Account;
 using RecipeBook.Exceptions;
 
 namespace RecipeBook.Application.UseCases.Accounts.ForgotPassword;

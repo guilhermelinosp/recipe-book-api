@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RecipeBook.Application.UseCases.Accounts.EmailConfirmation;
 using RecipeBook.Application.UseCases.Accounts.ForgotPassword;
-using RecipeBook.Application.UseCases.Accounts.ForgotPassword.ResetPassword;
+using RecipeBook.Application.UseCases.Accounts.ResetPassword;
 using RecipeBook.Application.UseCases.Accounts.SignIn;
 using RecipeBook.Application.UseCases.Accounts.SignUp;
-using RecipeBook.Application.UseCases.Accounts.SignUp.EmailConfirmation;
-using RecipeBook.Domain.Dtos.Requests;
+using RecipeBook.Domain.Dtos.Requests.Account;
+using RecipeBook.Domain.Dtos.Responses.Account;
 
 namespace RecipeBook.API.Controllers;
 
@@ -29,6 +30,8 @@ public class AccountController : ControllerBase
     }
 
     [AllowAnonymous]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpPost("signup")]
     public async Task<IActionResult> SignUp([FromBody] SignUpRequest request)
     {
@@ -37,6 +40,8 @@ public class AccountController : ControllerBase
     }
 
     [AllowAnonymous]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpPost("email-confirmation")]
     public async Task<IActionResult> EmailConfirmation([FromBody] EmailConfirmationRequest request)
     {
@@ -45,6 +50,8 @@ public class AccountController : ControllerBase
     }
 
     [AllowAnonymous]
+    [ProducesResponseType(typeof(SignInResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpPost("signin")]
     public async Task<IActionResult> SignIn([FromBody] SignInRequest request)
     {
@@ -52,15 +59,9 @@ public class AccountController : ControllerBase
         return Ok(response);
     }
 
-    //[AllowAnonymous]
-    //[HttpPost("refresh")]
-    //public async Task<IActionResult> Refresh([FromBody] RefreshTokenRequest request)
-    //{
-    //    var response = await _refreshToken.RefreshTokenAsync(request);
-    //    return Ok(response);
-    //}
-
     [AllowAnonymous]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpPost("forgot-password")]
     public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest request)
     {
@@ -69,6 +70,8 @@ public class AccountController : ControllerBase
     }
 
     [AllowAnonymous]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [HttpPost("reset-password")]
     public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
     {

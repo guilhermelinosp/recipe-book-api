@@ -22,7 +22,7 @@ public class AccountRepositoryImp : IAccountRepository
 
     public async Task<Account?> GetByIdAsync(Guid id)
     {
-        return await _context.Accounts!.AsNoTracking().FirstOrDefaultAsync(u => u.Id == id)!;
+        return await _context.Accounts!.AsNoTracking().FirstOrDefaultAsync(u => u.AccountId == id)!;
     }
 
     public async Task<Account?> GetByEmailAsync(string email)
@@ -59,7 +59,7 @@ public class AccountRepositoryImp : IAccountRepository
         throw new NotImplementedException();
     }
 
-    public async Task SaveChangesAsync()
+    private async Task SaveChangesAsync()
     {
         await _context.SaveChangesAsync();
     }

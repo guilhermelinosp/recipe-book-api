@@ -1,5 +1,5 @@
 ﻿using RecipeBook.Application.Services.Cryptography;
-using RecipeBook.Domain.Dtos.Requests;
+using RecipeBook.Domain.Dtos.Requests.Account;
 using RecipeBook.Domain.Repositories;
 using RecipeBook.Domain.SendGrid;
 using RecipeBook.Exceptions;

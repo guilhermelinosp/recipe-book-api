@@ -1,9 +1,6 @@
-#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
 EXPOSE 80
-EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
@@ -16,6 +13,8 @@ RUN dotnet restore "Source/Common/RecipeBook.API/RecipeBook.API.csproj"
 COPY . .
 WORKDIR "/src/Source/Common/RecipeBook.API"
 RUN dotnet build "RecipeBook.API.csproj" -c Release -o /app/build
+RUN dotnet dev-certs https
+RUN dotnet dev-certs https --trust
 
 FROM build AS publish
 RUN dotnet publish "RecipeBook.API.csproj" -c Release -o /app/publish /p:UseAppHost=false

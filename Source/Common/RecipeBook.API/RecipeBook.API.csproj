@@ -1,20 +1,20 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <UserSecretsId>43bbb3cf-d0ba-490d-af22-f08817e39c77</UserSecretsId>
+        <UserSecretsId>615e1ec3-c219-42ec-a852-d8d07972bddd</UserSecretsId>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
         <DockerfileContext>..\..\..</DockerfileContext>
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
         <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.13" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.13" />
-        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="7.0.13" />
     </ItemGroup>
 
@@ -25,6 +25,11 @@
     </ItemGroup>
 
     <ItemGroup>
-        <EditorConfigFiles Remove="C:\Users\guilh\OneDrive\Desktop\recipe-book-api\Source\Common\RecipeBook.API\.editorconfig" />
+        <EditorConfigFiles Remove="C:\Users\guilhermelinosp\OneDrive\Documents\Repos\recipe-book-api\Source\Common\RecipeBook.API\.editorconfig" />
     </ItemGroup>
+
+    <ItemGroup>
+        <None Include="C:\Users\guilhermelinosp\OneDrive\Documents\Repos\recipe-book-api\Source\Common\RecipeBook.API\.editorconfig" />
+    </ItemGroup>
+
 </Project>
