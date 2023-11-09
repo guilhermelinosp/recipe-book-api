@@ -2,11 +2,10 @@
 
 public class Ingredient
 {
-    public Guid IngredientId { get; set; }
-    public string Product { get; set; }
+    public Guid IngredientId { get; set; } = Guid.NewGuid();
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+    public string? Product { get; set; }
     public int Quantity { get; set; }
-    public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set; }
     public Guid RecipeId { get; set; }
-    public Recipe Recipe { get; set; }
 }

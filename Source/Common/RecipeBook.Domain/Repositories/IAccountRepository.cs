@@ -12,5 +12,4 @@ public interface IAccountRepository
     Task UpdateAsync(Account account);
     Task DeleteAsync(Guid id);
     Task CreateAsync(Account account);
-    Task SaveChangesAsync();
 }

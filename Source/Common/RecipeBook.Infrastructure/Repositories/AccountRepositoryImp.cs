@@ -59,7 +59,7 @@ public class AccountRepositoryImp : IAccountRepository
         throw new NotImplementedException();
     }
 
-    public async Task SaveChangesAsync()
+    private async Task SaveChangesAsync()
     {
         await _context.SaveChangesAsync();
     }
