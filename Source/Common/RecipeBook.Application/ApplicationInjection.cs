@@ -9,7 +9,7 @@ using RecipeBook.Application.UseCases.Accounts.ResetPassword;
 using RecipeBook.Application.UseCases.Accounts.SignIn;
 using RecipeBook.Application.UseCases.Accounts.SignUp;
 using RecipeBook.Application.UseCases.Recipes.CreateRecipe;
-using RecipeBook.Application.UseCases.Recipes.ReadRecipe;
+using RecipeBook.Application.UseCases.Recipes.FindRecipe;
 
 namespace RecipeBook.Application;
 

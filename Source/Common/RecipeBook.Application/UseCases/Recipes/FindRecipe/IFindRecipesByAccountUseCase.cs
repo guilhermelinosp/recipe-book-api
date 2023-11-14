@@ -1,7 +1,7 @@
 ﻿using RecipeBook.Domain.Dtos.Requests.Recipes;
 using RecipeBook.Domain.Dtos.Responses.Recipes;
 
-namespace RecipeBook.Application.UseCases.Recipes.ReadRecipe;
+namespace RecipeBook.Application.UseCases.Recipes.FindRecipe;
 
 public interface IFindRecipesByAccountUseCase
 {

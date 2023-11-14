@@ -7,7 +7,7 @@ using RecipeBook.Domain.Repositories;
 using System.Globalization;
 using System.Text;
 
-namespace RecipeBook.Application.UseCases.Recipes.ReadRecipe;
+namespace RecipeBook.Application.UseCases.Recipes.FindRecipe;
 
 public class FindRecipesByAccountUseCase : IFindRecipesByAccountUseCase
 {

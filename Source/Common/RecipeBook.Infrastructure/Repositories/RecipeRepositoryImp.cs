@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using RecipeBook.Domain.Entities;
-=======
-﻿using RecipeBook.Domain.Entities;
->>>>>>> 5e0ad8c7692647508c252071f6c986e6f55a96d0
 using RecipeBook.Domain.Repositories;
 using RecipeBook.Infrastructure.Contexts;
 
@@ -23,7 +19,6 @@ public class RecipeRepositoryImp : IRecipeRepository
         throw new NotImplementedException();
     }
 
-<<<<<<< HEAD
     public async Task<IEnumerable<Recipe>> FindRecipesByAccountIdAsync(Guid id)
     {
         return await _context.Recipes!
@@ -31,13 +26,7 @@ public class RecipeRepositoryImp : IRecipeRepository
             .Include(r => r.Ingredients)
             .Where(r => r.AccountId == id)
             .ToListAsync();
-=======
-    public Task<IEnumerable<Recipe>> GetRecipesAsync()
-    {
-        throw new NotImplementedException();
->>>>>>> 5e0ad8c7692647508c252071f6c986e6f55a96d0
     }
-
     public async Task CreateRecipeAsync(Recipe recipe)
     {
         await _context.Recipes!.AddAsync(recipe);

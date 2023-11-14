@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RecipeBook.Application.UseCases.Recipes.CreateRecipe;
-using RecipeBook.Application.UseCases.Recipes.ReadRecipe;
+using RecipeBook.Application.UseCases.Recipes.FindRecipe;
 using RecipeBook.Domain.Dtos.Requests.Recipes;
 using RecipeBook.Domain.Dtos.Responses.Recipes;
 

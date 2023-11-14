@@ -17,7 +17,6 @@ internal class AppAutoMapper : Profile
         CreateMap<CreateRecipeRequest, Recipe>();
         CreateMap<IngredientRequest, Ingredient>();
 
-
         CreateMap<Recipe, RecipeResponse>();
         CreateMap<Ingredient, IngredientResponse>();
         CreateMap<Account, AccountResponse>();
