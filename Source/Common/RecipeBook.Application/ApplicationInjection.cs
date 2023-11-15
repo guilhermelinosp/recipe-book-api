@@ -10,6 +10,7 @@ using RecipeBook.Application.UseCases.Accounts.SignIn;
 using RecipeBook.Application.UseCases.Accounts.SignUp;
 using RecipeBook.Application.UseCases.Recipes.CreateRecipe;
 using RecipeBook.Application.UseCases.Recipes.FindRecipe;
+using RecipeBook.Application.UseCases.Recipes.FindRecipeByRecipeId;
 
 namespace RecipeBook.Application;
 
@@ -34,13 +35,13 @@ public static class ApplicationInjection
         services.AddScoped<IEmailConfirmation, EmailConfirmation>();
 
         services.AddScoped<ICreateRecipeUseCase, CreateRecipeUseCase>();
-
-        services.AddScoped<IFindRecipesByAccountUseCase, FindRecipesByAccountUseCase>();
+        services.AddScoped<IFindRecipesUseCase, FindRecipesUseCase>();
+        services.AddScoped<IFindRecipeByRecipeIdUseCase, FindRecipeByRecipeIdUseCase>();
 
         return services;
     }
 
-    private static IServiceCollection AddMapper(this IServiceCollection services)
+    private static void AddMapper(this IServiceCollection services)
     {
         var mapperConfig = new MapperConfiguration(cfg =>
         {
@@ -49,8 +50,6 @@ public static class ApplicationInjection
 
         var mapper = mapperConfig.CreateMapper();
         services.AddSingleton(mapper);
-
-        return services;
     }
 
     private static IServiceCollection AddCryptography(this IServiceCollection services)

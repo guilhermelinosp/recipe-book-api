@@ -4,15 +4,16 @@
 		<TargetFramework>net7.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<OutputType>Library</OutputType>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Bogus" Version="34.0.2" />
+		<PackageReference Include="Bogus" Version="34.0.2" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\Source\Common\RecipeBook.Application\RecipeBook.Application.csproj" />
-	  <ProjectReference Include="..\..\Source\Common\RecipeBook.Domain\RecipeBook.Domain.csproj" />
+		<ProjectReference Include="..\..\Source\Common\RecipeBook.Application\RecipeBook.Application.csproj" />
+		<ProjectReference Include="..\..\Source\Common\RecipeBook.Domain\RecipeBook.Domain.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -1,5 +1,4 @@
-﻿using RecipeBook.Domain.Enum;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RecipeBook.Domain.Entities;
@@ -11,8 +10,9 @@ public class Recipe
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
     public string Title { get; set; }
-    public Category Category { get; set; }
+    public int Category { get; set; }
     public string PreparationMode { get; set; }
+    public int PreparationTime { get; set; }
     public ICollection<Ingredient> Ingredients { get; set; }
     public Guid AccountId { get; set; }
 }

@@ -10,10 +10,10 @@ public class EmailConfirmationValidator : AbstractValidator<EmailConfirmationReq
     {
         RuleFor(c => c.Code)
             .NotEmpty()
-            .WithMessage(ErrorMessages.CODIGO_INVALIDO)
+            .WithMessage(ErrorMessages.EMAIL_USUARIO_CODIGO_INVALIDO)
             .MinimumLength(6)
-            .WithMessage(ErrorMessages.CODIGO_INVALIDO)
+            .WithMessage(ErrorMessages.EMAIL_USUARIO_CODIGO_INVALIDO)
             .MaximumLength(6)
-            .WithMessage(ErrorMessages.CODIGO_INVALIDO);
+            .WithMessage(ErrorMessages.EMAIL_USUARIO_CODIGO_INVALIDO);
     }
 }

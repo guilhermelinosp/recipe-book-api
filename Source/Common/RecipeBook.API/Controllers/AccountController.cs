@@ -7,6 +7,7 @@ using RecipeBook.Application.UseCases.Accounts.SignIn;
 using RecipeBook.Application.UseCases.Accounts.SignUp;
 using RecipeBook.Domain.Dtos.Requests.Account;
 using RecipeBook.Domain.Dtos.Responses.Account;
+using RecipeBook.Domain.Dtos.Responses.Exceptions;
 
 namespace RecipeBook.API.Controllers;
 
@@ -31,7 +32,8 @@ public class AccountController : ControllerBase
 
     [AllowAnonymous]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status400BadRequest)]
+    [Produces("application/json")]
     [HttpPost("signup")]
     public async Task<IActionResult> SignUp([FromBody] SignUpRequest request)
     {
@@ -41,7 +43,7 @@ public class AccountController : ControllerBase
 
     [AllowAnonymous]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status400BadRequest)]
     [HttpPost("email-confirmation")]
     public async Task<IActionResult> EmailConfirmation([FromBody] EmailConfirmationRequest request)
     {
@@ -51,7 +53,8 @@ public class AccountController : ControllerBase
 
     [AllowAnonymous]
     [ProducesResponseType(typeof(SignInResponse), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status400BadRequest)]
+    [Produces("application/json")]
     [HttpPost("signin")]
     public async Task<IActionResult> SignIn([FromBody] SignInRequest request)
     {
@@ -61,7 +64,8 @@ public class AccountController : ControllerBase
 
     [AllowAnonymous]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status400BadRequest)]
+    [Produces("application/json")]
     [HttpPost("forgot-password")]
     public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest request)
     {
@@ -71,7 +75,8 @@ public class AccountController : ControllerBase
 
     [AllowAnonymous]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status400BadRequest)]
+    [Produces("application/json")]
     [HttpPost("reset-password")]
     public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
     {

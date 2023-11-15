@@ -21,7 +21,7 @@ public class SignUpUnitTest
 
         result.IsValid.Should().BeFalse();
 
-        result.Errors.Should().Contain(er => er.ErrorMessage.Equals(ErrorMessages.NOME_USUARIO_EMBRANCO));
+        result.Errors.Should().Contain(er => er.ErrorMessage.Equals(ErrorMessages.NOME_USUARIO_NAO_INFORMADO));
     }
 
 
@@ -38,7 +38,7 @@ public class SignUpUnitTest
 
         result.IsValid.Should().BeFalse();
 
-        result.Errors.Should().Contain(er => er.ErrorMessage.Equals(ErrorMessages.EMAIL_USUARIO_EMBRANCO));
+        result.Errors.Should().Contain(er => er.ErrorMessage.Equals(ErrorMessages.EMAIL_USUARIO_NAO_INFORMADO));
     }
 
     [Fact]
@@ -54,7 +54,7 @@ public class SignUpUnitTest
 
         result.IsValid.Should().BeFalse();
 
-        result.Errors.Should().Contain(er => er.ErrorMessage.Equals(ErrorMessages.TELEFONE_USUARIO_EMBRANCO));
+        result.Errors.Should().Contain(er => er.ErrorMessage.Equals(ErrorMessages.TELEFONE_USUARIO_NAO_INFORMADO));
     }
 
     [Fact]
@@ -70,7 +70,7 @@ public class SignUpUnitTest
 
         result.IsValid.Should().BeFalse();
 
-        result.Errors.Should().Contain(er => er.ErrorMessage.Equals(ErrorMessages.SENHA_USUARIO_EMBRANCO));
+        result.Errors.Should().Contain(er => er.ErrorMessage.Equals(ErrorMessages.SENHA_USUARIO_NAO_INFORMADO));
     }
 
     [Fact]

@@ -1,11 +1,9 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using RecipeBook.API.Filters;
 using RecipeBook.Application;
 using RecipeBook.Infrastructure;
-using RecipeBook.Infrastructure.Contexts;
 using RecipeBook.Infrastructure.Migrations;
 using System.Text;
 
@@ -13,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var configuration = builder.Configuration;
 
-MigrateScrema();
+Migratations();
 
 builder
     .Services
@@ -21,20 +19,18 @@ builder
     .AddInfrastructure(configuration);
 
 builder.Services.AddRouting(opt => opt.LowercaseUrls = true);
-builder.Services.AddCors(options =>
+builder.Services.AddCors(opt =>
 {
-    options.AddPolicy("*",
+    opt.AddPolicy("*",
         b => b
-            .AllowAnyOrigin()
-            .AllowAnyMethod()
-            .AllowAnyHeader());
+            .AllowAnyOrigin());
 });
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(option =>
+builder.Services.AddSwaggerGen(opt =>
 {
-    option.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "1.0" });
-    option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    opt.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "1.0" });
+    opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
         Type = SecuritySchemeType.Http,
@@ -42,7 +38,7 @@ builder.Services.AddSwaggerGen(option =>
         In = ParameterLocation.Header,
         Description = "Enter 'Bearer' [space] and your token!",
     });
-    option.AddSecurityRequirement(new OpenApiSecurityRequirement
+    opt.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         {
             new OpenApiSecurityScheme
@@ -57,10 +53,7 @@ builder.Services.AddSwaggerGen(option =>
         }
     });
 });
-builder.Services.AddHttpsRedirection(options =>
-{
-    options.HttpsPort = 443;
-});
+builder.Services.AddHttpsRedirection(opt => opt.HttpsPort = 443);
 builder.Services.AddMvc(opt => opt.Filters.Add(typeof(ExceptionFilter)));
 builder.Services.AddControllers(opt => opt.Filters.Add(typeof(ExceptionFilter)));
 builder.Services.AddApplicationInsightsTelemetry();
@@ -83,7 +76,6 @@ builder.Services.AddAuthentication(opt =>
             RequireExpirationTime = false
         };
     });
-builder.Services.AddDefaultIdentity<IdentityUser>(opt => opt.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<AppDbContext>();
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
@@ -101,11 +93,9 @@ app.UseAuthorization();
 app.MapControllers();
 app.Run();
 
-void MigrateScrema()
+void Migratations()
 {
-    var connectionString = configuration["MySQL:ConnectionString"]!;
-
-    CreateTables.CreateTableAccountAsync(connectionString);
-    CreateTables.CreateTableRecipeAsync(connectionString);
-    CreateTables.CreateTableIngredientAsync(connectionString);
+    CreateTables.CreateTableAccountAsync(configuration["MySQL:ConnectionString"]!);
+    CreateTables.CreateTableRecipeAsync(configuration["MySQL:ConnectionString"]!);
+    CreateTables.CreateTableIngredientAsync(configuration["MySQL:ConnectionString"]!);
 }

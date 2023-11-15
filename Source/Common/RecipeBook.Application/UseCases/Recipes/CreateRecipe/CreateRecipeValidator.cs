@@ -8,15 +8,37 @@ public class CreateRecipeValidator : AbstractValidator<CreateRecipeRequest>
 {
     public CreateRecipeValidator()
     {
-        RuleFor(x => x.Title).NotEmpty();
-        RuleFor(x => x.Category).IsInEnum().WithMessage(ErrorMessages.CATEGORIA_RECEITA_INVALIDA);
-        RuleFor(x => x.PreparationMode).NotEmpty();
-        RuleFor(x => x.Ingredients).NotEmpty();
+        RuleFor(x => x.Title)
+            .NotEmpty()
+            .WithMessage(ErrorMessages.RECEITA_TITULO_NAO_INFORMADO);
+
+        RuleFor(x => x.Category)
+            .NotEmpty()
+            .WithMessage(ErrorMessages.RECEITA_CATEGORIA_NAO_INFORMADO)
+            .IsInEnum()
+            .WithMessage(ErrorMessages.RECEITA_CATEGORIA_INVALIDO);
+
+        RuleFor(x => x.PreparationMode)
+            .NotEmpty()
+            .WithMessage(ErrorMessages.RECEITA_MODOPREPARO_RECEITA_NAO_INFORMADO);
+
+        RuleFor(x => x.PreparationTime)
+            .NotEmpty()
+            .WithMessage(ErrorMessages.RECEITA_TEMPOPREPARO_NAO_INFORMADO);
+
+        RuleFor(x => x.Ingredients)
+            .NotEmpty()
+            .WithMessage(ErrorMessages.RECEITA_INGREDIENTE_NAO_INFORMADO);
+
         RuleForEach(x => x.Ingredients)
             .ChildRules(i =>
             {
-                i.RuleFor(x => x.Product).NotEmpty();
-                i.RuleFor(x => x.Quantity).NotEmpty();
+                i.RuleFor(x => x.Product)
+                    .NotEmpty()
+                    .WithMessage(ErrorMessages.INGREDIENTE_PRODUTO_NAO_INFORMADO);
+                i.RuleFor(x => x.Quantity)
+                    .NotEmpty()
+                    .WithMessage(ErrorMessages.INGREDIENTE_QUANTIDADE_NAO_INFORMADA);
             });
 
     }

@@ -1,5 +1,4 @@
-﻿#nullable enable
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using RecipeBook.Domain.Entities;
 using RecipeBook.Domain.Repositories;
 using RecipeBook.Infrastructure.Contexts;
@@ -22,7 +21,7 @@ public class AccountRepositoryImp : IAccountRepository
 
     public async Task<Account?> GetByIdAsync(Guid id)
     {
-        return await _context.Accounts!.AsNoTracking().FirstOrDefaultAsync(u => u.AccountId == id)!;
+        return await _context.Accounts!.AsNoTracking().FirstOrDefaultAsync(u => u.AccountId == id);
     }
 
     public async Task<Account?> GetByEmailAsync(string email)
@@ -32,12 +31,12 @@ public class AccountRepositoryImp : IAccountRepository
 
     public async Task<Account?> GetByPhoneAsync(string phone)
     {
-        return await _context.Accounts!.AsNoTracking().FirstOrDefaultAsync(u => u.Phone == phone)!;
+        return await _context.Accounts!.AsNoTracking().FirstOrDefaultAsync(u => u.Phone == phone);
     }
 
     public async Task<Account?> GetByCodeAsync(string code)
     {
-        return await _context.Accounts!.AsNoTracking().FirstOrDefaultAsync(u => u.Code == code)!;
+        return await _context.Accounts!.AsNoTracking().FirstOrDefaultAsync(u => u.Code == code);
     }
 
     public async Task CreateAsync(Account account)

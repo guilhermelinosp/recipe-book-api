@@ -15,17 +15,9 @@ public class EncryptService : IEncryptService
 
     public string EncryptPassword(string password)
     {
-        try
-        {
-            var sha512 = SHA512.Create();
-            var bytes = Encoding.UTF8.GetBytes($"{password}{_configuration["EncryptKey"]}");
-            var hash = sha512.ComputeHash(bytes);
-            return GetStringFromHash(hash);
-        }
-        catch (Exception ex)
-        {
-            throw new Exception(ex.Message);
-        }
+        var bytes = Encoding.UTF8.GetBytes($"{password}{_configuration["EncryptKey"]}");
+        var hash = SHA512.HashData(bytes);
+        return GetStringFromHash(hash);
     }
 
     public string GenerateCode()
@@ -33,17 +25,10 @@ public class EncryptService : IEncryptService
         return Guid.NewGuid().ToString("N").Substring(0, 6);
     }
 
-    private static string GetStringFromHash(byte[] hash)
+    private static string GetStringFromHash(IEnumerable<byte> hash)
     {
-        try
-        {
             var result = new StringBuilder();
             foreach (var b in hash) result.Append(b.ToString("X2"));
             return result.ToString();
-        }
-        catch (Exception ex)
-        {
-            throw new Exception(ex.Message);
-        }
     }
 }

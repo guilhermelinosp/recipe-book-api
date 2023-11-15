@@ -22,10 +22,10 @@ public class ResetPasswordUseCase : IResetPasswordUseCase
         var validator = new ResetPasswordValidator();
 
         var validationResult = await validator.ValidateAsync(request);
-        if (!validationResult.IsValid) throw new ExceptionValidator(validationResult.Errors.Select(er => er.ErrorMessage).ToList());
+        if (!validationResult.IsValid) throw new ValidatorException(validationResult.Errors.Select(er => er.ErrorMessage).ToList());
 
         var account = await _repository.GetByCodeAsync(request.Code!);
-        if (account is null) throw new ExceptionResetPassword(new List<string> { ErrorMessages.CODIGO_INVALIDO });
+        if (account is null) throw new AccountResetPasswordException(new List<string> { ErrorMessages.EMAIL_USUARIO_CODIGO_INVALIDO });
         account.Password = _encrypt.EncryptPassword(request.Password!);
 
         account.Code = string.Empty;

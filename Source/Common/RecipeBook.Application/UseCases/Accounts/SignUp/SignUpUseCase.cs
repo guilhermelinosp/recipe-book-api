@@ -27,15 +27,15 @@ public class SignUpUseCase : ISignUpUseCase
 
         var validationResult = await validator.ValidateAsync(request);
         if (!validationResult.IsValid)
-            throw new ExceptionValidator(validationResult.Errors.Select(er => er.ErrorMessage).ToList());
+            throw new ValidatorException(validationResult.Errors.Select(er => er.ErrorMessage).ToList());
 
         var validateEmail = await _repository.GetByEmailAsync(request.Email!);
         if (validateEmail is not null)
-            throw new ExceptionSignUp(new List<string> { ErrorMessages.EMAIL_JA_REGISTRADO });
+            throw new AccountSignUpException(new List<string> { ErrorMessages.EMAIL_USUARIO_JA_REGISTRADO });
 
         var validatePhone = await _repository.GetByPhoneAsync(request.Phone!);
         if (validatePhone is not null)
-            throw new ExceptionSignUp(new List<string> { ErrorMessages.TELEFONE_JA_REGISTRADO });
+            throw new AccountSignUpException(new List<string> { ErrorMessages.TELEFONE_USUARIO_JA_REGISTRADO });
 
         var emailConfirmationCode = _encrypt.GenerateCode();
 

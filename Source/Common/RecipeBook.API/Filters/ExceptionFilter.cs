@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using RecipeBook.Domain.Dtos.Responses.Exceptions;
 using RecipeBook.Exceptions;
 using RecipeBook.Exceptions.Exceptions;
 using System.Net;
@@ -10,7 +11,7 @@ public class ExceptionFilter : IExceptionFilter
 {
     public void OnException(ExceptionContext context)
     {
-        if (context.Exception is ExceptionBase)
+        if (context.Exception is BaseException)
         {
             HandleException(context);
         }
@@ -24,16 +25,16 @@ public class ExceptionFilter : IExceptionFilter
     {
         switch (context.Exception)
         {
-            case ExceptionValidator:
+            case ValidatorException:
                 HandleValidationException(context);
                 break;
-            case ExceptionSignUp:
+            case AccountSignUpException:
                 HandleSignUpException(context);
                 break;
-            case ExceptionSignIn:
+            case AccountSignInException:
                 HandleSignInException(context);
                 break;
-            case ExceptionToken:
+            case TokenException:
                 HandleTokenException(context);
                 break;
         }
@@ -41,14 +42,14 @@ public class ExceptionFilter : IExceptionFilter
 
     private static void HandleValidationException(ExceptionContext context)
     {
-        var exception = context.Exception as ExceptionValidator;
+        var exception = context.Exception as ValidatorException;
         context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
         context.Result = new ObjectResult(new ExceptionResponse(exception!.ErrorMessages!));
     }
 
     private static void HandleSignUpException(ExceptionContext context)
     {
-        var exception = context.Exception as ExceptionSignUp;
+        var exception = context.Exception as AccountSignUpException;
         context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
         context.Result = new ObjectResult(new ExceptionResponse(exception!.ErrorMessages!));
     }
@@ -61,14 +62,14 @@ public class ExceptionFilter : IExceptionFilter
     }
     private static void HandleSignInException(ExceptionContext context)
     {
-        var exception = context.Exception as ExceptionSignIn;
+        var exception = context.Exception as AccountSignInException;
         context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
         context.Result = new ObjectResult(new ExceptionResponse(exception!.ErrorMessages!));
     }
 
     private static void HandleTokenException(ExceptionContext context)
     {
-        var exception = context.Exception as ExceptionToken;
+        var exception = context.Exception as TokenException;
         context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
         context.Result = new ObjectResult(new ExceptionResponse(exception!.ErrorMessages!));
     }

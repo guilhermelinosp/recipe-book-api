@@ -5,22 +5,20 @@ using System.Text.RegularExpressions;
 
 namespace RecipeBook.Application.UseCases.Accounts.ResetPassword;
 
-public class ResetPasswordValidator : AbstractValidator<ResetPasswordRequest>
+public partial class ResetPasswordValidator : AbstractValidator<ResetPasswordRequest>
 {
     public ResetPasswordValidator()
     {
         RuleFor(c => c.Password)
             .NotEmpty()
-            .WithMessage(ErrorMessages.SENHA_USUARIO_EMBRANCO)
+            .WithMessage(ErrorMessages.SENHA_USUARIO_NAO_INFORMADO)
             .MinimumLength(8)
             .WithMessage(ErrorMessages.SENHA_USUARIO_MINIMO_OITO_CARACTERES)
             .MaximumLength(16)
             .WithMessage(ErrorMessages.SENHA_USUARIO_MAXIMO_DEZESSEIS_CARACTERES)
             .Custom((password, validator) =>
             {
-                const string passwordPattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,16}$";
-
-                if (!Regex.IsMatch(password, passwordPattern))
+                if (!MyRegex().IsMatch(password))
                 {
                     validator.AddFailure(new FluentValidation.Results.ValidationFailure(
                         nameof(ResetPasswordRequest.Password), ErrorMessages.SENHA_USUARIO_INVALIDA));
@@ -29,11 +27,13 @@ public class ResetPasswordValidator : AbstractValidator<ResetPasswordRequest>
 
         RuleFor(c => c.Code)
             .NotEmpty()
-            .WithMessage(ErrorMessages.CODIGO_INVALIDO)
+            .WithMessage(ErrorMessages.EMAIL_USUARIO_CODIGO_INVALIDO)
             .MinimumLength(6)
-            .WithMessage(ErrorMessages.CODIGO_INVALIDO)
+            .WithMessage(ErrorMessages.EMAIL_USUARIO_CODIGO_INVALIDO)
             .MaximumLength(6)
-            .WithMessage(ErrorMessages.CODIGO_INVALIDO);
+            .WithMessage(ErrorMessages.EMAIL_USUARIO_CODIGO_INVALIDO);
     }
 
+    [GeneratedRegex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,16}$")]
+    private static partial Regex MyRegex();
 }

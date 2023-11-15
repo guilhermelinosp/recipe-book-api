@@ -43,10 +43,8 @@ public static class InfrastructureInjection
         return services;
     }
 
-    private static IServiceCollection AddSendGrid(this IServiceCollection services)
+    private static void AddSendGrid(this IServiceCollection services)
     {
         services.AddScoped<ISendGrid, SendGridImp>();
-
-        return services;
     }
 }

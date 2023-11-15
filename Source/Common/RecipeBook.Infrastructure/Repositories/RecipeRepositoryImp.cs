@@ -14,19 +14,34 @@ public class RecipeRepositoryImp : IRecipeRepository
         _context = context;
     }
 
-    public Task<Recipe?> GetRecipeAsync(Guid id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task<IEnumerable<Recipe>> FindRecipesByAccountIdAsync(Guid id)
+    public async Task<Recipe?> FindRecipeByRecipeIdAsync(Guid recipeId, Guid accountId)
     {
         return await _context.Recipes!
             .AsNoTracking()
             .Include(r => r.Ingredients)
-            .Where(r => r.AccountId == id)
+            .Where(r => r.AccountId == accountId)
+            .FirstOrDefaultAsync(r => r.RecipeId == recipeId);
+    }
+
+    public async Task<IEnumerable<Recipe>?> FindRecipesByAccountIdAsync(Guid accountId)
+    {
+        return await _context.Recipes!
+            .AsNoTracking()
+            .Include(r => r.Ingredients)
+            .Where(r => r.AccountId == accountId)
             .ToListAsync();
     }
+
+    public async Task<IEnumerable<Recipe>> FindRecipesByTitleAsync(string title, Guid accountId)
+    {
+        return await _context.Recipes!
+            .AsNoTracking()
+            .Include(r => r.Ingredients)
+            .Where(r => r.AccountId == accountId)
+            .Where(r => r.Title == title)
+            .ToListAsync();
+    }
+
     public async Task CreateRecipeAsync(Recipe recipe)
     {
         await _context.Recipes!.AddAsync(recipe);

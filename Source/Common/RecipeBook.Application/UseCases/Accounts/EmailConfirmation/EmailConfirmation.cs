@@ -19,16 +19,16 @@ public class EmailConfirmation : IEmailConfirmation
         var validator = new EmailConfirmationValidator();
 
         var validationResult = await validator.ValidateAsync(request);
-        if (!validationResult.IsValid) throw new ExceptionValidator(validationResult.Errors.Select(er => er.ErrorMessage).ToList());
+        if (!validationResult.IsValid) throw new ValidatorException(validationResult.Errors.Select(er => er.ErrorMessage).ToList());
 
         var account = await _repository.GetByCodeAsync(request.Code!);
         if (account is not null)
         {
             if (account.EmailConfirmed)
-                throw new ExceptionSignUp(new List<string> { "The email has already been confirmed previously" });
+                throw new AccountSignUpException(new List<string> { "The email has already been confirmed previously" });
 
             if (account.Code != request.Code)
-                throw new ExceptionSignUp(new List<string> { ErrorMessages.CODIGO_INVALIDO });
+                throw new AccountSignUpException(new List<string> { ErrorMessages.EMAIL_USUARIO_CODIGO_INVALIDO });
 
             account.EmailConfirmed = true;
             account.Code = string.Empty;
@@ -37,7 +37,7 @@ public class EmailConfirmation : IEmailConfirmation
         }
         else
         {
-            throw new ExceptionSignUp(new List<string> { ErrorMessages.USUARIO_NAO_ENCONTRADO });
+            throw new AccountSignUpException(new List<string> { ErrorMessages.EMAIL_USUARIO_NAO_ENCONTRADO });
         }
     }
 }

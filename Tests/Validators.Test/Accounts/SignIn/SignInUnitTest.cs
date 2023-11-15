@@ -21,7 +21,7 @@ public class SignInUnitTest
 
         result.IsValid.Should().BeFalse();
 
-        result.Errors.Should().Contain(er => er.ErrorMessage.Equals(ErrorMessages.EMAIL_USUARIO_EMBRANCO));
+        result.Errors.Should().Contain(er => er.ErrorMessage.Equals(ErrorMessages.EMAIL_USUARIO_NAO_INFORMADO));
     }
 
     [Fact]
@@ -37,7 +37,7 @@ public class SignInUnitTest
 
         result.IsValid.Should().BeFalse();
 
-        result.Errors.Should().Contain(er => er.ErrorMessage.Equals(ErrorMessages.SENHA_USUARIO_EMBRANCO));
+        result.Errors.Should().Contain(er => er.ErrorMessage.Equals(ErrorMessages.SENHA_USUARIO_NAO_INFORMADO));
     }
 
     [Fact]

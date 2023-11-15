@@ -22,13 +22,12 @@ public class CreateRecipeUseCase : ICreateRecipeUseCase
 
     public async Task CreateRecipeAsync(string token, CreateRecipeRequest request)
     {
+        var accountId = _token.GetIdFromToken(token);
+
         var validator = new CreateRecipeValidator();
         var validationResult = await validator.ValidateAsync(request);
-        if (!validationResult.IsValid) throw new ExceptionValidator(validationResult.Errors.Select(er => er.ErrorMessage).ToList());
+        if (!validationResult.IsValid) throw new ValidatorException(validationResult.Errors.Select(er => er.ErrorMessage).ToList());
 
-        Console.WriteLine(request);
-
-        var accountId = _token.GetIdFromToken(token);
 
         var recipe = _mapper.Map<Recipe>(request);
 

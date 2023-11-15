@@ -27,12 +27,12 @@ public class ForgotPasswordUseCase : IForgotPasswordUseCase
         var validator = new ForgotPasswordValidator();
 
         var validationResult = await validator.ValidateAsync(request);
-        if (!validationResult.IsValid) throw new ExceptionValidator(validationResult.Errors.Select(er => er.ErrorMessage).ToList());
+        if (!validationResult.IsValid) throw new ValidatorException(validationResult.Errors.Select(er => er.ErrorMessage).ToList());
 
         var account = await _repository.GetByEmailAsync(request.Email!);
 
         if (account is null)
-            throw new ExceptionForgotPassword(new List<string> { ErrorMessages.USUARIO_NAO_ENCONTRADO });
+            throw new AccountForgotPasswordException(new List<string> { ErrorMessages.EMAIL_USUARIO_NAO_ENCONTRADO });
 
         var code = _encrypt.GenerateCode();
 

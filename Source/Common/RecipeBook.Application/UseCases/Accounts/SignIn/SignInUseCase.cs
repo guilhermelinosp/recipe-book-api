@@ -25,37 +25,31 @@ public class SignInUseCase : ISignInUseCase
         _configuration = configuration;
     }
 
-    public async Task<SignInResponse> SignInAsync(SignInRequest input)
+    public async Task<SignInResponse> SignInAsync(SignInRequest request)
     {
-        var validator = new SignInValidator();
+        var validator = await new SignInValidator().ValidateAsync(request);
+        if (!validator.IsValid)
+            throw new ValidatorException(validator.Errors.Select(er => er.ErrorMessage).ToList());
 
-        var validationResult = await validator.ValidateAsync(input);
-        if (!validationResult.IsValid)
-            throw new ExceptionValidator(validationResult.Errors.Select(er => er.ErrorMessage).ToList());
+        var account = await _repository.GetByEmailAsync(request.Email!);
+        if (account is null)
+            throw new AccountSignInException(new List<string> { ErrorMessages.EMAIL_USUARIO_NAO_ENCONTRADO });
+        if (account.Password != _encrypt.EncryptPassword(request.Password!))
+            throw new AccountSignInException(new List<string> { ErrorMessages.EMAIL_USUARIO_NAO_ENCONTRADO });
+        if (!account.EmailConfirmed)
+            throw new AccountSignInException(new List<string> { ErrorMessages.EMAIL_USUARIO_NAO_CONFIRMADO });
 
-        var account = await _repository.GetByEmailAsync(input.Email!);
-        if (account is not null)
+        return new SignInResponse
         {
-            if (account.Password != _encrypt.EncryptPassword(input.Password!))
-                throw new ExceptionSignIn(new List<string> { ErrorMessages.LOGIN_INVALIDO });
-
-            if (!account.EmailConfirmed)
-                throw new ExceptionSignIn(new List<string> { ErrorMessages.EMAIL_NAO_CONFIRMADO });
-
-            return new SignInResponse
+            Token = _token.GenerateToken(new IdentityUser
             {
-                Token = _token.GenerateToken(new IdentityUser
-                {
-                    Id = account.AccountId.ToString(),
-                    PhoneNumber = account.Phone,
-                    Email = account.Email,
-                }),
-                RefreshToken = _token.GenerateRefreshToken(),
-                ExpiryDate = DateTime.UtcNow.Add(TimeSpan.Parse(_configuration["Jwt:ExpiryTimeFrame"]!))
-            };
-        }
-
-        throw new ExceptionSignIn(new List<string> { ErrorMessages.USUARIO_NAO_ENCONTRADO });
+                Id = account.AccountId.ToString(),
+                PhoneNumber = account.Phone,
+                Email = account.Email,
+            }),
+            RefreshToken = _token.GenerateRefreshToken(),
+            ExpiryDate = DateTime.UtcNow.Add(TimeSpan.Parse(_configuration["Jwt:ExpiryTimeFrame"]!))
+        };
 
     }
 }
