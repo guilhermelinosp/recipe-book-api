@@ -9,8 +9,8 @@ namespace RecipeBook.Application.UseCases.Accounts.ForgotPassword;
 
 public class ForgotPasswordUseCase : IForgotPasswordUseCase
 {
-    private readonly IAccountRepository _repository;
     private readonly IEncryptService _encrypt;
+    private readonly IAccountRepository _repository;
     private readonly ISendGrid _sendGrid;
 
 
@@ -23,11 +23,11 @@ public class ForgotPasswordUseCase : IForgotPasswordUseCase
 
     public async Task ForgoPasswordAsync(ForgotPasswordRequest request)
     {
-
         var validator = new ForgotPasswordValidator();
 
         var validationResult = await validator.ValidateAsync(request);
-        if (!validationResult.IsValid) throw new ValidatorException(validationResult.Errors.Select(er => er.ErrorMessage).ToList());
+        if (!validationResult.IsValid)
+            throw new ValidatorException(validationResult.Errors.Select(er => er.ErrorMessage).ToList());
 
         var account = await _repository.GetByEmailAsync(request.Email!);
 

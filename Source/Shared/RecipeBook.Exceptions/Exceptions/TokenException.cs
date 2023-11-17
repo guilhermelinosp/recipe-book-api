@@ -5,8 +5,6 @@ namespace RecipeBook.Exceptions.Exceptions;
 [Serializable]
 public class TokenException : BaseException
 {
-    public List<string>? ErrorMessages { get; set; }
-
     public TokenException(List<string>? errorMessages) : base(string.Empty)
     {
         ErrorMessages = errorMessages;
@@ -16,4 +14,6 @@ public class TokenException : BaseException
     protected TokenException(SerializationInfo info, StreamingContext context) : base(info, context)
     {
     }
+
+    public List<string>? ErrorMessages { get; set; }
 }

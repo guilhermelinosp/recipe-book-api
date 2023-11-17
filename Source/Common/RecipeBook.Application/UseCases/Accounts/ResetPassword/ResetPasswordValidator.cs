@@ -1,7 +1,8 @@
-﻿using FluentValidation;
+﻿using System.Text.RegularExpressions;
+using FluentValidation;
+using FluentValidation.Results;
 using RecipeBook.Domain.Dtos.Requests.Account;
 using RecipeBook.Exceptions;
-using System.Text.RegularExpressions;
 
 namespace RecipeBook.Application.UseCases.Accounts.ResetPassword;
 
@@ -19,10 +20,8 @@ public partial class ResetPasswordValidator : AbstractValidator<ResetPasswordReq
             .Custom((password, validator) =>
             {
                 if (!MyRegex().IsMatch(password))
-                {
-                    validator.AddFailure(new FluentValidation.Results.ValidationFailure(
+                    validator.AddFailure(new ValidationFailure(
                         nameof(ResetPasswordRequest.Password), ErrorMessages.SENHA_USUARIO_INVALIDA));
-                }
             });
 
         RuleFor(c => c.Code)

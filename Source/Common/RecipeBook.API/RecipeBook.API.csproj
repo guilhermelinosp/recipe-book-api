@@ -1,37 +1,33 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-    <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
-        <Nullable>enable</Nullable>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <InvariantGlobalization>true</InvariantGlobalization>
-        <UserSecretsId>615e1ec3-c219-42ec-a852-d8d07972bddd</UserSecretsId>
-        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<InvariantGlobalization>true</InvariantGlobalization>
+		<UserSecretsId>615e1ec3-c219-42ec-a852-d8d07972bddd</UserSecretsId>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	</PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.14" />
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.14" />
-        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="[1.19.6-Preview.1, 1.19.6]" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
-        <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="8.0.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0" />
-        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.0.3" />
-    </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.14"/>
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.14"/>
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="[1.19.6-Preview.1, 1.19.6]"/>
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0"/>
+		<PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0"/>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="8.0.0"/>
+		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0"/>
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.0.3"/>
+	</ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\..\Shared\RecipeBook.Exceptions\RecipeBook.Exceptions.csproj" />
-        <ProjectReference Include="..\RecipeBook.Application\RecipeBook.Application.csproj" />
-        <ProjectReference Include="..\RecipeBook.Infrastructure\RecipeBook.Infrastructure.csproj" />
-    </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\Shared\RecipeBook.Exceptions\RecipeBook.Exceptions.csproj"/>
+		<ProjectReference Include="..\RecipeBook.Application\RecipeBook.Application.csproj"/>
+		<ProjectReference Include="..\RecipeBook.Infrastructure\RecipeBook.Infrastructure.csproj"/>
+	</ItemGroup>
 
-    <ItemGroup>
-        <EditorConfigFiles Remove="C:\Users\guilhermelinosp\OneDrive\Documents\Repos\recipe-book-api\Source\Common\RecipeBook.API\.editorconfig" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <None Include="C:\Users\guilhermelinosp\OneDrive\Documents\Repos\recipe-book-api\Source\Common\RecipeBook.API\.editorconfig" />
-    </ItemGroup>
+	<ItemGroup>
+		<EditorConfigFiles Remove="C:\Users\guilhermelinosp\OneDrive\Documents\Repos\recipe-book-api\Source\Common\RecipeBook.API\.editorconfig"/>
+	</ItemGroup>
 
 </Project>

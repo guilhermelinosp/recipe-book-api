@@ -25,7 +25,7 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=bG9jYWxob3N0
       - MYSQL_DATABASE=DB_Test
-    ports:  
+    ports:
       - "3306:3306"
     networks:
       - recipebook-network

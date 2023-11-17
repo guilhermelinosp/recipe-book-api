@@ -14,11 +14,6 @@ public class AccountRepositoryImp : IAccountRepository
         _context = context;
     }
 
-    public async Task<IEnumerable<Account>> GetAllAsync()
-    {
-        return await _context.Accounts!.AsNoTracking().ToListAsync();
-    }
-
     public async Task<Account?> GetByIdAsync(Guid id)
     {
         return await _context.Accounts!.AsNoTracking().FirstOrDefaultAsync(u => u.AccountId == id);
@@ -56,6 +51,11 @@ public class AccountRepositoryImp : IAccountRepository
     public Task DeleteAsync(Guid id)
     {
         throw new NotImplementedException();
+    }
+
+    public async Task<IEnumerable<Account>> GetAllAsync()
+    {
+        return await _context.Accounts!.AsNoTracking().ToListAsync();
     }
 
     private async Task SaveChangesAsync()

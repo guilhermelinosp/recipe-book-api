@@ -10,5 +10,4 @@ public interface ITokenService
     string GetEmailFromToken(string token);
     string GetPhoneFromToken(string token);
     Guid GetIdFromToken(string token);
-
 }

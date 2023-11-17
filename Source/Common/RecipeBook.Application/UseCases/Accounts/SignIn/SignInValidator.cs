@@ -1,4 +1,6 @@
-﻿using FluentValidation;
+﻿using System.Text.RegularExpressions;
+using FluentValidation;
+using FluentValidation.Results;
 using RecipeBook.Domain.Dtos.Requests.Account;
 using RecipeBook.Exceptions;
 
@@ -18,9 +20,8 @@ public partial class SignInValidator : AbstractValidator<SignInRequest>
             .Custom((password, validator) =>
             {
                 if (!MyRegex().IsMatch(password))
-                {
-                    validator.AddFailure(new FluentValidation.Results.ValidationFailure(nameof(SignUpRequest.Password), ErrorMessages.SENHA_USUARIO_INVALIDA));
-                }
+                    validator.AddFailure(new ValidationFailure(nameof(SignUpRequest.Password),
+                        ErrorMessages.SENHA_USUARIO_INVALIDA));
             });
 
         RuleFor(c => c.Email)
@@ -30,6 +31,6 @@ public partial class SignInValidator : AbstractValidator<SignInRequest>
             .WithMessage(ErrorMessages.EMAIL_USUARIO_INVALIDO);
     }
 
-    [System.Text.RegularExpressions.GeneratedRegex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,16}$")]
-    private static partial System.Text.RegularExpressions.Regex MyRegex();
+    [GeneratedRegex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,16}$")]
+    private static partial Regex MyRegex();
 }

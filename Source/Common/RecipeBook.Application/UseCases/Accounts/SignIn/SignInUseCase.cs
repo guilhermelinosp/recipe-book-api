@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Globalization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using RecipeBook.Application.Services.Cryptography;
 using RecipeBook.Application.Services.Tokenization;
@@ -12,12 +13,13 @@ namespace RecipeBook.Application.UseCases.Accounts.SignIn;
 
 public class SignInUseCase : ISignInUseCase
 {
-    private readonly IAccountRepository _repository;
-    private readonly IEncryptService _encrypt;
-    private readonly ITokenService _token;
     private readonly IConfiguration _configuration;
+    private readonly IEncryptService _encrypt;
+    private readonly IAccountRepository _repository;
+    private readonly ITokenService _token;
 
-    public SignInUseCase(IAccountRepository repository, IEncryptService encryptService, ITokenService tokenService, IConfiguration configuration)
+    public SignInUseCase(IAccountRepository repository, IEncryptService encryptService, ITokenService tokenService,
+        IConfiguration configuration)
     {
         _repository = repository;
         _encrypt = encryptService;
@@ -45,11 +47,10 @@ public class SignInUseCase : ISignInUseCase
             {
                 Id = account.AccountId.ToString(),
                 PhoneNumber = account.Phone,
-                Email = account.Email,
+                Email = account.Email
             }),
             RefreshToken = _token.GenerateRefreshToken(),
-            ExpiryDate = DateTime.UtcNow.Add(TimeSpan.Parse(_configuration["Jwt:ExpiryTimeFrame"]!))
+            ExpiryDate = DateTime.UtcNow.Add(TimeSpan.Parse(_configuration["Jwt:ExpiryTimeFrame"]!, CultureInfo.CurrentCulture))
         };
-
     }
 }

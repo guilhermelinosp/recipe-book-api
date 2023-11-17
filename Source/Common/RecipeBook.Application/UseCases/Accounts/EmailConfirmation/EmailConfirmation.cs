@@ -19,13 +19,15 @@ public class EmailConfirmation : IEmailConfirmation
         var validator = new EmailConfirmationValidator();
 
         var validationResult = await validator.ValidateAsync(request);
-        if (!validationResult.IsValid) throw new ValidatorException(validationResult.Errors.Select(er => er.ErrorMessage).ToList());
+        if (!validationResult.IsValid)
+            throw new ValidatorException(validationResult.Errors.Select(er => er.ErrorMessage).ToList());
 
         var account = await _repository.GetByCodeAsync(request.Code!);
         if (account is not null)
         {
             if (account.EmailConfirmed)
-                throw new AccountSignUpException(new List<string> { "The email has already been confirmed previously" });
+                throw new AccountSignUpException(new List<string>
+                    { "The email has already been confirmed previously" });
 
             if (account.Code != request.Code)
                 throw new AccountSignUpException(new List<string> { ErrorMessages.EMAIL_USUARIO_CODIGO_INVALIDO });

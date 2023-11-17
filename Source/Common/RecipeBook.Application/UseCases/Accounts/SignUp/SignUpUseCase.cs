@@ -10,8 +10,8 @@ namespace RecipeBook.Application.UseCases.Accounts.SignUp;
 
 public class SignUpUseCase : ISignUpUseCase
 {
-    private readonly IAccountRepository _repository;
     private readonly IEncryptService _encrypt;
+    private readonly IAccountRepository _repository;
     private readonly ISendGrid _sendGrid;
 
     public SignUpUseCase(IAccountRepository repository, IEncryptService encrypt, ISendGrid sendGrid)
@@ -39,14 +39,13 @@ public class SignUpUseCase : ISignUpUseCase
 
         var emailConfirmationCode = _encrypt.GenerateCode();
 
-        await _repository.CreateAsync(new Account()
+        await _repository.CreateAsync(new Account
         {
             Name = request.Name!,
             Email = request.Email!,
             Code = emailConfirmationCode,
             Password = _encrypt.EncryptPassword(request.Password!),
             Phone = request.Phone!
-
         });
 
         await _sendGrid.SendConfirmationEmailAsync(request.Email!, request.Name!, emailConfirmationCode);

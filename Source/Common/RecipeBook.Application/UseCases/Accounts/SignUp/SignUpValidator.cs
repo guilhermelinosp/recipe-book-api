@@ -1,7 +1,8 @@
-﻿using FluentValidation;
+﻿using System.Text.RegularExpressions;
+using FluentValidation;
+using FluentValidation.Results;
 using RecipeBook.Domain.Dtos.Requests.Account;
 using RecipeBook.Exceptions;
-using System.Text.RegularExpressions;
 
 namespace RecipeBook.Application.UseCases.Accounts.SignUp;
 
@@ -15,7 +16,7 @@ public partial class SignUpValidator : AbstractValidator<SignUpRequest>
             .Custom((name, validator) =>
             {
                 if (!RegexName().IsMatch(name))
-                    validator.AddFailure(new FluentValidation.Results.ValidationFailure(nameof(SignUpRequest.Name),
+                    validator.AddFailure(new ValidationFailure(nameof(SignUpRequest.Name),
                         ErrorMessages.NOME_USUARIO_INVALIDO));
             });
 
@@ -32,7 +33,7 @@ public partial class SignUpValidator : AbstractValidator<SignUpRequest>
             .Custom((phone, validator) =>
             {
                 if (!RegexPhone().IsMatch(phone))
-                    validator.AddFailure(new FluentValidation.Results.ValidationFailure(nameof(SignUpRequest.Phone),
+                    validator.AddFailure(new ValidationFailure(nameof(SignUpRequest.Phone),
                         ErrorMessages.TELEFONE_USUARIO_INVALIDO));
             });
 
@@ -46,17 +47,17 @@ public partial class SignUpValidator : AbstractValidator<SignUpRequest>
             .Custom((password, validator) =>
             {
                 if (!RegexPasswoed().IsMatch(password))
-                    validator.AddFailure(new FluentValidation.Results.ValidationFailure(nameof(SignUpRequest.Password),
+                    validator.AddFailure(new ValidationFailure(nameof(SignUpRequest.Password),
                         ErrorMessages.SENHA_USUARIO_INVALIDA));
             });
     }
 
     [GeneratedRegex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,16}$")]
     private static partial Regex RegexPasswoed();
-    
+
     [GeneratedRegex(@"^\d{11}$")]
     private static partial Regex RegexPhone();
-    
+
     [GeneratedRegex(@"^[a-zA-Z\s]*$")]
     private static partial Regex RegexName();
 }

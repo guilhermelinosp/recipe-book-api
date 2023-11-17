@@ -1,8 +1,8 @@
 {
-  "dependencies": {
-    "appInsights1": {
-      "type": "appInsights",
-      "dynamicId": null
-    }
-  }
+	"dependencies": {
+		"appInsights1": {
+			"type": "appInsights",
+			"dynamicId": null
+		}
+	}
 }

@@ -1,6 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
+using Microsoft.Extensions.Configuration;
 
 namespace RecipeBook.Application.Services.Cryptography;
 
@@ -27,8 +27,8 @@ public class EncryptService : IEncryptService
 
     private static string GetStringFromHash(IEnumerable<byte> hash)
     {
-            var result = new StringBuilder();
-            foreach (var b in hash) result.Append(b.ToString("X2"));
-            return result.ToString();
+        var result = new StringBuilder();
+        foreach (var b in hash) result.Append(b.ToString("X2"));
+        return result.ToString();
     }
 }

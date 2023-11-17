@@ -14,16 +14,15 @@ public class RecipeRepositoryImp : IRecipeRepository
         _context = context;
     }
 
-    public async Task<Recipe?> FindRecipeByRecipeIdAsync(Guid recipeId, Guid accountId)
+    public async Task<Recipe?> FindRecipeByIdAsync(Guid recipeId, Guid accountId)
     {
         return await _context.Recipes!
-            .AsNoTracking()
             .Include(r => r.Ingredients)
             .Where(r => r.AccountId == accountId)
             .FirstOrDefaultAsync(r => r.RecipeId == recipeId);
     }
 
-    public async Task<IEnumerable<Recipe>?> FindRecipesByAccountIdAsync(Guid accountId)
+    public async Task<IEnumerable<Recipe>?> FindRecipesAsync(Guid accountId)
     {
         return await _context.Recipes!
             .AsNoTracking()
@@ -32,14 +31,13 @@ public class RecipeRepositoryImp : IRecipeRepository
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<Recipe>> FindRecipesByTitleAsync(string title, Guid accountId)
+    public async Task<Recipe?> FindRecipeByTitleAsync(string title, Guid accountId)
     {
         return await _context.Recipes!
             .AsNoTracking()
+            .Where(r => r.AccountId == accountId && r.Title == title)
             .Include(r => r.Ingredients)
-            .Where(r => r.AccountId == accountId)
-            .Where(r => r.Title == title)
-            .ToListAsync();
+            .FirstOrDefaultAsync();
     }
 
     public async Task CreateRecipeAsync(Recipe recipe)
@@ -51,12 +49,16 @@ public class RecipeRepositoryImp : IRecipeRepository
 
     public Task UpdateRecipeAsync(Recipe recipe)
     {
-        throw new NotImplementedException();
+        _context.Recipes!.Update(recipe);
+        
+        return SaveChangesAsync();
     }
 
-    public Task DeleteRecipeAsync(Guid id)
+    public async Task DeleteRecipeAsync(Recipe recipe)
     {
-        throw new NotImplementedException();
+        _context.Recipes!.Remove(recipe);
+
+        await SaveChangesAsync();
     }
 
     private async Task SaveChangesAsync()

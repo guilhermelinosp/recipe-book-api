@@ -1,11 +1,11 @@
-﻿using RecipeBook.Application.Services.Tokenization;
+﻿using System.Globalization;
+using System.Text;
+using RecipeBook.Application.Services.Tokenization;
 using RecipeBook.Domain.Dtos.Requests.Recipes;
 using RecipeBook.Domain.Dtos.Responses.Ingredients;
 using RecipeBook.Domain.Dtos.Responses.Recipes;
 using RecipeBook.Domain.Entities;
 using RecipeBook.Domain.Repositories;
-using System.Globalization;
-using System.Text;
 
 namespace RecipeBook.Application.UseCases.Recipes.FindRecipe;
 
@@ -22,37 +22,38 @@ public class FindRecipesUseCase : IFindRecipesUseCase
 
     public async Task<IEnumerable<RecipeResponse>?> FindRecipesAsync(string token, FindRecipeRequest? request)
     {
-        var id = _token.GetIdFromToken(token);
+        var recipeId = _token.GetIdFromToken(token);
 
-        var recipes = await _repository.FindRecipesByAccountIdAsync(id);
+        var recipes = await _repository.FindRecipesAsync(recipeId);
 
         var filteredRecipes = new List<Recipe>(recipes);
 
         if (request?.Category != null)
-        {
             filteredRecipes = filteredRecipes
                 .Where(r => r.Category == request.Category)
                 .ToList();
-        }
 
         if (!string.IsNullOrWhiteSpace(request?.Title))
         {
             var searchTerm = NormalizeAndLowercase(request.Title);
             filteredRecipes = filteredRecipes
                 .Where(r => NormalizeAndLowercase(r.Title).Contains(searchTerm) ||
-                            r.Ingredients.Any(ingredient => NormalizeAndLowercase(ingredient.Product).Contains(searchTerm)))
+                            r.Ingredients.Any(ingredient =>
+                                NormalizeAndLowercase(ingredient.Product).Contains(searchTerm)))
                 .ToList();
         }
 
         return filteredRecipes.OrderBy(r => r.Title).Select(r => new RecipeResponse
         {
+            RecipeId = r.RecipeId,
             Title = r.Title,
             Category = r.Category,
             PreparationMode = r.PreparationMode,
+            PreparationTime = r.PreparationTime,
             Ingredients = r.Ingredients.Select(i => new IngredientResponse
             {
                 Product = i.Product,
-                Quantity = i.Quantity,
+                Quantity = i.Quantity
             }).ToList()
         });
     }
@@ -65,8 +66,4 @@ public class FindRecipesUseCase : IFindRecipesUseCase
                 .ToArray())
             .ToLowerInvariant();
     }
-
-
-
-
 }

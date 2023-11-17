@@ -1,14 +1,16 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using RecipeBook.Exceptions;
-using RecipeBook.Exceptions.Exceptions;
+﻿using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using RecipeBook.Exceptions;
+using RecipeBook.Exceptions.Exceptions;
 
 namespace RecipeBook.Application.Services.Tokenization;
+
 public class TokenService : ITokenService
 {
     private readonly IConfiguration _configuration;
@@ -36,9 +38,7 @@ public class TokenService : ITokenService
             var jwtToken = (JwtSecurityToken)validatedToken;
 
             if (jwtToken.ValidTo < DateTime.UtcNow)
-            {
                 throw new SecurityTokenExpiredException(ErrorMessages.TOKEN_EXPIRADO);
-            }
 
             return true;
         }
@@ -68,8 +68,10 @@ public class TokenService : ITokenService
                     new Claim("ml", user.Email!),
                     new Claim("phn", user.PhoneNumber!)
                 }),
-                Expires = DateTime.UtcNow.Add(value: TimeSpan.Parse(_configuration["Jwt:ExpiryTimeFrame"]!)),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                Expires = DateTime.UtcNow.Add(TimeSpan.Parse(_configuration["Jwt:ExpiryTimeFrame"]!,
+                    CultureInfo.CurrentCulture)),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
+                    SecurityAlgorithms.HmacSha256Signature)
             };
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
@@ -78,9 +80,8 @@ public class TokenService : ITokenService
         }
         catch (Exception ex)
         {
-            throw new Exception(ex.Message);
+            throw new InvalidOperationException(ex.Message);
         }
-
     }
 
     public string GenerateRefreshToken()
@@ -98,7 +99,7 @@ public class TokenService : ITokenService
         }
         catch (Exception ex)
         {
-            throw new Exception(ex.Message);
+            throw new InvalidOperationException(ex.Message);
         }
     }
 
@@ -120,16 +121,13 @@ public class TokenService : ITokenService
             var jwtToken = (JwtSecurityToken)validatedToken;
 
             if (jwtToken.ValidTo < DateTime.UtcNow)
-            {
                 throw new SecurityTokenExpiredException(ErrorMessages.TOKEN_EXPIRADO);
-            }
 
             return jwtToken.Claims.First(x => x.Type == "ml").Value;
         }
         catch (SecurityTokenExpiredException)
         {
             throw new TokenException(new List<string> { ErrorMessages.TOKEN_EXPIRADO });
-
         }
     }
 
@@ -151,20 +149,17 @@ public class TokenService : ITokenService
             var jwtToken = (JwtSecurityToken)validatedToken;
 
             if (jwtToken.ValidTo < DateTime.UtcNow)
-            {
                 throw new SecurityTokenExpiredException(ErrorMessages.TOKEN_EXPIRADO);
-            }
 
             return jwtToken.Claims.First(x => x.Type == "pnm").Value;
         }
         catch (SecurityTokenExpiredException)
         {
             throw new TokenException(new List<string> { ErrorMessages.TOKEN_EXPIRADO });
-
         }
         catch (Exception ex)
         {
-            throw new Exception(ex.Message);
+            throw new InvalidOperationException(ex.Message);
         }
     }
 
@@ -186,20 +181,17 @@ public class TokenService : ITokenService
             var jwtToken = (JwtSecurityToken)validatedToken;
 
             if (jwtToken.ValidTo < DateTime.UtcNow)
-            {
                 throw new SecurityTokenExpiredException(ErrorMessages.TOKEN_EXPIRADO);
-            }
 
             return new Guid(jwtToken.Claims.First(x => x.Type == "id").Value);
         }
         catch (SecurityTokenExpiredException)
         {
             throw new TokenException(new List<string> { ErrorMessages.TOKEN_EXPIRADO });
-
         }
         catch (Exception ex)
         {
-            throw new Exception(ex.Message);
+            throw new InvalidOperationException(ex.Message);
         }
     }
 }

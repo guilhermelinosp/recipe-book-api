@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using FluentValidation.Results;
 using RecipeBook.Domain.Dtos.Requests.Recipes;
 using RecipeBook.Exceptions;
 
@@ -13,8 +14,6 @@ public class CreateRecipeValidator : AbstractValidator<CreateRecipeRequest>
             .WithMessage(ErrorMessages.RECEITA_TITULO_NAO_INFORMADO);
 
         RuleFor(x => x.Category)
-            .NotEmpty()
-            .WithMessage(ErrorMessages.RECEITA_CATEGORIA_NAO_INFORMADO)
             .IsInEnum()
             .WithMessage(ErrorMessages.RECEITA_CATEGORIA_INVALIDO);
 
@@ -41,5 +40,12 @@ public class CreateRecipeValidator : AbstractValidator<CreateRecipeRequest>
                     .WithMessage(ErrorMessages.INGREDIENTE_QUANTIDADE_NAO_INFORMADA);
             });
 
+        RuleFor(x => x.Ingredients).Custom((ingredientes, contexto) =>
+        {
+            if (ingredientes.Select(c => c.Product.ToLowerInvariant()).Distinct(StringComparer.OrdinalIgnoreCase)
+                    .Count() != ingredientes.Count)
+                contexto.AddFailure(new ValidationFailure("Ingredientes",
+                    ErrorMessages.RECEITA_INGREDIENTES_REPETIDOS));
+        });
     }
 }

@@ -7,7 +7,6 @@ using RecipeBook.Infrastructure.Contexts;
 using RecipeBook.Infrastructure.Repositories;
 using RecipeBook.Infrastructure.SendGrid;
 
-
 namespace RecipeBook.Infrastructure;
 
 public static class InfrastructureInjection

@@ -3,15 +3,16 @@ using RecipeBook.Application.Services.Tokenization;
 using RecipeBook.Domain.Dtos.Requests.Recipes;
 using RecipeBook.Domain.Entities;
 using RecipeBook.Domain.Repositories;
+using RecipeBook.Exceptions;
 using RecipeBook.Exceptions.Exceptions;
 
 namespace RecipeBook.Application.UseCases.Recipes.CreateRecipe;
 
 public class CreateRecipeUseCase : ICreateRecipeUseCase
 {
-    private readonly ITokenService _token;
-    private readonly IRecipeRepository _repository;
     private readonly IMapper _mapper;
+    private readonly IRecipeRepository _repository;
+    private readonly ITokenService _token;
 
     public CreateRecipeUseCase(ITokenService token, IRecipeRepository repository, IMapper mapper)
     {
@@ -24,10 +25,13 @@ public class CreateRecipeUseCase : ICreateRecipeUseCase
     {
         var accountId = _token.GetIdFromToken(token);
 
-        var validator = new CreateRecipeValidator();
-        var validationResult = await validator.ValidateAsync(request);
-        if (!validationResult.IsValid) throw new ValidatorException(validationResult.Errors.Select(er => er.ErrorMessage).ToList());
+        var validationResult = await new CreateRecipeValidator().ValidateAsync(request);
+        if (!validationResult.IsValid)
+            throw new ValidatorException(validationResult.Errors.Select(er => er.ErrorMessage).ToList());
 
+        var recipeWithSameTitle = await _repository.FindRecipeByTitleAsync(request.Title, accountId);
+        if (recipeWithSameTitle != null)
+            throw new RecipeException(new List<string> { ErrorMessages.RECEITA_TITULO_JA_CADASTRADO });
 
         var recipe = _mapper.Map<Recipe>(request);
 

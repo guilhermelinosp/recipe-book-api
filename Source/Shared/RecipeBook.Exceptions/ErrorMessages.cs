@@ -1,6 +1,6 @@
 ﻿namespace RecipeBook.Exceptions;
 
-public class ErrorMessages
+public static class ErrorMessages
 {
     // Account
     // Name
@@ -19,8 +19,12 @@ public class ErrorMessages
     // Password
     public static string SENHA_USUARIO_INVALIDA => "The user's password is invalid.";
     public static string SENHA_USUARIO_NAO_INFORMADO => "The user's password must be entered.";
-    public static string SENHA_USUARIO_MINIMO_OITO_CARACTERES => "The user's password must contain at least 8 characters.";
-    public static string SENHA_USUARIO_MAXIMO_DEZESSEIS_CARACTERES => "The user's password must contain a maximum of 16 characters.";
+
+    public static string SENHA_USUARIO_MINIMO_OITO_CARACTERES =>
+        "The user's password must contain at least 8 characters.";
+
+    public static string SENHA_USUARIO_MAXIMO_DEZESSEIS_CARACTERES =>
+        "The user's password must contain a maximum of 16 characters.";
 
     // Phone
     public static string TELEFONE_USUARIO_INVALIDO => "The user's phone number must be in the format XXXXXXXXXXX";
@@ -51,13 +55,21 @@ public class ErrorMessages
     public static string INGREDIENTE_QUANTIDADE_NAO_INFORMADA => "The ingredient quantity must be informed.";
 
 
-    public static string INGREDIENTE_NAO_PODE_SER_REMOVIDO => "The ingredient cannot be removed because it is being used in a recipe.";
-    public static string INGREDIENTE_NAO_PODE_SER_ATUALIZADO => "The ingredient cannot be updated because it is being used in a recipe.";
+    public static string INGREDIENTE_NAO_PODE_SER_REMOVIDO =>
+        "The ingredient cannot be removed because it is being used in a recipe.";
+
+    public static string INGREDIENTE_NAO_PODE_SER_ATUALIZADO =>
+        "The ingredient cannot be updated because it is being used in a recipe.";
 
 
     // Recipe
-    public static string RECEITA_NAO_PODE_SER_REMOVIDO => "The recipe cannot be removed because it is being used in a recipe.";
-    public static string RECEITA_NAO_PODE_SER_ATUALIZADO => "The recipe cannot be updated because it is being used in a recipe.";
+    public static string RECEITA_NAO_PODE_SER_REMOVIDO =>
+        "The recipe cannot be removed because it is being used in a recipe.";
+
+    public static string RECEITA_NAO_PODE_SER_ATUALIZADO =>
+        "The recipe cannot be updated because it is being used in a recipe.";
+
+    public static string RECEITA_NAO_ENCONTRADO => "Recipe not found.";
 
 
     // Recipe Name
@@ -95,7 +107,10 @@ public class ErrorMessages
 
     // Recipe Ingredients Quantity
     public static string RECEITA_INGREDIENTE_QUANTIDADE_INVALIDA => "The quantity of the ingredient is invalid.";
-    public static string RECEITA_INGREDIENTE_QUANTIDADE_NAO_INFORMADO => "The quantity of the ingredient must be informed.";
+
+    public static string RECEITA_INGREDIENTE_QUANTIDADE_NAO_INFORMADO =>
+        "The quantity of the ingredient must be informed.";
+
     public static string RECEITA_MINIMO_UM_INGREDIENTE => "The recipe must have at least one ingredient.";
 
 
@@ -110,5 +125,4 @@ public class ErrorMessages
     public static string ERRO_AO_CRIAR_INGREDIENTE => "Error creating ingredient.";
     public static string ERRO_AO_ATUALIZAR_INGREDIENTE => "Error updating ingredient.";
     public static string ERRO_AO_DELETAR_INGREDIENTE => "Error deleting ingredient.";
-
 }
