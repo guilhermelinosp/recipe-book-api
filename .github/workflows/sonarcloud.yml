@@ -22,5 +22,5 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args:
-            -Dsonar.projectKey=guilhermelinosp_pizza-hub-api
+            -Dsonar.projectKey=guilhermelinosp_recipe-book-api
             -Dsonar.organization=guilhermelinosp
