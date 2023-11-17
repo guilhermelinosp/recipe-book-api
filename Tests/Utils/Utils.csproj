@@ -12,7 +12,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Source\Common\RecipeBook.Application\RecipeBook.Application.csproj"/>
         <ProjectReference Include="..\..\Source\Common\RecipeBook.Domain\RecipeBook.Domain.csproj"/>
     </ItemGroup>
 
