@@ -11,8 +11,4 @@
         <PackageReference Include="Bogus" Version="34.0.2"/>
     </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\..\Source\Common\RecipeBook.Domain\RecipeBook.Domain.csproj"/>
-    </ItemGroup>
-
 </Project>
