@@ -1,8 +1,9 @@
-version: '3.8'
+﻿version: '3.8'
 
 services:
   recipebook.api:
-    image: recipebookapi
+    container_name: api
+    image: recipebook.api
     build:
       context: .
       dockerfile: Source/Common/RecipeBook.API/Dockerfile
@@ -11,16 +12,14 @@ services:
       - ASPNETCORE_URLS=http://+:80
     ports:
       - "8080:80"
-    volumes:
-      - ~/.aspnet/https:/root/.aspnet/https:ro
-      - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
     depends_on:
       - database
     networks:
       - recipebook-network
     restart: always
-
+    
   database:
+    container_name: database
     image: mysql:latest
     environment:
       - MYSQL_ROOT_PASSWORD=bG9jYWxob3N0
@@ -29,13 +28,8 @@ services:
       - "3306:3306"
     networks:
       - recipebook-network
-    volumes:
-      - db-data:/var/lib/mysql
     restart: always
-
+    
 networks:
   recipebook-network:
     driver: bridge
-
-volumes:
-  db-data:
