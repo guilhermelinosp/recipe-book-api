@@ -4,6 +4,7 @@ using RecipeBook.Application.UseCases.Recipes.CreateRecipe;
 using RecipeBook.Application.UseCases.Recipes.DeleteRecipe;
 using RecipeBook.Application.UseCases.Recipes.FindRecipe;
 using RecipeBook.Application.UseCases.Recipes.FindRecipeById;
+using RecipeBook.Application.UseCases.Recipes.UpdateRecipe;
 using RecipeBook.Domain.Dtos.Requests.Recipes;
 using RecipeBook.Domain.Dtos.Responses.Exceptions;
 using RecipeBook.Domain.Dtos.Responses.Recipes;
@@ -19,14 +20,16 @@ public class RecipeController : ControllerBase
 	private readonly IDeleteRecipeUseCase _deleteRecipe;
 	private readonly IFindRecipeByIdUseCase _findRecipeById;
 	private readonly IFindRecipesUseCase _findRecipes;
+	private readonly IUpdateRecipeUseCase _updateRecipe;
 
 	public RecipeController(ICreateRecipeUseCase createRecipe, IFindRecipesUseCase findRecipes,
-		IFindRecipeByIdUseCase findRecipeById, IDeleteRecipeUseCase deleteRecipe)
+		IFindRecipeByIdUseCase findRecipeById, IDeleteRecipeUseCase deleteRecipe, IUpdateRecipeUseCase updateRecipe)
 	{
 		_createRecipe = createRecipe;
 		_findRecipes = findRecipes;
 		_findRecipeById = findRecipeById;
 		_deleteRecipe = deleteRecipe;
+		_updateRecipe = updateRecipe;
 	}
 
 	[ProducesResponseType(StatusCodes.Status201Created)]
@@ -66,8 +69,19 @@ public class RecipeController : ControllerBase
 	[HttpDelete("delete-recipes/{recipeId}")]
 	public async Task<IActionResult> DeleteRecipeByIdAsync(Guid recipeId)
 	{
-		await _deleteRecipe.DeleteRecipeByIdAsync(Request.Headers["Authorization"].ToString().Replace("Bearer ", ""),
-			recipeId);
+		await _deleteRecipe.DeleteRecipeByIdAsync(
+			Request.Headers["Authorization"].ToString().Replace("Bearer ", ""), recipeId);
+		return NoContent();
+	}
+	
+	[ProducesResponseType(StatusCodes.Status204NoContent)]
+	[ProducesResponseType(typeof(ExceptionResponse), StatusCodes.Status400BadRequest)]
+	[Produces("application/json")]
+	[HttpPut("updade-recipes/{recipeId}")]
+	public async Task<IActionResult> UpdadeRecipeByIdAsync(Guid recipeId, [FromBody] UpdateRecipeRequest body)
+	{
+		await _updateRecipe.UpdateRecipeAsync(
+			Request.Headers["Authorization"].ToString().Replace("Bearer ", ""), recipeId, body);
 		return NoContent();
 	}
 }

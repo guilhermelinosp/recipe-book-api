@@ -1,20 +1,24 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using RecipeBook.API.Filters;
+using RecipeBook.API.WebSockets;
 using RecipeBook.Application;
 using RecipeBook.Infrastructure;
 using RecipeBook.Infrastructure.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
 
-Migratations();
+await Migratations();
 
 builder
 	.Services
 	.AddApplication()
-	.AddInfrastructure();
+	.AddInfrastructure(builder.Configuration);
 
 builder.Services.AddRouting(opt => opt.LowercaseUrls = true);
 builder.Services.AddCors(opt =>
@@ -54,6 +58,13 @@ builder.Services.AddSwaggerGen(opt =>
 builder.Services.AddHttpsRedirection(opt => opt.HttpsPort = 443);
 builder.Services.AddMvc(opt => opt.Filters.Add(typeof(ExceptionFilter)));
 builder.Services.AddControllers(opt => opt.Filters.Add(typeof(ExceptionFilter)));
+builder.Services.AddSignalR();
+builder.Services.AddAuthorization(option =>
+{
+	option.AddPolicy("AccountAuth", policy => policy.Requirements.Add(new AuthorizationRequirement()));
+});builder.Services.AddScoped<IAuthorizationHandler, AuthorizationHandler>();
+builder.Services.AddScoped<IAuthorizationRequirement, AuthorizationRequirement>();
+ 
 builder.Services.AddAuthentication(opt =>
 {
 	opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -66,14 +77,16 @@ builder.Services.AddAuthentication(opt =>
 	jwt.TokenValidationParameters = new TokenValidationParameters
 	{
 		ValidateIssuerSigningKey = true,
-		IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("Jwt-Secret")!)),
+		IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["Jwt-Secret"]!)),
 		ValidateIssuer = false,
 		ValidateAudience = false,
 		ValidateLifetime = true,
-		RequireExpirationTime = false
+		RequireExpirationTime = false	
 	};
 });
 builder.Services.AddAuthorization();
+
+
 
 var app = builder.Build();
 
@@ -81,8 +94,19 @@ if (app.Environment.IsDevelopment())
 {
 	app.UseSwagger();
 	app.UseSwaggerUI();
+	builder.Configuration.AddUserSecrets<Program>();
 }
+app.MapHealthChecks("/health", new HealthCheckOptions
+{
+	AllowCachingResponses = false,
+	ResultStatusCodes =
+	{
+		[HealthStatus.Healthy] = StatusCodes.Status200OK,
+		[HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable
+	}
+});
 
+app.MapHub<ConnectingHub>("/connecting");
 app.UseRouting();
 app.UseCors("*");
 app.UseAuthentication();
@@ -90,12 +114,10 @@ app.UseAuthorization();
 app.MapControllers();
 app.Run();
 
-void Migratations()
+async Task Migratations()
 {
-	var connectionString = Environment.GetEnvironmentVariable("SQL-ConnectionString")!;
-	Console.WriteLine($"Connection String: {connectionString}");
-
-	CreateTables.CreateTableAccountAsync(connectionString);
-	CreateTables.CreateTableRecipeAsync(connectionString);
-	CreateTables.CreateTableIngredientAsync(connectionString);
+	var connectionString = builder.Configuration["ConnectionString"]!;
+	await CreateTables.CreateTableAccountAsync(connectionString);
+	await CreateTables.CreateTableRecipeAsync(connectionString);
+	await CreateTables.CreateTableIngredientAsync(connectionString);
 }
