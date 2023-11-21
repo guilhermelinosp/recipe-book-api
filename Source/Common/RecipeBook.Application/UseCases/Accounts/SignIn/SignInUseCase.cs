@@ -50,7 +50,7 @@ public class SignInUseCase : ISignInUseCase
                 Email = account.Email
             }),
             RefreshToken = _token.GenerateRefreshToken(),
-            ExpiryDate = DateTime.UtcNow.Add(TimeSpan.Parse(_configuration["Jwt:ExpiryTimeFrame"]!, CultureInfo.CurrentCulture))
+            ExpiryDate = DateTime.UtcNow.Add(TimeSpan.Parse(_configuration["Jwt-Expiry"]!, CultureInfo.InvariantCulture))
         };
     }
 }

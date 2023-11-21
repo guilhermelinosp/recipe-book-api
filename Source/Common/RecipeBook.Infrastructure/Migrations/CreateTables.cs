@@ -5,11 +5,11 @@ namespace RecipeBook.Infrastructure.Migrations;
 
 public static class CreateTables
 {
-    public static void CreateTableAccountAsync(string connectionString)
+    public static async Task CreateTableAccountAsync(string connectionString)
     {
-        using var mySqlConnection = new MySqlConnection(connectionString);
-        mySqlConnection.Open();
-        mySqlConnection.Execute(
+        await using var mySqlConnection = new MySqlConnection(connectionString);
+        await mySqlConnection.OpenAsync();
+        await mySqlConnection.ExecuteAsync(
             """
             CREATE TABLE IF NOT EXISTS DB_Test.TB_Account (
                                   AccountId CHAR(36) NOT NULL,
@@ -25,11 +25,11 @@ public static class CreateTables
             """);
     }
 
-    public static void CreateTableRecipeAsync(string connectionString)
+    public static async Task  CreateTableRecipeAsync(string connectionString)
     {
-        using var mySqlConnection = new MySqlConnection(connectionString);
-        mySqlConnection.Open();
-        mySqlConnection.Execute(
+        await using var mySqlConnection = new MySqlConnection(connectionString);
+        await mySqlConnection.OpenAsync();
+        await mySqlConnection.ExecuteAsync(
             """
             CREATE TABLE IF NOT EXISTS DB_Test.TB_Recipe (
                    RecipeId CHAR(36) NOT NULL,
@@ -45,11 +45,11 @@ public static class CreateTables
             """);
     }
 
-    public static void CreateTableIngredientAsync(string connectionString)
+    public static async Task  CreateTableIngredientAsync(string connectionString)
     {
-        using var mySqlConnection = new MySqlConnection(connectionString);
-        mySqlConnection.Open();
-        mySqlConnection.Execute(
+        await using var mySqlConnection = new MySqlConnection(connectionString);
+        await mySqlConnection.OpenAsync();
+        await mySqlConnection.ExecuteAsync(
             """
             CREATE TABLE IF NOT EXISTS DB_Test.TB_Ingredient (
                               IngredientId CHAR(36) NOT NULL,

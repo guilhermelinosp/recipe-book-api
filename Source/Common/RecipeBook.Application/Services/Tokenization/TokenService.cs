@@ -13,12 +13,17 @@ namespace RecipeBook.Application.Services.Tokenization;
 
 public class TokenService : ITokenService
 {
+    private readonly IConfiguration _configuration;
+    public TokenService(IConfiguration configuration)
+    {
+        _configuration = configuration;
+    }
     public bool ValidateToken(string token)
     {
         try
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("Jwt-Secret")!);
+            var key = Encoding.ASCII.GetBytes(_configuration["Jwt-Secret"]!);
 
             tokenHandler.ValidateToken(token, new TokenValidationParameters
             {
@@ -50,8 +55,7 @@ public class TokenService : ITokenService
         try
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-
-            var key = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("Jwt-Secret")!);
+            var key = Encoding.ASCII.GetBytes(_configuration["Jwt-Secret"]!);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -61,7 +65,7 @@ public class TokenService : ITokenService
                     new Claim("ml", user.Email!),
                     new Claim("phn", user.PhoneNumber!)
                 }),
-                Expires = DateTime.UtcNow.Add(TimeSpan.Parse(Environment.GetEnvironmentVariable("Jwt-ExpiryTimeFrame")!,
+                Expires = DateTime.UtcNow.Add(TimeSpan.Parse(_configuration["Jwt-Expiry"]!,
                     CultureInfo.CurrentCulture)),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
                     SecurityAlgorithms.HmacSha256Signature)
@@ -101,7 +105,7 @@ public class TokenService : ITokenService
         try
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("Jwt-Secret")!);
+            var key = Encoding.ASCII.GetBytes(_configuration["Jwt-Secret"]!);
 
             tokenHandler.ValidateToken(token, new TokenValidationParameters
             {
@@ -129,7 +133,7 @@ public class TokenService : ITokenService
         try
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("Jwt-Secret")!);
+            var key = Encoding.ASCII.GetBytes(_configuration["Jwt-Secret"]!);
 
             tokenHandler.ValidateToken(token, new TokenValidationParameters
             {
@@ -161,7 +165,7 @@ public class TokenService : ITokenService
         try
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("Jwt-Secret")!);
+            var key = Encoding.ASCII.GetBytes(_configuration["Jwt-Secret"]!);
 
             tokenHandler.ValidateToken(token, new TokenValidationParameters
             {

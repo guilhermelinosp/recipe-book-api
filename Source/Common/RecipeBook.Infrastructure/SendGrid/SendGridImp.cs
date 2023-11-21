@@ -7,10 +7,17 @@ namespace RecipeBook.Infrastructure.SendGrid;
 
 public class SendGridImp : ISendGrid
 {
+    private readonly IConfiguration _configuration;
+    public SendGridImp(IConfiguration configuration)
+    {
+        _configuration = configuration;
+    }
+
+
     public async Task SendConfirmationEmailAsync(string email, string nome, string code)
     {
-        var sendGridClient = new SendGridClient(Environment.GetEnvironmentVariable("SendGrid-ApiKey")!);
-        var from = new EmailAddress(Environment.GetEnvironmentVariable("SendGrid-FromEmail")!);
+        var sendGridClient = new SendGridClient(_configuration["SendGrid-ApiKey"]!);
+        var from = new EmailAddress(_configuration["SendGrid-Email"]!);
         var to = new EmailAddress(email);
         const string subject = "Confirmation Email Test API";
         const string plainTextContent = "Test API";
@@ -23,7 +30,7 @@ public class SendGridImp : ISendGrid
 
                            <p>This code is essential for accessing our services and ensuring the security of your account.</p>
 
-                           <p>If you have any questions or encounter any issues, please don't hesitate to contact our support team at {Environment.GetEnvironmentVariable("SendGrid-FromEmail")}.</p>
+                           <p>If you have any questions or encounter any issues, please don't hesitate to contact our support team at {_configuration["SendGrid-FromEmail"]}.</p>
 
                            <p>Thank you for choosing Test API. We look forward to serving you!</p>
 
@@ -37,8 +44,8 @@ public class SendGridImp : ISendGrid
 
     public async Task SendForgotPasswordEmailAsync(string email, string nome, string code)
     {
-        var sendGridClient = new SendGridClient(Environment.GetEnvironmentVariable("SendGrid-ApiKey")!);
-        var from = new EmailAddress(Environment.GetEnvironmentVariable("SendGrid-FromEmail")!);
+        var sendGridClient = new SendGridClient(_configuration["SendGrid-ApiKey"]!);
+        var from = new EmailAddress(_configuration["SendGrid-Email"]!);
         var to = new EmailAddress(email);
         const string subject = "Forgot Password Test API";
         const string plainTextContent = "Test API";
@@ -52,7 +59,7 @@ public class SendGridImp : ISendGrid
 
                            <p><strong>{code}</strong></p>
 
-                           <p>If you have any questions or encounter any issues, please don't hesitate to contact our support team at {Environment.GetEnvironmentVariable("SendGrid-FromEmail")}.</p>
+                           <p>If you have any questions or encounter any issues, please don't hesitate to contact our support team at {_configuration["SendGrid-Email"]}.</p>
                            
                            <p>Thank you for choosing Test API. We look forward to assisting you with your password reset!</p>
 
