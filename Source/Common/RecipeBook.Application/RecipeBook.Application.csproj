@@ -16,8 +16,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Shared\RecipeBook.Exceptions\RecipeBook.Exceptions.csproj" />
-      <ProjectReference Include="..\RecipeBook.Domain\RecipeBook.Domain.csproj" />
+        <ProjectReference Include="..\..\Shared\RecipeBook.Exceptions\RecipeBook.Exceptions.csproj"/>
+        <ProjectReference Include="..\RecipeBook.Domain\RecipeBook.Domain.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="UseCases\Code\"/>
     </ItemGroup>
 
 </Project>

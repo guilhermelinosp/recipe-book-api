@@ -8,6 +8,7 @@ namespace RecipeBook.Infrastructure.SendGrid;
 public class SendGridImp : ISendGrid
 {
     private readonly IConfiguration _configuration;
+
     public SendGridImp(IConfiguration configuration)
     {
         _configuration = configuration;
@@ -60,7 +61,7 @@ public class SendGridImp : ISendGrid
                            <p><strong>{code}</strong></p>
 
                            <p>If you have any questions or encounter any issues, please don't hesitate to contact our support team at {_configuration["SendGrid-Email"]}.</p>
-                           
+
                            <p>Thank you for choosing Test API. We look forward to assisting you with your password reset!</p>
 
                            <p>Best regards,</p>

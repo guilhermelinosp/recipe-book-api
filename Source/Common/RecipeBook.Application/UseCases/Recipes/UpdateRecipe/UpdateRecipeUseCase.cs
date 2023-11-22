@@ -1,8 +1,6 @@
 using AutoMapper;
 using RecipeBook.Application.Services.Tokenization;
-using RecipeBook.Application.UseCases.Recipes.CreateRecipe;
 using RecipeBook.Domain.Dtos.Requests.Recipes;
-using RecipeBook.Domain.Entities;
 using RecipeBook.Domain.Repositories;
 using RecipeBook.Exceptions;
 using RecipeBook.Exceptions.Exceptions;
@@ -26,21 +24,21 @@ public class UpdateRecipeUseCase : IUpdateRecipeUseCase
     public async Task UpdateRecipeAsync(string token, Guid receitaId, UpdateRecipeRequest request)
     {
         var accountId = _token.GetIdFromToken(token);
-        
+
         var validationResult = await new UpdateRecipeValidator().ValidateAsync(request);
         if (!validationResult.IsValid)
             throw new ValidatorException(validationResult.Errors.Select(er => er.ErrorMessage).ToList());
-        
+
         var recipe = await _repository.FindRecipeByIdAsync(receitaId, accountId);
         if (recipe is null)
             throw new RecipeException(new List<string> { ErrorMessages.RECEITA_NAO_ENCONTRADO });
-        
+
         var recipeWithSameTitle = await _repository.FindRecipeByTitleAsync(request.Title, accountId);
         if (recipeWithSameTitle != null)
             throw new RecipeException(new List<string> { ErrorMessages.RECEITA_TITULO_JA_CADASTRADO });
-        
+
         _mapper.Map(request, recipe);
-        
-        await _repository.UpdateRecipeAsync(recipe); 
+
+        await _repository.UpdateRecipeAsync(recipe);
     }
 }

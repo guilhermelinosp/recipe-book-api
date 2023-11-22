@@ -17,7 +17,7 @@ public static class InfrastructureInjection
             .AddDatabase(configuration)
             .AddRepositories()
             .AddSendGrid();
-        
+
         return services;
     }
 
@@ -38,10 +38,10 @@ public static class InfrastructureInjection
     {
         services.AddScoped<IAccountRepository, AccountRepositoryImp>();
         services.AddScoped<IRecipeRepository, RecipeRepositoryImp>();
-
+        services.AddScoped<ICodeRepository, CodeRepositoryImp>();
         return services;
     }
-    
+
     private static IServiceCollection AddSendGrid(this IServiceCollection services)
     {
         services.AddScoped<ISendGrid, SendGridImp>();

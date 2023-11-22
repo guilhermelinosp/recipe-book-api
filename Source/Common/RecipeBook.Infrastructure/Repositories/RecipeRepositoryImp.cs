@@ -50,7 +50,7 @@ public class RecipeRepositoryImp : IRecipeRepository
     public Task UpdateRecipeAsync(Recipe recipe)
     {
         _context.Recipes!.Update(recipe);
-        
+
         return SaveChangesAsync();
     }
 

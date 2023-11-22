@@ -10,8 +10,10 @@ public class AppDbContext : DbContext
     }
 
     public DbSet<Account>? Accounts { get; set; }
+    
     public DbSet<Recipe>? Recipes { get; set; }
-    public DbSet<Ingredient>? Ingredients { get; set; }
+    
+    public DbSet<Code>? Codes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
