@@ -27,7 +27,7 @@ public class ResetPasswordUseCase : IResetPasswordUseCase
 
         var account = await _repository.GetByCodeAsync(request.Code!);
         if (account is null)
-            throw new AccountResetPasswordException(new List<string> { ErrorMessages.EMAIL_USUARIO_CODIGO_INVALIDO });
+            throw new AccountException(new List<string> { ErrorMessages.EMAIL_USUARIO_CODIGO_INVALIDO });
         account.Password = _encrypt.EncryptPassword(request.Password!);
 
         account.Code = string.Empty;

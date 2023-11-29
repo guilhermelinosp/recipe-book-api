@@ -7,9 +7,9 @@ namespace RecipeBook.Infrastructure.Repositories;
 
 public class RecipeRepositoryImp : IRecipeRepository
 {
-    private readonly AppDbContext _context;
+    private readonly RecipeBookDbContext _context;
 
-    public RecipeRepositoryImp(AppDbContext context)
+    public RecipeRepositoryImp(RecipeBookDbContext context)
     {
         _context = context;
     }

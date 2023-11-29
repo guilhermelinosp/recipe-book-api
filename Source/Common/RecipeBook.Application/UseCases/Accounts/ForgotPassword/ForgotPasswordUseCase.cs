@@ -32,7 +32,7 @@ public class ForgotPasswordUseCase : IForgotPasswordUseCase
         var account = await _repository.GetByEmailAsync(request.Email!);
 
         if (account is null)
-            throw new AccountForgotPasswordException(new List<string> { ErrorMessages.EMAIL_USUARIO_NAO_ENCONTRADO });
+            throw new AccountException(new List<string> { ErrorMessages.EMAIL_USUARIO_NAO_ENCONTRADO });
 
         var code = _encrypt.GenerateCode();
 

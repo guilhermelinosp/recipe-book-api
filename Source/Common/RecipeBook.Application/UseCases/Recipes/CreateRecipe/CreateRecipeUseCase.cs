@@ -23,7 +23,7 @@ public class CreateRecipeUseCase : ICreateRecipeUseCase
 
     public async Task CreateRecipeAsync(string token, CreateRecipeRequest request)
     {
-        var accountId = _token.GetIdFromToken(token);
+        var accountId = _token.ValidateToken(token);
 
         var validationResult = await new CreateRecipeValidator().ValidateAsync(request);
         if (!validationResult.IsValid)

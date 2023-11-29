@@ -26,17 +26,6 @@ public partial class SignUpValidator : AbstractValidator<SignUpRequest>
             .EmailAddress()
             .WithMessage(ErrorMessages.EMAIL_USUARIO_INVALIDO);
 
-
-        RuleFor(c => c.Phone)
-            .NotEmpty()
-            .WithMessage(ErrorMessages.TELEFONE_USUARIO_NAO_INFORMADO)
-            .Custom((phone, validator) =>
-            {
-                if (!RegexPhone().IsMatch(phone))
-                    validator.AddFailure(new ValidationFailure(nameof(SignUpRequest.Phone),
-                        ErrorMessages.TELEFONE_USUARIO_INVALIDO));
-            });
-
         RuleFor(c => c.Password)
             .NotEmpty()
             .WithMessage(ErrorMessages.SENHA_USUARIO_NAO_INFORMADO)

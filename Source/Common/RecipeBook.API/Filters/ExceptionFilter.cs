@@ -24,17 +24,17 @@ public class ExceptionFilter : IExceptionFilter
             case ValidatorException:
                 HandleValidationException(context);
                 break;
-            case AccountSignUpException:
-                HandleSignUpException(context);
-                break;
-            case AccountSignInException:
-                HandleSignInException(context);
+            case AccountException:
+                HandleAccountException(context);
                 break;
             case TokenException:
                 HandleTokenException(context);
                 break;
             case RecipeException:
                 HandleRecipeException(context);
+                break;
+            case WebSocketException:
+                HandleCodeException(context);
                 break;
             default:
                 HandleUnknownException(context);
@@ -49,9 +49,9 @@ public class ExceptionFilter : IExceptionFilter
         context.Result = new ObjectResult(new ExceptionResponse(exception!.ErrorMessages!));
     }
 
-    private static void HandleSignUpException(ExceptionContext context)
+    private static void HandleAccountException(ExceptionContext context)
     {
-        var exception = context.Exception as AccountSignUpException;
+        var exception = context.Exception as AccountException;
         context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
         context.Result = new ObjectResult(new ExceptionResponse(exception!.ErrorMessages!));
     }
@@ -63,12 +63,6 @@ public class ExceptionFilter : IExceptionFilter
         context.Result = new ObjectResult(new ExceptionResponse(new List<string> { ErrorMessages.ERRO_DESCONHECIDO }));
     }
 
-    private static void HandleSignInException(ExceptionContext context)
-    {
-        var exception = context.Exception as AccountSignInException;
-        context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-        context.Result = new ObjectResult(new ExceptionResponse(exception!.ErrorMessages!));
-    }
 
     private static void HandleTokenException(ExceptionContext context)
     {
@@ -80,6 +74,13 @@ public class ExceptionFilter : IExceptionFilter
     private static void HandleRecipeException(ExceptionContext context)
     {
         var exception = context.Exception as RecipeException;
+        context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+        context.Result = new ObjectResult(new ExceptionResponse(exception!.ErrorMessages!));
+    }
+
+    private static void HandleCodeException(ExceptionContext context)
+    {
+        var exception = context.Exception as WebSocketException;
         context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
         context.Result = new ObjectResult(new ExceptionResponse(exception!.ErrorMessages!));
     }

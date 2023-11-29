@@ -18,7 +18,7 @@ public class DeleteRecipeUseCase : IDeleteRecipeUseCase
 
     public async Task DeleteRecipeByIdAsync(string token, Guid recipeId)
     {
-        var accountId = _token.GetIdFromToken(token);
+        var accountId = _token.ValidateToken(token);
 
         var recipe = await _repository.FindRecipeByIdAsync(recipeId, accountId);
 

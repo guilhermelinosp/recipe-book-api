@@ -25,21 +25,21 @@ public class EmailConfirmation : IEmailConfirmation
         var account = await _repository.GetByCodeAsync(request.Code!);
         if (account is not null)
         {
-            if (account.EmailConfirmed)
-                throw new AccountSignUpException(new List<string>
+            if (account.Auth)
+                throw new AccountException(new List<string>
                     { "The email has already been confirmed previously" });
 
             if (account.Code != request.Code)
-                throw new AccountSignUpException(new List<string> { ErrorMessages.EMAIL_USUARIO_CODIGO_INVALIDO });
+                throw new AccountException(new List<string> { ErrorMessages.EMAIL_USUARIO_CODIGO_INVALIDO });
 
-            account.EmailConfirmed = true;
+            account.Auth = true;
             account.Code = string.Empty;
 
             await _repository.UpdateAsync(account);
         }
         else
         {
-            throw new AccountSignUpException(new List<string> { ErrorMessages.EMAIL_USUARIO_NAO_ENCONTRADO });
+            throw new AccountException(new List<string> { ErrorMessages.EMAIL_USUARIO_NAO_ENCONTRADO });
         }
     }
 }

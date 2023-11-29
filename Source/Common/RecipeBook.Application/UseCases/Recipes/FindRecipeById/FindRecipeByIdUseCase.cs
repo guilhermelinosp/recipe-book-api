@@ -20,7 +20,7 @@ public class FindRecipeByIdUseCase : IFindRecipeByIdUseCase
 
     public async Task<RecipeResponse> FindRecipeByRecipeIdAsync(string token, Guid recipeId)
     {
-        var accountId = _token.GetIdFromToken(token);
+        var accountId = _token.ValidateToken(token);
 
         var recipe = await _repository.FindRecipeByIdAsync(recipeId, accountId);
 

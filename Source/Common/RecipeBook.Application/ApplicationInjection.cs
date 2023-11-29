@@ -13,22 +13,14 @@ using RecipeBook.Application.UseCases.Recipes.DeleteRecipe;
 using RecipeBook.Application.UseCases.Recipes.FindRecipe;
 using RecipeBook.Application.UseCases.Recipes.FindRecipeById;
 using RecipeBook.Application.UseCases.Recipes.UpdateRecipe;
+using RecipeBook.Application.UseCases.WebSockets.ConsumerQrCode;
+using RecipeBook.Application.UseCases.WebSockets.ProducerQrCode;
 
 namespace RecipeBook.Application;
 
 public static class ApplicationInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
-    {
-        services
-            .AddUseCases()
-            .AddCryptography()
-            .AddTokenization()
-            .AddMapper();
-        return services;
-    }
-
-    private static IServiceCollection AddUseCases(this IServiceCollection services)
     {
         services.AddScoped<ISignUpUseCase, SignUpUseCase>();
         services.AddScoped<ISignInUseCase, SignInUseCase>();
@@ -42,28 +34,13 @@ public static class ApplicationInjection
         services.AddScoped<IDeleteRecipeUseCase, DeleteRecipeUseCase>();
         services.AddScoped<IUpdateRecipeUseCase, UpdateRecipeUseCase>();
 
-        return services;
-    }
+        services.AddScoped<IProducerQrCodeUseCase, ProducerQrCodeUseCase>();
+        services.AddScoped<IConsumerQrCodeUseCase, ConsumerQrCodeUseCase>();
 
-    private static void AddMapper(this IServiceCollection services)
-    {
-        var mapperConfig = new MapperConfiguration(cfg => { cfg.AddProfile(new AppAutoMapper()); });
+        services.AddSingleton(new MapperConfiguration(cfg => { cfg.AddProfile(new AppAutoMapper()); }).CreateMapper());
 
-        var mapper = mapperConfig.CreateMapper();
-        services.AddSingleton(mapper);
-    }
-
-    private static IServiceCollection AddCryptography(this IServiceCollection services)
-    {
         services.AddScoped<IEncryptService, EncryptService>();
-
-        return services;
-    }
-
-    private static IServiceCollection AddTokenization(this IServiceCollection services)
-    {
-        services.AddScoped<ITokenService, TokenService>();
-
+        services.AddSingleton<ITokenService, TokenService>();
         return services;
     }
 }

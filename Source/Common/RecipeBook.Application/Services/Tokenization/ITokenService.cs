@@ -1,13 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using RecipeBook.Domain.Entities;
 
 namespace RecipeBook.Application.Services.Tokenization;
 
 public interface ITokenService
 {
-    bool ValidateToken(string token);
-    string GenerateToken(IdentityUser user);
+    string GenerateToken(Account user);
     string GenerateRefreshToken();
-    string GetEmailFromToken(string token);
-    string GetPhoneFromToken(string token);
-    Guid GetIdFromToken(string token);
+    Guid ValidateToken(string token);
 }

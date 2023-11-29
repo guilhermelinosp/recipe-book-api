@@ -3,12 +3,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RecipeBook.Domain.Entities;
 
-[Table("TB_Code")]
-public class Code
+[Table("TB_Connection")]
+public class Connection
 {
-    [Key] public Guid CodeId { get; set; } = Guid.NewGuid();
+    [Key] public Guid ConnectionId { get; set; } = Guid.NewGuid();
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
-    public string CodeValue { get; set; }
+    public Guid SubAccountId { get; set; }
     public Guid AccountId { get; set; }
 }

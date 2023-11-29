@@ -10,7 +10,7 @@
   },
   "profiles": {
     "HTTP": {
-      "applicationUrl": "http://localhost:8080",
+      "applicationUrl": "http://localhost:8000",
       "commandName": "Project",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
@@ -21,7 +21,7 @@
       "sqlDebugging": true
     },
     "HTTPS": {
-      "applicationUrl": "https://localhost:8081",
+      "applicationUrl": "https://localhost:8001",
       "commandName": "Project",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

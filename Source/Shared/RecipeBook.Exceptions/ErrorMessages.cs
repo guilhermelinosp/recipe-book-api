@@ -3,6 +3,25 @@
 public static class ErrorMessages
 {
     // Account
+
+
+    // User
+    public static string USUARIO_NAO_ENCONTRADO => "User not found.";
+    public static string USUARIO_NAO_AUTENTICADO => "User not authenticated.";
+    public static string USUARIO_NAO_AUTORIZADO => "User not authorized.";
+    public static string USUARIO_NAO_CONFIRMADO => "User not confirmed.";
+    public static string USUARIO_NAO_ATIVO => "User not active.";
+    public static string USUARIO_NAO_INFORMADO => "User must be informed.";
+    public static string USUARIO_JA_CADASTRADO => "User already registered.";
+    public static string USUARIO_NAO_PODE_SER_REMOVIDO => "User cannot be removed.";
+    public static string USUARIO_NAO_PODE_SER_ATUALIZADO => "User cannot be updated.";
+    public static string USUARIO_NAO_PODE_SER_BLOQUEADO => "User cannot be blocked.";
+    public static string USUARIO_NAO_PODE_SER_DESBLOQUEADO => "User cannot be unblocked.";
+    public static string USUARIO_NAO_PODE_SER_ATIVADO => "User cannot be activated.";
+    public static string USUARIO_NAO_PODE_SER_DESATIVADO => "User cannot be deactivated.";
+    public static string USUARIO_NAO_PODE_SER_AUTENTICADO => "User cannot be authenticated.";
+    public static string USUARIO_NAO_PODE_SER_AUTORIZADO => "User cannot be authorized.";
+
     // Name
     public static string NOME_USUARIO_INVALIDO => "The user's name is invalid.";
     public static string NOME_USUARIO_NAO_INFORMADO => "The  user's name must be provided.";
@@ -14,6 +33,7 @@ public static class ErrorMessages
     public static string EMAIL_USUARIO_JA_REGISTRADO => "The  user's email provided is already registered.";
     public static string EMAIL_USUARIO_NAO_ENCONTRADO => "The user's email not found";
     public static string EMAIL_USUARIO_CODIGO_INVALIDO => "The email's code is invalid";
+    public static string EMAIL_USUARIO_NAO_AUTENTICADO => "The email's not authenticated";
 
 
     // Password

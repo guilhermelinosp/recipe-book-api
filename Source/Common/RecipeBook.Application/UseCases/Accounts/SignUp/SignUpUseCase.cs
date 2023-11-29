@@ -31,11 +31,7 @@ public class SignUpUseCase : ISignUpUseCase
 
         var validateEmail = await _repository.GetByEmailAsync(request.Email!);
         if (validateEmail is not null)
-            throw new AccountSignUpException(new List<string> { ErrorMessages.EMAIL_USUARIO_JA_REGISTRADO });
-
-        var validatePhone = await _repository.GetByPhoneAsync(request.Phone!);
-        if (validatePhone is not null)
-            throw new AccountSignUpException(new List<string> { ErrorMessages.TELEFONE_USUARIO_JA_REGISTRADO });
+            throw new AccountException(new List<string> { ErrorMessages.EMAIL_USUARIO_JA_REGISTRADO });
 
         var emailConfirmationCode = _encrypt.GenerateCode();
 
@@ -44,8 +40,7 @@ public class SignUpUseCase : ISignUpUseCase
             Name = request.Name!,
             Email = request.Email!,
             Code = emailConfirmationCode,
-            Password = _encrypt.EncryptPassword(request.Password!),
-            Phone = request.Phone!
+            Password = _encrypt.EncryptPassword(request.Password!)
         });
 
         await _sendGrid.SendConfirmationEmailAsync(request.Email!, request.Name!, emailConfirmationCode);

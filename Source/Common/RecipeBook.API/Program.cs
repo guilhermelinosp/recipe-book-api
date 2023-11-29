@@ -1,45 +1,39 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using RecipeBook.API.Filters;
 using RecipeBook.API.WebSockets;
 using RecipeBook.Application;
 using RecipeBook.Infrastructure;
-using RecipeBook.Infrastructure.Migrations;
-using static Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus;
 
 var builder = WebApplication.CreateBuilder(args);
 
-await Migratations();
+if (builder.Environment.EnvironmentName == "Development")
+    builder.Configuration.AddUserSecrets<Program>();
 
-builder
-    .Services
-    .AddApplication()
-    .AddInfrastructure(builder.Configuration);
+var services = builder.Services;
 
-
-builder.Services.AddSignalR();
-builder.Services.AddHealthChecks();
-builder.Services.AddHttpContextAccessor();
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-
-builder.Services.AddScoped<IAuthorizationHandler, AuthorizationHandler>();
-builder.Services.AddScoped<IAuthorizationRequirement, AuthorizationRequirement>();
-builder.Services.AddSwaggerGen(opt =>
+services.AddSingleton<BroadcastHub>();
+services.AddApplication();
+services.AddInfrastructure(builder.Configuration);
+services.AddHttpContextAccessor();
+services.AddControllers();
+services.AddHealthChecks();
+services.AddEndpointsApiExplorer();
+services.AddSignalR(opt => { opt.HandshakeTimeout = TimeSpan.FromMinutes(10); });
+services.AddSwaggerGen(opt =>
 {
-    opt.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "1.0" });
     opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
         Type = SecuritySchemeType.Http,
         Scheme = "Bearer",
         In = ParameterLocation.Header,
-        Description = "Enter 'Bearer' [space] and your token!"
+        Description = "JWT Authorization header utilizando o Bearer scheme. Example: \"Authorization: Bearer {token}\""
     });
+
     opt.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         {
@@ -55,17 +49,25 @@ builder.Services.AddSwaggerGen(opt =>
         }
     });
 });
-builder.Services.AddCors(opt =>
+
+services.AddCors(options =>
 {
-    opt.AddPolicy("*",
-        b => b
-            .AllowAnyOrigin());
+    options.AddPolicy("AllowLocalhost",
+        builder =>
+        {
+            builder
+                .WithOrigins("http://localhost:5000", "ws://localhost:8000")
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials();
+        });
 });
-builder.Services.AddHttpsRedirection(opt => opt.HttpsPort = 443);
-builder.Services.AddMvc(opt => opt.Filters.Add(typeof(ExceptionFilter)));
-builder.Services.AddControllers(opt => opt.Filters.Add(typeof(ExceptionFilter)));
-builder.Services.AddRouting(opt => opt.LowercaseUrls = true);
-builder.Services.AddAuthentication(opt =>
+services.AddMvc(opt => opt.Filters.Add(typeof(ExceptionFilter)));
+services.AddRouting(opt => opt.LowercaseUrls = true);
+builder.Services.AddScoped<IAuthorizationHandler, AuthorizationHub>();
+services.AddAuthorization(options =>
+    options.AddPolicy("AuthorizationHub", policy => policy.Requirements.Add(new AuthorizationRequirement())));
+services.AddAuthentication(opt =>
 {
     opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -73,54 +75,26 @@ builder.Services.AddAuthentication(opt =>
 }).AddJwtBearer(jwt =>
 {
     jwt.SaveToken = true;
-    jwt.RequireHttpsMetadata = false;
     jwt.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["Jwt-Secret"]!)),
         ValidateIssuer = false,
         ValidateAudience = false,
-        ValidateLifetime = true,
-        RequireExpirationTime = false
+        ValidateLifetime = true
     };
-});
-builder.Services.AddAuthorization(option =>
-{
-    option.AddPolicy("AccountAuth", policy => policy.Requirements.Add(new AuthorizationRequirement()));
 });
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-    builder.Configuration.AddUserSecrets<Program>();
-}
-
-app.UseHttpsRedirection();
 app.UseRouting();
-app.UseCors("*");
+app.UseCors("AllowLocalhost");
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseSwagger();
+app.UseSwaggerUI();
 app.MapControllers();
-app.MapHub<ConnectingHub>("/connecting");
-app.MapHealthChecks("/health", new HealthCheckOptions
-{
-    AllowCachingResponses = false,
-    ResultStatusCodes =
-    {
-        [Healthy] = StatusCodes.Status200OK,
-        [Unhealthy] = StatusCodes.Status503ServiceUnavailable
-    }
-});
-app.Run();
+app.MapHub<ConnectingHub>("ws/connecting");
+app.MapHealthChecks("/health");
 
-async Task Migratations()
-{
-    var connectionString = builder.Configuration["ConnectionString"]!;
-    await CreateTables.CreateTableAccountAsync(connectionString);
-    await CreateTables.CreateTableRecipeAsync(connectionString);
-    await CreateTables.CreateTableIngredientAsync(connectionString);
-    await CreateTables.CreateTableCodeAsync(connectionString);
-}
+app.Run();

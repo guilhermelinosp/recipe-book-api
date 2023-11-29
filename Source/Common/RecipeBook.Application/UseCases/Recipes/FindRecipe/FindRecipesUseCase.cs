@@ -22,9 +22,9 @@ public class FindRecipesUseCase : IFindRecipesUseCase
 
     public async Task<IEnumerable<RecipeResponse>?> FindRecipesAsync(string token, FindRecipeRequest? request)
     {
-        var recipeId = _token.GetIdFromToken(token);
+        var accountId = _token.ValidateToken(token);
 
-        var recipes = await _repository.FindRecipesAsync(recipeId);
+        var recipes = await _repository.FindRecipesAsync(accountId);
 
         var filteredRecipes = new List<Recipe>(recipes);
 

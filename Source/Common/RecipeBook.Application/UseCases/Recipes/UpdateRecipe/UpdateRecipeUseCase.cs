@@ -23,7 +23,7 @@ public class UpdateRecipeUseCase : IUpdateRecipeUseCase
 
     public async Task UpdateRecipeAsync(string token, Guid receitaId, UpdateRecipeRequest request)
     {
-        var accountId = _token.GetIdFromToken(token);
+        var accountId = _token.ValidateToken(token);
 
         var validationResult = await new UpdateRecipeValidator().ValidateAsync(request);
         if (!validationResult.IsValid)

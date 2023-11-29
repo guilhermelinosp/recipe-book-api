@@ -5,6 +5,7 @@ namespace RecipeBook.Domain.Repositories;
 public interface ICodeRepository
 {
     Task CreateCodeAsync(Code code);
-    Task SaveChangesAsync();
-
+    Task<Code> FindCodeByAccountIdAsync(Guid accountId);
+    Task<Code> FindCodeByCodeValueAsync(string codeValue);
+    Task DeleteCodeAsync(Guid accountId);
 }

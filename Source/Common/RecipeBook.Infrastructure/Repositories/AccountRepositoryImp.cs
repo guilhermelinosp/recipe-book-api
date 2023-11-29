@@ -7,9 +7,9 @@ namespace RecipeBook.Infrastructure.Repositories;
 
 public class AccountRepositoryImp : IAccountRepository
 {
-    private readonly AppDbContext _context;
+    private readonly RecipeBookDbContext _context;
 
-    public AccountRepositoryImp(AppDbContext context)
+    public AccountRepositoryImp(RecipeBookDbContext context)
     {
         _context = context;
     }
@@ -22,11 +22,6 @@ public class AccountRepositoryImp : IAccountRepository
     public async Task<Account?> GetByEmailAsync(string email)
     {
         return await _context.Accounts!.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email);
-    }
-
-    public async Task<Account?> GetByPhoneAsync(string phone)
-    {
-        return await _context.Accounts!.AsNoTracking().FirstOrDefaultAsync(u => u.Phone == phone);
     }
 
     public async Task<Account?> GetByCodeAsync(string code)

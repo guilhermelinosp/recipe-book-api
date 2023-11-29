@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using RecipeBook.Application.Services.Cryptography;
 using RecipeBook.Application.Services.Tokenization;
@@ -35,20 +34,15 @@ public class SignInUseCase : ISignInUseCase
 
         var account = await _repository.GetByEmailAsync(request.Email!);
         if (account is null)
-            throw new AccountSignInException(new List<string> { ErrorMessages.EMAIL_USUARIO_NAO_ENCONTRADO });
-        if (account.Password != _encrypt.EncryptPassword(request.Password!))
-            throw new AccountSignInException(new List<string> { ErrorMessages.EMAIL_USUARIO_NAO_ENCONTRADO });
-        if (!account.EmailConfirmed)
-            throw new AccountSignInException(new List<string> { ErrorMessages.EMAIL_USUARIO_NAO_CONFIRMADO });
+            throw new AccountException(new List<string> { ErrorMessages.EMAIL_USUARIO_NAO_ENCONTRADO });
+        if (!_encrypt.VerifyPassword(request.Password!, account.Password))
+            throw new AccountException(new List<string> { ErrorMessages.SENHA_USUARIO_INVALIDA });
+        if (!account.Auth)
+            throw new AccountException(new List<string> { ErrorMessages.EMAIL_USUARIO_NAO_AUTENTICADO });
 
         return new SignInResponse
         {
-            Token = _token.GenerateToken(new IdentityUser
-            {
-                Id = account.AccountId.ToString(),
-                PhoneNumber = account.Phone,
-                Email = account.Email
-            }),
+            Token = _token.GenerateToken(account),
             RefreshToken = _token.GenerateRefreshToken(),
             ExpiryDate =
                 DateTime.UtcNow.Add(TimeSpan.Parse(_configuration["Jwt-Expiry"]!, CultureInfo.InvariantCulture))

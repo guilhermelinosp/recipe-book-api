@@ -13,17 +13,7 @@ public static class InfrastructureInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        services
-            .AddDatabase(configuration)
-            .AddRepositories()
-            .AddSendGrid();
-
-        return services;
-    }
-
-    private static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
-    {
-        services.AddDbContext<AppDbContext>(opt =>
+        services.AddDbContext<RecipeBookDbContext>(opt =>
         {
             opt.UseMySql(
                 configuration["ConnectionString"]!,
@@ -31,19 +21,10 @@ public static class InfrastructureInjection
                 options => options.EnableRetryOnFailure());
         });
 
-        return services;
-    }
-
-    private static IServiceCollection AddRepositories(this IServiceCollection services)
-    {
         services.AddScoped<IAccountRepository, AccountRepositoryImp>();
         services.AddScoped<IRecipeRepository, RecipeRepositoryImp>();
         services.AddScoped<ICodeRepository, CodeRepositoryImp>();
-        return services;
-    }
-
-    private static IServiceCollection AddSendGrid(this IServiceCollection services)
-    {
+        services.AddScoped<IConnectionRepository, ConnectionRepositoryImp>();
         services.AddScoped<ISendGrid, SendGridImp>();
 
         return services;
