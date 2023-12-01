@@ -16,7 +16,7 @@ public class CodeRepositoryImp : ICodeRepository
 
     public async Task CreateCodeAsync(Code code)
     {
-        var existingCode = await _context.Codes!.FirstOrDefaultAsync(c => c.AccountId == code.AccountId)!;
+        var existingCode = await _context.Codes!.FirstOrDefaultAsync(c => c.AccountId == code.AccountId);
 
         if (existingCode is not null) _context.Codes!.Remove(existingCode);
 

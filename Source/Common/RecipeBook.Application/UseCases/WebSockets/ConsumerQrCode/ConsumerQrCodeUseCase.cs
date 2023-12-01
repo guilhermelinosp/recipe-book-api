@@ -9,20 +9,17 @@ public class ConsumerQrCodeUseCase : IConsumerQrCodeUseCase
 {
     private readonly IAccountRepository _account;
     private readonly ICodeRepository _code;
-    private readonly IConnectionRepository _connection;
     private readonly ITokenService _token;
 
 
-    public ConsumerQrCodeUseCase(ICodeRepository code, ITokenService token, IConnectionRepository connection,
-        IAccountRepository account)
+    public ConsumerQrCodeUseCase(ICodeRepository code, ITokenService token, IAccountRepository account)
     {
         _code = code;
         _token = token;
-        _connection = connection;
         _account = account;
     }
 
-    public async Task<ConsumerQrCodeResponse> ExecuteAsync(string token, string codeValue)
+    public async Task<ConsumerQrCodeResponse> ExecuteAsync(string codeValue, string token)
     {
         var accountId = _token.ValidateToken(token);
 

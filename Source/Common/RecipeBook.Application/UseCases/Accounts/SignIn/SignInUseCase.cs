@@ -17,7 +17,10 @@ public class SignInUseCase : ISignInUseCase
     private readonly IAccountRepository _repository;
     private readonly ITokenService _token;
 
-    public SignInUseCase(IAccountRepository repository, IEncryptService encryptService, ITokenService tokenService,
+    public SignInUseCase(
+        IAccountRepository repository,
+        IEncryptService encryptService,
+        ITokenService tokenService,
         IConfiguration configuration)
     {
         _repository = repository;

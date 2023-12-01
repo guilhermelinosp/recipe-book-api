@@ -13,8 +13,10 @@ using RecipeBook.Application.UseCases.Recipes.DeleteRecipe;
 using RecipeBook.Application.UseCases.Recipes.FindRecipe;
 using RecipeBook.Application.UseCases.Recipes.FindRecipeById;
 using RecipeBook.Application.UseCases.Recipes.UpdateRecipe;
+using RecipeBook.Application.UseCases.WebSockets.AcceptConnection;
 using RecipeBook.Application.UseCases.WebSockets.ConsumerQrCode;
 using RecipeBook.Application.UseCases.WebSockets.ProducerQrCode;
+using RecipeBook.Application.UseCases.WebSockets.RefuseConnection;
 
 namespace RecipeBook.Application;
 
@@ -36,6 +38,8 @@ public static class ApplicationInjection
 
         services.AddScoped<IProducerQrCodeUseCase, ProducerQrCodeUseCase>();
         services.AddScoped<IConsumerQrCodeUseCase, ConsumerQrCodeUseCase>();
+        services.AddScoped<IAcceptConnectionUseCase, AcceptConnectionUseCase>();
+        services.AddScoped<IRefuseConnectionUseCase, RefuseConnectionUseCase>();
 
         services.AddSingleton(new MapperConfiguration(cfg => { cfg.AddProfile(new AppAutoMapper()); }).CreateMapper());
 

@@ -44,9 +44,6 @@ public partial class SignUpValidator : AbstractValidator<SignUpRequest>
     [GeneratedRegex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,16}$")]
     private static partial Regex RegexPasswoed();
 
-    [GeneratedRegex(@"^\d{11}$")]
-    private static partial Regex RegexPhone();
-
     [GeneratedRegex(@"^[a-zA-Z\s]*$")]
     private static partial Regex RegexName();
 }

@@ -5,37 +5,39 @@ using RecipeBook.Exceptions.Exceptions;
 
 namespace RecipeBook.API.WebSockets;
 
-public sealed class BroadcastHub : Hub
+public sealed class BroadcastHub
 {
-    private static IHubContext<ConnectingHub> _hubContext;
+    private static readonly Lazy<BroadcastHub> _instance = new(() => new BroadcastHub());
 
-    private Action<string> _callbackTimeExpired;
-    private string _conusmerConnectionId;
-    private string _producerConnectionId;
-    private short RemainingTimeSeconds { get; set; }
-    private Timer _timer;
-
-    private BroadcastHub(IHubContext<ConnectingHub>? hubContext)
+    public BroadcastHub()
     {
-        _hubContext = hubContext ?? throw new ArgumentNullException(nameof(hubContext));
-        Dictionary = new ConcurrentDictionary<Guid, object>();
+        ConcurrentDictionary = new ConcurrentDictionary<string, object>();
     }
-    
-    private ConcurrentDictionary<Guid, object> Dictionary { get; }
 
-    public void Connection(IHubContext<ConnectingHub>? hubContext, string producerId, string connectionId)
+    public static BroadcastHub Instance => _instance.Value;
+
+    private ConcurrentDictionary<string, object> ConcurrentDictionary { get; }
+
+    public void InitialConnection(IHubContext<ConnectingHub> hubContext, string producerId, string connectionId)
     {
-        var broadcastHub = new BroadcastHub(hubContext);
-
-        Dictionary.TryAdd(connectionId, broadcastHub);
-        Dictionary.TryAdd(producerId, connectionId);
-
-        broadcastHub.InitialTime(CallbackTimeExpired);
+        var connection = new Connection(hubContext, connectionId);
+        ConcurrentDictionary.TryAdd(connectionId, connection);
+        ConcurrentDictionary.TryAdd(producerId, connectionId);
+        connection.InitialTime(CallbackTimeExpired);
     }
+
+    private string GetConnectionId(string accountId)
+    {
+        if (!ConcurrentDictionary.TryGetValue(accountId, out var connectionId))
+            throw new WebSocketException(new List<string> { ErrorMessages.USUARIO_NAO_ENCONTRADO });
+
+        return connectionId.ToString()!;
+    }
+
 
     public string GetConsumerConnectionId(string consumerId)
     {
-        if (!Dictionary.TryGetValue(consumerId, out var connectionId))
+        if (!ConcurrentDictionary.TryGetValue(consumerId, out var connectionId))
             throw new WebSocketException(new List<string> { ErrorMessages.USUARIO_NAO_ENCONTRADO });
 
         return connectionId.ToString()!;
@@ -43,36 +45,72 @@ public sealed class BroadcastHub : Hub
 
     public string GetProducerConnectionId(string producerId)
     {
-        if (!Dictionary.TryGetValue(producerId, out var connectionId))
+        if (!ConcurrentDictionary.TryGetValue(producerId, out var connectionId))
             throw new WebSocketException(new List<string> { ErrorMessages.USUARIO_NAO_ENCONTRADO });
 
         return connectionId.ToString()!;
     }
 
-    public string RemoveConsumerConnectionId(string consumerId, string connectionId)
+    private void CallbackTimeExpired(string connectionId)
     {
-        if (!Dictionary.TryGetValue(connectionId, out _))
-            throw new WebSocketException(new List<string> { ErrorMessages.USUARIO_NAO_ENCONTRADO });
-
-        StopTimer();
-
-        Dictionary.TryRemove(connectionId, out _);
-        Dictionary.TryRemove(consumerId, out _);
-
-        return GetConsumerConnectionId();
+        ConcurrentDictionary.TryRemove(connectionId, out _);
     }
 
-    public string RemoveProducerConnectionId(string producerId, string connectionId)
+    public void SetCunsumerConnectionId(string producerId, string consumerId)
     {
-        if (!Dictionary.TryGetValue(connectionId, out _))
+        var connectionId = GetConnectionId(producerId);
+        ConcurrentDictionary.TryGetValue(connectionId, out var connectionObject);
+        var connection = connectionObject as Connection;
+        connection?.SetCunsumerConnectionId(consumerId);
+    }
+
+
+    public void ResetTimeExpired(string connectionId)
+    {
+        ConcurrentDictionary.TryGetValue(connectionId, out var connectionObject);
+        var connection = connectionObject as Connection;
+        connection?.ResetTimer();
+    }
+
+    public string RemoveConnectionId(string connectionId, string accountId)
+    {
+        if (!ConcurrentDictionary.TryGetValue(connectionId, out var connectionObject))
             throw new WebSocketException(new List<string> { ErrorMessages.USUARIO_NAO_ENCONTRADO });
 
+        var connection = connectionObject as Connection;
+        connection!.StopTimer();
+        ConcurrentDictionary.TryRemove(connectionId, out _);
+        ConcurrentDictionary.TryRemove(accountId, out _);
+        return connection.GetConsumerConnectionId();
+    }
+}
+
+public class Connection
+{
+    private readonly IHubContext<ConnectingHub> _hubContext;
+    private readonly string _producerConnectionId;
+    private Action<string> _callbackTimeExpired;
+    private string _conusmerConnectionId;
+
+    public Connection(IHubContext<ConnectingHub> hubContext, string producerConnectionId)
+    {
+        _hubContext = hubContext;
+        _producerConnectionId = producerConnectionId;
+    }
+
+    private Timer Timer { get; set; }
+    private short RemainingTimeSeconds { get; set; }
+
+    public void InitialTime(Action<string> callbackTimeExpired)
+    {
+        _callbackTimeExpired = callbackTimeExpired;
+        StartTimer();
+    }
+
+    public void ResetTimer()
+    {
         StopTimer();
-
-        Dictionary.TryRemove(connectionId, out _);
-        Dictionary.TryRemove(producerId, out _);
-
-        return GetProducerConnectionId();
+        StartTimer();
     }
 
     public void SetCunsumerConnectionId(string connectionId)
@@ -80,70 +118,36 @@ public sealed class BroadcastHub : Hub
         _conusmerConnectionId = connectionId;
     }
 
-    private void SetProducerConnectionId(string connectionId)
-    {
-        _producerConnectionId = connectionId;
-    }
-
-    private string GetProducerConnectionId()
-    {
-        return _producerConnectionId;
-    }
-
-    private string GetConsumerConnectionId()
+    public string GetConsumerConnectionId()
     {
         return _conusmerConnectionId;
     }
 
-
-    private void CallbackTimeExpired(string connectionId)
+    public void StopTimer()
     {
-        Dictionary.TryRemove(connectionId, out _);
-    }
-
-    public void ResetTimeExpired(string connectionId)
-    {
-        Dictionary.TryGetValue(connectionId, out _);
-        ResetTimer();
-    }
-
-    private void InitialTime(Action<string> callbackTempoExpirado)
-    {
-        _callbackTimeExpired = callbackTempoExpirado;
-        StartTimer();
+        Timer.Change(Timeout.Infinite, Timeout.Infinite);
+        Timer.Dispose();
     }
 
     private void StartTimer()
     {
-        _timer = new Timer(_ => ElapsedTimer(), null, 0, 1000);
+        RemainingTimeSeconds = 60;
+        Timer = new Timer(ElapsedTimerCallback!, null, Timeout.Infinite, 1000);
+        Timer.Change(0, 1000);
     }
 
-    private void ResetTimer()
+    private void ElapsedTimerCallback(object state)
     {
-        StopTimer();
-        StartTimer();
-    }
-
-    private void StopTimer()
-    {
-        _timer.Change(Timeout.Infinite, Timeout.Infinite);
-        _timer.Dispose();
-    }
-
-    private void ElapsedTimer()
-    {
-        lock (_timerLock)
+        if (RemainingTimeSeconds >= 0)
         {
-            if (_tempoRestanteSegundos >= 0)
-            {
-                _hubContext!.Clients.Client(_producerConnectionId)
-                    .SendAsync("SetTempoRestante", _tempoRestanteSegundos--);
-            }
-            else
-            {
-                StopTimer();
-                _callbackTimeExpired(_producerConnectionId);
-            }
+            _hubContext.Clients.Client(_producerConnectionId)
+                .SendAsync("SetTempoRestante", RemainingTimeSeconds--);
+        }
+        else
+        {
+            Timer.Change(Timeout.Infinite, Timeout.Infinite);
+            Timer.Dispose();
+            _callbackTimeExpired(_producerConnectionId);
         }
     }
 }

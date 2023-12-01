@@ -13,7 +13,7 @@ namespace RecipeBook.API.Controllers;
 
 [ApiController]
 [Route("api/v1/[controller]")]
-public class AccountController : ControllerBase
+public class AccountController : Controller
 {
     private readonly IEmailConfirmation _emailConfirmation;
     private readonly IForgotPasswordUseCase _forgotPassword;

@@ -4,5 +4,5 @@ namespace RecipeBook.Application.UseCases.WebSockets.ConsumerQrCode;
 
 public interface IConsumerQrCodeUseCase
 {
-    Task<ConsumerQrCodeResponse> ExecuteAsync(string token, string codeValue);
+    Task<ConsumerQrCodeResponse> ExecuteAsync(string codeValue, string token);
 }

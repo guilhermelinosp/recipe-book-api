@@ -6,6 +6,12 @@ namespace RecipeBook.Domain.Entities;
 [Table("TB_Connection")]
 public class Connection
 {
+    public Connection(Guid accountId, Guid subAccountId)
+    {
+        SubAccountId = subAccountId;
+        AccountId = accountId;
+    }
+
     [Key] public Guid ConnectionId { get; set; } = Guid.NewGuid();
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
